@@ -42,6 +42,7 @@ public final class ResultsController<Section: Hashable, Element: Object>
     }
 
     public weak var delegate: ResultsControllerDelegate?
+    public weak var sectionTitleFormatter: ResultsControllerSectionTitleFormatter?
 
     public init(realm: Realm,
                 predicates: [NSPredicate] = [],
@@ -75,7 +76,7 @@ public final class ResultsController<Section: Hashable, Element: Object>
             searchTimer = BLTimer.scheduleTimer(withTimeInterval: 0.2,
                                                 repeats: false)
             { [weak self] (timer) in
-                guard !timer.isInvalidated else { return }
+                guard timer.isValid else { return }
                 self?.searchTimer = nil
                 self?.setup()
             }
@@ -87,7 +88,7 @@ public final class ResultsController<Section: Hashable, Element: Object>
     fileprivate var realmChangeNotificationToken: NotificationToken!
 
     fileprivate var sections = OrderedDictionary<Section, Set<Int>>()
-    fileprivate var sectionTitles = [String]()
+    fileprivate var sectionTitles: [String]?
 
     //MARK: Search
     private var searchTimer: BLTimer?
@@ -125,12 +126,14 @@ public extension ResultsController
         return objects.filter("%K == %@", sectionNameKeyPath, key)[indexPath.row]
     }
 
-    func indexTitles() -> [String] {
+    func indexTitles() -> [String]? {
         return sectionTitles
     }
 
     func indexPath(forIndexTitle indexTitle: String) -> IndexPath {
-        guard let section = sectionTitles.index(of: indexTitle) else { return IndexPath(row: 0, section: 0) }
+        precondition(sectionTitles != nil,
+                     "Trying to access a \(String(describing: self)) indexTitle, but no \(String(describing: ResultsControllerSectionTitleFormatter.self)) has been set.")
+        guard let section = sectionTitles!.index(of: indexTitle) else { return IndexPath(row: 0, section: 0) }
         return IndexPath(row: 0, section: section)
     }
 }
@@ -204,6 +207,7 @@ fileprivate extension ResultsController
 //MARK: Processing changes to the data model
 fileprivate extension ResultsController
 {
+    //MARK: Sections
     private func shouldResetSections(results: Results<Element>) -> Bool {
         switch (sections.isEmpty, results.isEmpty) {
         case (true, false),
@@ -232,17 +236,25 @@ fileprivate extension ResultsController
     private func updateSections(results: Results<Element>,
                                 sectionNameKeyPath: String)
     {
-        results.enumerated().forEach { [weak self] (offset, element) in
+        results.enumerated().forEach { (offset, element) in
             guard let section = element.value(forKeyPath: sectionNameKeyPath) as? Section else { return }
-            self?.sections.updateValue(for: section) { (existingSet) -> Set<Int> in
+            self.sections.updateValue(for: section) { (existingSet) -> Set<Int> in
                 var result = existingSet ?? Set()
                 result.insert(offset)
                 return result
             }
         }
-        sectionTitles = sections.map { "\($0.key)" }
+        if let formatter = sectionTitleFormatter {
+            let titles = sections.map {
+                return formatter.formatSectionTitle(for: $0.key,
+                                                    in: self)
+            }
+            sectionTitles = formatter.sortSectionTitles(titles,
+                                                        for: self)
+        }
     }
 
+    //MARK: Everything else
     private enum ProcessType {
         case insertion, deletion, update
     }

@@ -55,8 +55,8 @@ final class BLTimer: NSObject
                                           repeats: repeats)
     }
 
-    var isInvalidated: Bool {
-        return timer == nil
+    var isValid: Bool {
+        return timer?.isValid ?? false
     }
 
     func invalidate() {

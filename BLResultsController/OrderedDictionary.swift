@@ -118,17 +118,17 @@ extension OrderedDictionary
 extension OrderedDictionary
 {
     typealias Iterator = (index: Int, key: Key, value: Value)
-    
-    func forEach(_ iterator: (Iterator) -> Void) {
-        indices.forEach { iterator(($0.key, $0.value, objects[$0.value]!)) }
-    }
-    
+
     func map<T>(_ iterator: (Iterator) -> T) -> [T] {
         return indices.map { iterator(($0.key, $0.value, objects[$0.value]!)) }
     }
-    
+
     func compactMap<T>(_ iterator: (Iterator) -> T?) -> [T] {
+        #if swift(>=4.0)
         return indices.compactMap { iterator(($0.key, $0.value, objects[$0.value]!)) }
+        #else
+        return indices.flatMap  { iterator(($0.key, $0.value, objects[$0.value]!)) }
+        #endif
     }
     
     func first(where iterator: (Iterator) -> Bool) -> Iterator? {
@@ -136,9 +136,9 @@ extension OrderedDictionary
         return (index, key, objects[key]!)
     }
     
-    func loop(_ iterator: (Iterator) -> Bool) {
+    func loop(_ shouldContinueIterator: (Iterator) -> Bool) {
         for item in indices {
-            if !iterator((item.key, item.value, objects[item.value]!)) {
+            if !shouldContinueIterator((item.key, item.value, objects[item.value]!)) {
                 break
             }
         }

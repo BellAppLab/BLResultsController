@@ -35,3 +35,12 @@ public protocol ResultsControllerDelegate: AnyObject {
                                                                deleteItems deletedItems: [IndexPath],
                                                                andUpdateItems updatedItems: [IndexPath])
 }
+
+//MARK: - RESULTS CONTROLLER DELEGATE
+/// Defines how the Results Controller reports changes to the underlaying data model
+public protocol ResultsControllerSectionTitleFormatter: AnyObject {
+    func formatSectionTitle<Section: Hashable, Element: Object>(for section: Section,
+                                                                in controller: ResultsController<Section, Element>) -> String
+    func sortSectionTitles<Section: Hashable, Element: Object>(_ titles: [String],
+                                                               for controller: ResultsController<Section, Element>) -> [String]
+}
