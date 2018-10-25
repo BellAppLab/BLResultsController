@@ -18,7 +18,7 @@ class Timer_Tests: XCTestCase
     func testWeakTimerFires() {
         let expectTimerFiring = expectation(description: "Weak BLTimer should fire")
         weak var _: BLTimer? = BLTimer.scheduleTimer(withTimeInterval: 0.5,
-                                                         repeats: false)
+                                                     repeats: false)
         { (timer) in
             expectTimerFiring.fulfill()
         }

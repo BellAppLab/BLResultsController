@@ -22,17 +22,46 @@
 
 import Foundation
 import RealmSwift
-import BackgroundRealm
+
+#if os(iOS) || os(tvOS)
+import UIKit
+#elseif os(watchOS)
+import WatchKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 
 //MARK: - RESULTS CONTROLLER
-public final class ResultsController<Section: Hashable, Element: Object>
+public final class ResultsController<Section: ResultsControllerSection, Element: Object>
 {
     //MARK: - Public Interface
-    public let predicates: [NSPredicate]
-    public let sortDescriptors: [SortDescriptor]
-    public let sectionNameKeyPath: String
     public let realm: Realm
+
+    public private(set) var predicates: [NSPredicate]
+    public private(set) var sortDescriptors: [SortDescriptor]
+    public private(set) var sectionNameKeyPath: String
+
+    public func change(predicates: [NSPredicate]? = nil,
+                       sortDescriptors: [SortDescriptor]? = nil,
+                       sectionNameKeyPath: String? = nil) throws
+    {
+        precondition(Thread.current == Thread.main, "\(String(describing: self)) must only have its settings changed from the main thread.")
+
+        if let predicates = predicates {
+            self.predicates = predicates
+        }
+        if let sortDescriptors = sortDescriptors {
+            self.sortDescriptors = sortDescriptors
+        }
+        if let sectionNameKeyPath = sectionNameKeyPath {
+            self.sectionNameKeyPath = sectionNameKeyPath
+        }
+
+        try validateParameters()
+
+        setup()
+    }
 
     public var objects: Results<Element> {
         return realm
@@ -41,14 +70,34 @@ public final class ResultsController<Section: Hashable, Element: Object>
                       sortDescriptors: sortDescriptors)
     }
 
-    public weak var delegate: ResultsControllerDelegate?
-    public weak var sectionTitleFormatter: ResultsControllerSectionTitleFormatter?
+    //MARK: Callbacks
+    public enum ChangeCallback {
+        case reload(controller: ResultsController<Section, Element>)
+        case sectionUpdate(controller: ResultsController<Section, Element>, insertedSections: [IndexSet], deletedSections: [IndexSet])
+        case rowUpdate(controller: ResultsController<Section, Element>, insertedItems: [IndexPath], deletedItems: [IndexPath], updatedItems: [IndexPath])
+    }
+
+    fileprivate var _changeCallback: ((ResultsController.ChangeCallback) -> Void)?
+    public func setChangeCallback(_ change: ((ResultsController.ChangeCallback) -> Void)?) {
+        _changeCallback = change
+    }
+
+    public typealias SectionIndexTitleCallback = (_ section: Section, _ controller: ResultsController<Section, Element>) -> String
+    fileprivate var _formatSectionIndexTitleCallback: ResultsController.SectionIndexTitleCallback?
+    public func setFormatSectionIndexTitleCallback(_ callback: ResultsController.SectionIndexTitleCallback?) {
+        _formatSectionIndexTitleCallback = callback
+    }
+
+    public typealias SortSectionIndexTitlesCallback = (_ indexTitles: inout [String], _ controller: ResultsController<Section, Element>) -> Void
+    fileprivate var _sortSectionIndexTitlesCallback: ResultsController.SortSectionIndexTitlesCallback?
+    public func setSortSectionIndexTitles(_ callback: ResultsController.SortSectionIndexTitlesCallback?) {
+        _sortSectionIndexTitlesCallback = callback
+    }
 
     public init(realm: Realm,
                 predicates: [NSPredicate] = [],
                 sectionNameKeyPath: String,
-                sortDescriptors: [SortDescriptor],
-                delegate: ResultsControllerDelegate)
+                sortDescriptors: [SortDescriptor]) throws
     {
         self.realm = realm
         self.predicates = predicates
@@ -56,24 +105,67 @@ public final class ResultsController<Section: Hashable, Element: Object>
         self.sectionNameKeyPath = sectionNameKeyPath
 
         precondition(Thread.current == Thread.main, "\(String(describing: self)) must only be instantiated from the main thread.")
-        precondition(!sortDescriptors.isEmpty, "\(String(describing: self)) must have at least one sort descriptor.")
-        precondition(!sectionNameKeyPath.isEmpty, "\(String(describing: self)) cannot be instatiated with an empty section name key path.")
 
-        precondition(sortDescriptors.first!.keyPath == sectionNameKeyPath, "A \(String(describing: self))'s sectionNameKeyPath must be equal to the first sort descriptor's keyPath.")
+        try validateParameters()
+    }
 
-        self.delegate = delegate
+    private func validateParameters() throws {
+        guard sortDescriptors.isEmpty == false else {
+            throw ResultsControllerError.noSortDescriptors
+        }
+        guard sectionNameKeyPath.isEmpty == false else {
+            throw ResultsControllerError.noSectionNameKeyPath
+        }
+        guard sortDescriptors.first!.keyPath == sectionNameKeyPath else {
+            throw ResultsControllerError.sortDescriptorMismatch(sortDescriptorKeyPath: sortDescriptors.first!.keyPath,
+                                                                sectionNameKeyPath: sectionNameKeyPath)
+        }
 
+        guard let schema = Element.sharedSchema() else {
+            throw ResultsControllerError.noSchema(elementType: Element.self)
+        }
+        guard let property = schema[sectionNameKeyPath] else {
+            throw ResultsControllerError.invalidSchema(elementType: Element.self,
+                                                       sectionNameKeyPath: sectionNameKeyPath)
+        }
+        switch property.type {
+        case .bool where Section.self is Bool.Type:
+            break
+        case .int where Section.self is Int.Type,
+             .int where Section.self is Int8.Type,
+             .int where Section.self is Int16.Type,
+             .int where Section.self is Int32.Type,
+             .int where Section.self is Int64.Type:
+            break
+        case .float where Section.self is Float.Type:
+            break
+        case .double where Section.self is Double.Type:
+            break
+        case .string where Section.self is String.Type:
+            break
+        case .date where Section.self is Date.Type:
+            break
+        case .data where Section.self is Data.Type:
+            break
+        default:
+            throw ResultsControllerError.propertyTypeMismatch(propertyType: Section.self,
+                                                              expectedPropertyType: property.type)
+        }
+    }
+
+    public func start() {
         setup()
     }
 
     //MARK: Search
+    public var searchDelay: TimeInterval = 0.2
+
     public var searchPredicate: NSPredicate? {
         didSet {
             precondition(Thread.current == Thread.main, "\(String(describing: self))'s searchPredicate must only be changed from the main thread.")
             guard searchPredicate != oldValue else { return }
 
-            searchTimer = nil
-            searchTimer = BLTimer.scheduleTimer(withTimeInterval: 0.2,
+            searchTimer = BLTimer.scheduleTimer(withTimeInterval: searchDelay,
                                                 repeats: false)
             { [weak self] (timer) in
                 guard timer.isValid else { return }
@@ -88,10 +180,14 @@ public final class ResultsController<Section: Hashable, Element: Object>
     fileprivate var realmChangeNotificationToken: NotificationToken!
 
     fileprivate var sections = OrderedDictionary<Section, Set<Int>>()
-    fileprivate var sectionTitles: [String]?
+    fileprivate var sectionIndexTitles: [String]?
 
     //MARK: Search
-    private var searchTimer: BLTimer?
+    private var searchTimer: BLTimer? {
+        didSet {
+            oldValue?.invalidate()
+        }
+    }
 }
 
 
@@ -123,18 +219,20 @@ public extension ResultsController
             fatalError("Section name not found for index \(index)")
         }
 
-        return objects.filter("%K == %@", sectionNameKeyPath, key)[indexPath.row]
+        return objects.filter("%K == %@", sectionNameKeyPath, key)[indexPath.item]
     }
 
     func indexTitles() -> [String]? {
-        return sectionTitles
+        return sectionIndexTitles
     }
 
     func indexPath(forIndexTitle indexTitle: String) -> IndexPath {
-        precondition(sectionTitles != nil,
-                     "Trying to access a \(String(describing: self)) indexTitle, but no \(String(describing: ResultsControllerSectionTitleFormatter.self)) has been set.")
-        guard let section = sectionTitles!.index(of: indexTitle) else { return IndexPath(row: 0, section: 0) }
-        return IndexPath(row: 0, section: section)
+        precondition(sectionIndexTitles != nil,
+                     "Trying to access a \(String(describing: self)) indexTitle, but no `setFormatSectionIndexTitleCallback` has been set.")
+        guard let section = sectionIndexTitles!.index(of: indexTitle) else {
+            return IndexPath(item: 0, section: 0)
+        }
+        return IndexPath(item: 0, section: section)
     }
 }
 
@@ -142,11 +240,6 @@ public extension ResultsController
 //MARK: - SETUP
 fileprivate extension ResultsController
 {
-    func resetSections() {
-        sections = OrderedDictionary<Section, Set<Int>>()
-        sectionTitles = [String]()
-    }
-
     func setup() {
         let className = String(describing: self)
 
@@ -158,8 +251,9 @@ fileprivate extension ResultsController
 
         backgroundRealm = BackgroundRealm(configuration: realm.configuration) { [weak self] (realm, error) in
             assert(error == nil, "\(className) error: \(error!)")
+            guard let realm = realm else { return }
 
-            let results = realm!
+            let results = realm
                 .objects(Element.self)
                 .applying(predicates: predicates,
                           sortDescriptors: sortDescriptors)
@@ -195,11 +289,34 @@ fileprivate extension ResultsController
 //MARK: Notifying the delegate
 fileprivate extension ResultsController
 {
-    func notifyDelegate(_ block: @escaping (ResultsControllerDelegate, ResultsController) -> Void) {
-        guard let delegate = self.delegate else { return }
+    func notifyReload() {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            block(delegate, strongSelf)
+            guard let strongSelf = self, let callback = strongSelf._changeCallback else { return }
+            callback(.reload(controller: strongSelf))
+        }
+    }
+
+    func notifySectionChange(_ insertedSections: [IndexSet],
+                             _ deletedSections: [IndexSet])
+    {
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self, let callback = strongSelf._changeCallback else { return }
+            callback(.sectionUpdate(controller: strongSelf,
+                                    insertedSections: insertedSections,
+                                    deletedSections: deletedSections))
+        }
+    }
+
+    func notifyRowChange(_ insertedItems: [IndexPath],
+                         _ deletedItems: [IndexPath],
+                         _ updatedItems: [IndexPath])
+    {
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self, let callback = strongSelf._changeCallback else { return }
+            callback(.rowUpdate(controller: strongSelf,
+                                insertedItems: insertedItems,
+                                deletedItems: deletedItems,
+                                updatedItems: updatedItems))
         }
     }
 }
@@ -208,7 +325,7 @@ fileprivate extension ResultsController
 fileprivate extension ResultsController
 {
     //MARK: Sections
-    private func shouldResetSections(results: Results<Element>) -> Bool {
+    private func shouldReload(results: Results<Element>) -> Bool {
         switch (sections.isEmpty, results.isEmpty) {
         case (true, false),
              (false, true),
@@ -219,23 +336,20 @@ fileprivate extension ResultsController
         }
     }
 
-    func processInitialLoad(_ results: Results<Element>)
-    {
-        if shouldResetSections(results: results) {
-            resetSections()
-        } else {
-            updateSections(results: results,
-                           sectionNameKeyPath: sectionNameKeyPath)
-        }
-
-        notifyDelegate {
-            $0.resultsControllerDidReloadData($1)
-        }
+    private func resetSections() {
+        sections = OrderedDictionary<Section, Set<Int>>()
+        sectionIndexTitles = nil
     }
 
-    private func updateSections(results: Results<Element>,
-                                sectionNameKeyPath: String)
+    func processInitialLoad(_ results: Results<Element>)
     {
+        updateSections(results: results)
+        notifyReload()
+    }
+
+    private func updateSections(results: Results<Element>)
+    {
+        resetSections()
         results.enumerated().forEach { (offset, element) in
             guard let section = element.value(forKeyPath: sectionNameKeyPath) as? Section else { return }
             self.sections.updateValue(for: section) { (existingSet) -> Set<Int> in
@@ -244,13 +358,14 @@ fileprivate extension ResultsController
                 return result
             }
         }
-        if let formatter = sectionTitleFormatter {
-            let titles = sections.map {
-                return formatter.formatSectionTitle(for: $0.key,
-                                                    in: self)
-            }
-            sectionTitles = formatter.sortSectionTitles(titles,
-                                                        for: self)
+        var titles = sections.compactMap {
+            return _formatSectionIndexTitleCallback?($0.key, self)
+        }
+        _sortSectionIndexTitlesCallback?(&titles, self)
+        if titles.isEmpty == false {
+            sectionIndexTitles = titles
+        } else {
+            sectionIndexTitles = nil
         }
     }
 
@@ -264,17 +379,13 @@ fileprivate extension ResultsController
                        deletions: [Int],
                        modifications: [Int])
     {
-        guard !shouldResetSections(results: results) else {
-            resetSections()
-            notifyDelegate {
-                $0.resultsControllerDidReloadData($1)
-            }
+        guard !shouldReload(results: results) else {
+            processInitialLoad(results)
             return
         }
 
         let oldSections = sections
-        updateSections(results: results,
-                       sectionNameKeyPath: sectionNameKeyPath)
+        updateSections(results: results)
 
         let insertedSections = sections.subtracting(oldSections)
         let deletedSections = oldSections.subtracting(sections)
@@ -294,9 +405,7 @@ fileprivate extension ResultsController
                 filteredItems = modifications
             }
 
-            var results = [IndexPath]()
-            var countSoFar = 0
-
+            var indexPaths = [IndexPath]()
             let sections: OrderedDictionary<Section, Set<Int>>
             switch processType {
             case .insertion, .update:
@@ -305,22 +414,35 @@ fileprivate extension ResultsController
                 sections = oldSections
             }
 
-            var itemIndex = 0
-            sections.loop {
-                guard filteredItems.count > itemIndex else { return false }
-                let first = filteredItems[itemIndex]
-
-                if $0.value.contains(first) {
-                    results.append(IndexPath(row: countSoFar - first, section: $0.index))
+            var sectionCountSoFar = 0
+            func currentCount() -> Int {
+                return sectionCountSoFar
+            }
+            var currentSection: OrderedDictionary<Section, Set<Int>>.Iterator? {
+                didSet {
+                    guard currentSection != nil else { return }
+                    guard currentSection?.index != oldValue?.index else { return }
+                    sectionCountSoFar += oldValue?.value.count ?? 0
                 }
-
-                itemIndex += 1
-                countSoFar += $0.value.count
-
-                return !filteredItems.isEmpty
             }
 
-            return results
+            sections.loop { iterator in
+                guard filteredItems.isEmpty == false else { return false }
+
+                currentSection = iterator
+
+                filteredItems = filteredItems.filter { (item) -> Bool in
+                    if iterator.value.contains(item) {
+                        indexPaths.append(IndexPath(item: item - currentCount(), section: iterator.index))
+                        return false
+                    }
+                    return true
+                }
+
+                return filteredItems.isEmpty == false
+            }
+
+            return indexPaths
         }
         let insertedItems = makeIndexPaths(processType: .insertion)
         let deletedItems = makeIndexPaths(processType: .deletion)
@@ -329,20 +451,14 @@ fileprivate extension ResultsController
         if !insertedSections.isEmpty || !deletedSections.isEmpty {
             let insertedSectionsIndexSet = insertedSections.map { (index, _, _) in IndexSet(integer: index) }
             let deletedSectionsIndexSet = deletedSections.map { (index, _, _) in IndexSet(integer: index) }
-            notifyDelegate {
-                $0.resultsController($1,
-                                     didInsertSections: insertedSectionsIndexSet,
-                                     andDeleteSections: deletedSectionsIndexSet)
-            }
+            notifySectionChange(insertedSectionsIndexSet,
+                                deletedSectionsIndexSet)
         }
 
         if !insertedItems.isEmpty || !deletedItems.isEmpty || !updatedItems.isEmpty {
-            notifyDelegate {
-                $0.resultsController($1,
-                                     didInsertItems: insertedItems,
-                                     deleteItems: deletedItems,
-                                     andUpdateItems: updatedItems)
-            }
+            notifyRowChange(insertedItems,
+                            deletedItems,
+                            updatedItems)
         }
     }
 }

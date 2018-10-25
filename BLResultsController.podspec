@@ -34,7 +34,12 @@ For the Objective-C counterpart, see [BLBackgroundRealm](https://github.com/Bell
   s.source_files        = "BLResultsController"
 
   s.framework           = "Foundation"
+  s.ios.framework       = 'UIKit'
+  s.watchos.framework   = 'WatchKit'
+  s.osx.framework       = 'AppKit'
+  s.tvos.framework      = 'UIKit'
+
   s.dependency          'RealmSwift', '~> 3.0'
-  s.dependency          'BackgroundRealm', '~> 3.0'
+  s.dependency          'BackgroundRealm', '~> 1.0'
 
 end

@@ -1,0 +1,4 @@
+[submodule "BackgroundRealm"]
+	path = BackgroundRealm
+	url = https://github.com/BellAppLab/BackgroundRealm.git
+	branch = submodule

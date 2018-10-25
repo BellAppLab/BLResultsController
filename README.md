@@ -1,7 +1,7 @@
 # BLResultsController [![Version](https://img.shields.io/badge/Version-1.0-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
 
-[![Platforms](https://img.shields.io/badge/Platforms-iOS|tvOS|macOS|watchOS-brightgreen.svg?style=flat)](#installation)
-[![Swift support](https://img.shields.io/badge/Swift-3.3%20%7C%204.1-red.svg?style=flat)](#swift-versions-support)
+[![Platforms](https://img.shields.io/badge/Platforms-iOS|tvOS|macOS-brightgreen.svg?style=flat)](#installation)
+[![Swift support](https://img.shields.io/badge/Swift-4.0%20%7C%204.1%20%7C%204.2-red.svg?style=flat)](#swift-versions-support)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/BLResultsController.svg?style=flat&label=CocoaPods)](https://cocoapods.org/pods/BLResultsController)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Twitter](https://img.shields.io/badge/Twitter-@BellAppLab-blue.svg?style=flat)](http://twitter.com/BellAppLab)
@@ -19,9 +19,8 @@ It's main focus is to enhance existing `Realm`s and Realm-based code bases with 
 * RealmSwift 3.0.0+
 * iOS 9+
 * tvOS 10+
-* watchOS 3+
 * macOS 10.10+
-* Swift 3.3+
+* Swift 4.0+
 
 ## Writing to a Realm in the background
 
@@ -29,7 +28,7 @@ Commiting write transactions in the background becomes as easy as:
 
 ```swift
 Realm.writeInBackground(configuration: <#T##Realm.Configuration?#>) { (realm, error) in
-<#code#>
+    <#code#>
 }
 ```
 
@@ -39,7 +38,7 @@ Optionally, you can set a default `backgroundConfiguration` that will be used in
 Realm.Configuration.backgroundConfiguration = <#T##Realm.Configuration?#>
 
 Realm.writeInBackground { (realm, error) in
-<#code#>
+    <#code#>
 }
 ```
 
@@ -72,7 +71,7 @@ This is particularly useful if you'd like to:
 
 ```swift
 let backgroundRealm = BackgroundRealm { (realm, error) in
-<#code#>
+    <#code#>
 }
 ```
 
@@ -80,7 +79,7 @@ let backgroundRealm = BackgroundRealm { (realm, error) in
 
 ```swift
 let backgroundRealm = BackgroundRealm(configuration: <#T##Realm.Configuration?#>) { (realm, error) in
-<#code#>
+    <#code#>
 }
 ```
 
@@ -88,7 +87,7 @@ let backgroundRealm = BackgroundRealm(configuration: <#T##Realm.Configuration?#>
 
 ```swift
 let backgroundRealm = BackgroundRealm(fileURL: <#T##URL#>) { (realm, error) in
-<#code#>
+    <#code#>
 }
 ```
 
@@ -123,10 +122,14 @@ Then drag the `BLResultsController` folder into your Xcode project.
 
 Bell App Lab, apps@bellapplab.com
 
+### Contributing
+
+Check [this out](./CONTRIBUTING.md).
+
 ### Credits
 
 [Logo image](https://thenounproject.com/search/?q=controller&i=316262#) by [Andres Flores](https://thenounproject.com/aflores158) from [The Noun Project](https://thenounproject.com/)
 
 ## License
 
-BackgroundRealm is available under the MIT license. See the LICENSE file for more info.
+BLResultsController is available under the MIT license. See the LICENSE file for more info.

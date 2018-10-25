@@ -26,6 +26,7 @@ import Foundation
 @objc
 final class BLTimer: NSObject
 {
+    @discardableResult
     static func scheduleTimer(withTimeInterval interval: TimeInterval,
                               repeats: Bool,
                               block: @escaping (BLTimer) -> Swift.Void) -> BLTimer

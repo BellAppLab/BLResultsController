@@ -20,15 +20,20 @@
  THE SOFTWARE.
  */
 
-import RealmSwift
+import Foundation
 
 
-//MARK: - Results
-extension Results {
-    /// Applies predicates and sort descriptors to a Realm.Results instance
-    func applying(predicates: [NSPredicate],
-                  sortDescriptors: [SortDescriptor]) -> Results<Element>
-    {
-        return filter(NSCompoundPredicate(andPredicateWithSubpredicates: predicates)).sorted(by: sortDescriptors)
-    }
-}
+public protocol ResultsControllerSection: Hashable {}
+
+
+extension Bool: ResultsControllerSection {}
+extension Int: ResultsControllerSection {}
+extension Int8: ResultsControllerSection {}
+extension Int16: ResultsControllerSection {}
+extension Int32: ResultsControllerSection {}
+extension Int64: ResultsControllerSection {}
+extension Double: ResultsControllerSection {}
+extension Float: ResultsControllerSection {}
+extension String: ResultsControllerSection {}
+extension Date: ResultsControllerSection {}
+extension Data: ResultsControllerSection {}

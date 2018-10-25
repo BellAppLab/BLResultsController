@@ -73,7 +73,7 @@ struct OrderedDictionary<Key: Hashable, Value>: ExpressibleByDictionaryLiteral
     
     func value(at index: Int) -> Value? {
         precondition(index < count, "Index should be smaller than object count")
-        precondition(index >= 0, "Index should be bigger than 0")
+        precondition(index >= 0, "Index should be greater than 0")
         
         guard let key = indices[index] else {
             preconditionFailure("Index does not correspond to any keys in the dictionary")
@@ -96,7 +96,7 @@ extension OrderedDictionary
 {
     var count: Int { return objects.count }
     
-    var isEmpty: Bool { return count == 0 }
+    var isEmpty: Bool { return objects.isEmpty }
 }
 
 
@@ -120,24 +120,21 @@ extension OrderedDictionary
     typealias Iterator = (index: Int, key: Key, value: Value)
 
     func map<T>(_ iterator: (Iterator) -> T) -> [T] {
-        return indices.map { iterator(($0.key, $0.value, objects[$0.value]!)) }
+        return indices.lazy.sorted(by: { $0.key < $1.key }).map { iterator(($0.key, $0.value, objects[$0.value]!)) }
     }
 
     func compactMap<T>(_ iterator: (Iterator) -> T?) -> [T] {
-        #if swift(>=4.0)
-        return indices.compactMap { iterator(($0.key, $0.value, objects[$0.value]!)) }
-        #else
-        return indices.flatMap  { iterator(($0.key, $0.value, objects[$0.value]!)) }
-        #endif
+        return indices.lazy.sorted(by: { $0.key < $1.key }).compactMap { iterator(($0.key, $0.value, objects[$0.value]!)) }
     }
     
     func first(where iterator: (Iterator) -> Bool) -> Iterator? {
-        guard let (index, key) = indices.first(where: { iterator(($0.key, $0.value, objects[$0.value]!)) }) else { return nil }
+        let sortedIndices = indices.lazy.sorted(by: { $0.key < $1.key })
+        guard let (index, key) = sortedIndices.first(where: { iterator(($0.key, $0.value, objects[$0.value]!)) }) else { return nil }
         return (index, key, objects[key]!)
     }
     
     func loop(_ shouldContinueIterator: (Iterator) -> Bool) {
-        for item in indices {
+        for item in indices.lazy.sorted(by: { $0.key < $1.key }) {
             if !shouldContinueIterator((item.key, item.value, objects[item.value]!)) {
                 break
             }
