@@ -48,7 +48,6 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 
   s.framework           = "Foundation"
   s.ios.framework       = 'UIKit'
-  s.watchos.framework   = 'WatchKit'
   s.osx.framework       = 'AppKit'
   s.tvos.framework      = 'UIKit'
 
