@@ -23,6 +23,7 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 ## Features
 
 - [X] Calculates everything on a **background thread**. 🏎
+- [X] No objects are retained, so memory footprint is minimal. 👾
 - [X] Calculates section index titles. 😲
 - [X] Allows for user-initiated search. 🕵️‍♀️🕵️‍♂️
 - [X] Most methods return in O(1). 😎
