@@ -1,4 +1,8 @@
 /Realm
+/BackgroundRealm
+/Example
+/Images
+/Tests
 
 # Created by https://www.gitignore.io/api/swift,xcode,macos,carthage,cocoapods,swiftpackagemanager
 
