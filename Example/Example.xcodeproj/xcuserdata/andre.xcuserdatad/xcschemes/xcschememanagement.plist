@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>BLResultsController_iOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>BLResultsController_macOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>BLResultsController_tvOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>iOS Example.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>macOS Example.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>tvOS Example.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>6575D0AF212D2AC6001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6575D0C6212D2AE3001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6575D0D7212D2AF3001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6575D0E6212D2B08001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6575D0F2212D2B17001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6575D106212D2B22001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6575D117212D2B2D001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6575D125212D2B3D001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6575D138212D2B47001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6575D149212D2B51001524A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
