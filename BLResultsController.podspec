@@ -2,17 +2,30 @@ Pod::Spec.new do |s|
 
   s.name                = "BLResultsController"
   s.version             = "1.0.0"
-  s.summary             = "A collection of handy classes and extensions that make it easier to work with `RealmSwift` in the background."
+  s.summary             = "BLResultsController is not a drop-in replacement for the `NSFetchedResultsController` to be used with Realm."
   s.screenshot          = "https://github.com/BellAppLab/BLResultsController/raw/master/Images/background_realm.png"
 
   s.description         = <<-DESC
-Background Realm is a collection of handy classes and extensions that make it easier to work with `RealmSwift` in the background.
+Contrary to popular belief, BLResultsController is **not** a drop-in replacement for the `NSFetchedResultsController` to be used with Realm. Oh no. It's _better_.
 
-It's main focus is to enhance existing `Realm`s and Realm-based code bases with very little overhead and refactoring.
+A `ResultsController` takes a `Realm.Results` and divides its objects into sections based on the `sectionNameKeyPath` and the first `sortDescriptor`. It then calculates the relative positions of those objects and generates section indices and `IndexPath`s that are ready to be passed to `UITableView`s and `UICollectionView`s.
 
-**Note**: Although this module makes it more convenient to work with a `Realm` in the background, it does **not** make  `Realm`s nor its objects thread-safe. They should still be accessed only from within their appropriate thread.
+But **no expensive calculations are made on the main thread**. That's right. Everything is done in the background, so your UI will remain as smooth and responsive as always.
 
-For the Objective-C counterpart, see [BLBackgroundRealm](https://github.com/BellAppLab/BLBackgroundRealm).
+As with `Realm.Results`, the `ResultsController` is a live, auto-updating container that will keep notifying you of changes in the dataset for as long as you hold a strong reference to it. You register to receive those changes by calling `setChangeCallback(_:)` on your controller.
+
+Changes to the underlying dataset are calculated on a background queue, therefore the UI thread is not impacted by the `ResultsController`'s overhead.
+
+**Note**: As with `Realm` itself, the `ResultsController` is **not** thread-safe. You should only call most of its methods from the main thread.
+
+## Features
+
+- [X] Calculates everything on a **background thread**. 🏎
+- [X] Calculates section index titles. 😲
+- [X] Allows for user-initiated search. 🕵️‍♀️🕵️‍♂️
+- [X] Most methods return in O(1). 😎
+- [X] Well documented. 🤓
+- [X] Well tested. 👩‍🔬👨‍🔬
                    DESC
 
   s.homepage            = "https://github.com/BellAppLab/BLResultsController"

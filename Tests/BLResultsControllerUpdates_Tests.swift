@@ -311,7 +311,7 @@ class BLResultsControllerUpdates_Tests: XCTestCase
                 try tempRealm.write {
                     let zTodos = tempRealm
                         .objects(Todo.self)
-                        .filter("text CONTAINS %@", " Z")
+                        .filter("letter == %@", "Z")
                     print("Z TODOS: \(zTodos)")
                     tempRealm.delete(zTodos)
                 }
@@ -368,7 +368,7 @@ class BLResultsControllerUpdates_Tests: XCTestCase
             try tempRealm.write {
                 let zTodos = tempRealm
                     .objects(Todo.self)
-                    .filter("text CONTAINS %@", " Z")
+                    .filter("letter == %@", "Z")
                 print("Z TODOS: \(zTodos)")
                 tempRealm.delete(zTodos)
             }

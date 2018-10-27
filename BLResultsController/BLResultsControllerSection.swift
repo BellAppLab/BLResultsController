@@ -23,6 +23,24 @@
 import Foundation
 
 
+/**
+ A `ResultsControllerSection` is a property of your `Realm.Object` subclass that can be used to calculate sections in a `ResultsController`.
+
+ Currently, the `ResultsController` only supports the following types as `Section`s:
+    - `Bool`
+    - `Int`
+    - `Int8`
+    - `Int16`
+    - `Int32`
+    - `Int64`
+    - `Double`
+    - `Float`
+    - `String`
+    - `Date`
+    - `Data`
+
+ Using `Object`s as a section values is **not** supported, but it's in the roadmap.
+ */
 public protocol ResultsControllerSection: Hashable {}
 
 

@@ -24,15 +24,24 @@ import Foundation
 import RealmSwift
 
 
-public enum ResultsControllerError: Error {
+/**
+ Errors that may be thrown by a `ResultsController`.
+ */
+public enum ResultsControllerError: Swift.Error, CustomStringConvertible {
+    /// Trying to initialise a `ResultsController` with an empty `sortDescriptors` parameter.
     case noSortDescriptors
+    /// Trying to initialise a `ResultsController` with an empty `sectionNameKeyPath` parameter.
     case noSectionNameKeyPath
+    /// Trying to initialise a `ResultsController` with the first `SortDescriptor`'s key path being different than `sectionNameKeyPath`.
     case sortDescriptorMismatch(sortDescriptorKeyPath: String, sectionNameKeyPath: String)
+    /// Trying to initialise a `ResultsController` with an `Element` whose `sharedSchema()` is `nil`. This should never happen really, but you never know...
     case noSchema(elementType: Object.Type)
+    /// Trying to initialise a `ResultsController` but `sectionNameKeyPath` is not a valid key path of `Element`. In other words, if there is no property in your object that can be accessed via `sectionNameKeyPath`.
     case invalidSchema(elementType: Object.Type, sectionNameKeyPath: String)
+    /// Trying to initialise a `ResultsController` but the property returned by your `Element`'s `sectionNameKeyPath` is not of the same type as this controller's `Section`.
     case propertyTypeMismatch(propertyType: Any.Type, expectedPropertyType: PropertyType)
 
-    var localizedDescription: String {
+    public var localizedDescription: String {
         switch self {
         case .noSortDescriptors:
             return "The ResultsController must have at least one sort descriptor."
@@ -47,5 +56,9 @@ public enum ResultsControllerError: Error {
         case .propertyTypeMismatch(let propertyType, let expectedPropertyType):
             return "Trying to create a ResultsController using \(String(describing: propertyType.self)) as a section, but expected a \(expectedPropertyType)."
         }
+    }
+
+    public var description: String {
+        return localizedDescription
     }
 }

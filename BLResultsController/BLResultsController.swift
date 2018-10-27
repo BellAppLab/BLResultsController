@@ -25,23 +25,116 @@ import RealmSwift
 
 #if os(iOS) || os(tvOS)
 import UIKit
-#elseif os(watchOS)
-import WatchKit
 #elseif os(macOS)
 import AppKit
 #endif
 
 
 //MARK: - RESULTS CONTROLLER
+/**
+ A `ResultsController` takes a `Realm.Results` and divides its objects into sections based on the `sectionNameKeyPath` and the first `sortDescriptor`. It then calculates the relative positions of those objects and generates section indices and `IndexPath`s that are ready to be passed to `UITableView`s and `UICollectionView`s.
+
+ As with `Realm.Results`, the `ResultsController` is a live, auto-updating container that will keep notifying you of changes in the dataset for as long as you hold a strong reference to it. You register to receive those changes by calling `setChangeCallback(_:)` on your controller.
+
+ - note:
+    Changes to the underlying dataset are calculated on a background queue, therefore the UI thread is not impacted by the `ResultsController`'s overhead.
+
+ - warning:
+    As with `Realm` itself, the `ResultsController` is **not** thread-safe. You should only call its methods from the main thread.
+
+ ## Example
+
+ ```
+ class ViewController: UITableViewController {
+     let controller: ResultsController<<#SectionType#>>, <#ElementType#>> = {
+         do {
+             let realm = <#instantiate your realm#>
+             let keyPath = <#the key path to your Element's property to be used as a section#>
+             return try ResultsController(
+                 realm: realm,
+                 sectionNameKeyPath: keyPath,
+                 sortDescriptors: [
+                     SortDescriptor(keyPath: keyPath)
+                 ]
+             )
+         } catch {
+             assertionFailure("\(error)")
+             //do something about the error
+         }
+     }()
+
+     override func viewDidLoad() {
+         super.viewDidLoad()
+
+         controller.setChangeCallback { [weak self] (_) in
+             <#code#>
+         }
+
+         controller.start()
+     }
+
+     override func numberOfSections(in tableView: UITableView) -> Int {
+         return controller.numberOfSections()
+     }
+
+     override func tableView(_ tableView: UITableView,
+                             numberOfRowsInSection section: Int) -> Int
+     {
+         return controller.numberOfItems(in: section)
+     }
+
+     override func tableView(_ tableView: UITableView,
+                             cellForRowAt indexPath: IndexPath) -> UITableViewCell
+     {
+         guard let cell = tableView.dequeueReusableCell(withIdentifier: <#identifier#>) else {
+             fatalError("Did we configure the cell correctly on IB?")
+         }
+         <#code#>
+         return cell
+     }
+ }
+ ```
+
+ ## See Also
+ - `start()`
+ - `setChangeCallback(_:)`
+ */
 public final class ResultsController<Section: ResultsControllerSection, Element: Object>
 {
     //MARK: - Public Interface
+    /// The main realm from which the `ResultsController` will fetch its data.
     public let realm: Realm
 
+    /// The `NSPredicate`s currently in use by this `ResultsController`.
     public private(set) var predicates: [NSPredicate]
+    /// The `SortDescriptor`s currently in use by this `ResultsController`.
     public private(set) var sortDescriptors: [SortDescriptor]
+    /// The path to the property used to calculate sections in this `ResultsController`.
     public private(set) var sectionNameKeyPath: String
 
+    /**
+     Call this method to change the `ResultsController`'s properties without having to instantiate a new one.
+
+     Calling this method will cause the `ResultsController` to reload all its data.
+
+     - parameters:
+         - predicates: An array of `NSPredicate` to be used by the `ResultsController`, or `nil` if you don't want to change them.
+         - sortDescriptors: An array of `SortDescriptor` to be used by the `ResultsController`, or `nil` if you don't want to change them.
+         - sectionNameKeyPath: The key path to the `ResultsController.Element`'s property to be used as a section, or `nil` if you don't want to change it.
+
+     - note:
+        Passing `nil` to all parameters in this method is equivalent to calling `reload()` on the `ResultsController`.
+
+     - warning:
+        This method must be called from the main thread.
+
+     - throws:
+         - See `init(realm:predicates:sectionNameKeyPath:sortDescriptors:)`
+
+     ## See Also:
+     - `start()`
+     - `reload()`
+     */
     public func change(predicates: [NSPredicate]? = nil,
                        sortDescriptors: [SortDescriptor]? = nil,
                        sectionNameKeyPath: String? = nil) throws
@@ -63,6 +156,13 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
         setup()
     }
 
+    /**
+     This is the `Results<Element>` returned from applying this controller's `predicates` and `sortDescriptors` to the `realm` passed on initialisation.
+
+     The objects in this collection are **not** separated into sections. To get those, use `item(at:)`.
+
+     - warning: This **must** be called from the main thread.
+     */
     public var objects: Results<Element> {
         return realm
             .objects(Element.self)
@@ -71,29 +171,162 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
     }
 
     //MARK: Callbacks
+    /// The callback a `ResultsController` invokes when the underlying dataset changes.
     public enum ChangeCallback {
+        /// Called when the whole dataset has changed.
         case reload(controller: ResultsController<Section, Element>)
+        /// Called when sections have been added or removed from the `ResultsController`.
         case sectionUpdate(controller: ResultsController<Section, Element>, insertedSections: [IndexSet], deletedSections: [IndexSet])
+        /// Called when items have been inserted, deleted or updated in the underlying dataset.
         case rowUpdate(controller: ResultsController<Section, Element>, insertedItems: [IndexPath], deletedItems: [IndexPath], updatedItems: [IndexPath])
     }
 
     fileprivate var _changeCallback: ((ResultsController.ChangeCallback) -> Void)?
+    /**
+     Sets the callback to be invoked by this `ResultsController` when its underlying dataset changes.
+
+     A typical implementation of this callback in a table view controller would look like this:
+
+     ```
+     override func viewDidLoad() {
+         super.viewDidLoad()
+
+         controller.setChangeCallback { [weak self] change in
+             switch change {
+             case .reload(_):
+                 self?.tableView.reloadData()
+             case .sectionUpdate(_, let insertedSections, let deletedSections):
+                 self?.tableView.beginUpdates()
+                 insertedSections.forEach { self?.tableView.insertSections($0, with: .automatic) }
+                 deletedSections.forEach { self?.tableView.deleteSections($0, with: .automatic) }
+                 self?.tableView.endUpdates()
+             case .rowUpdate(_, let insertedItems, let deletedItems, let updatedItems):
+                 self?.tableView.beginUpdates()
+                 self?.tableView.insertRows(at: insertedItems, with: .automatic)
+                 self?.tableView.deleteRows(at: deletedItems, with: .automatic)
+                 self?.tableView.reloadRows(at: updatedItems, with: .automatic)
+                 self?.tableView.endUpdates()
+             }
+         }
+
+         controller.start()
+     }
+     ```
+
+     - parameters:
+         - change: The `ChangeCallback` to be invoked.
+     */
     public func setChangeCallback(_ change: ((ResultsController.ChangeCallback) -> Void)?) {
         _changeCallback = change
     }
 
+    /**
+     The callback that's invoked to produce section index titles based on this `ResultsController`'s newly calculated sections.
+
+     - parameters:
+         - section: The `Section` that is being converted to a section title index.
+         - controller: The `ResultsController` invoking this callback.
+
+     - returns: The section index title for this `Section`.
+
+     ## See Also:
+     - `setFormatSectionIndexTitleCallback(_:)`
+     */
     public typealias SectionIndexTitleCallback = (_ section: Section, _ controller: ResultsController<Section, Element>) -> String
     fileprivate var _formatSectionIndexTitleCallback: ResultsController.SectionIndexTitleCallback?
+    /**
+     Set the callback that's invoked to produce section index titles based on this `ResultsController`'s newly calculated sections.
+
+     The `UITableViewDataSource` protocol defines the optional `sectionIndexTitles(for:)` and `tableView(_:sectionForSectionIndexTitle:at:)` methods as ways to populate a `UITableView`'s section index titles. The most common use case of this are alphabetical lists whose sections are the first letters of each item (think of the Contacts app and that little list of "A", "B", "C", etc. at the right-hand side).
+
+     This callback is how you supply the `ResultsController` with a way to convert a `Section` into its index title.
+
+     ## Example:
+
+     ```
+     controller.setFormatSectionIndexTitleCallback { (section, _) -> String in
+         //suppose your `Section` is an `Int`
+         return "\(section)"
+     }
+     ```
+
+     - note: This callback is invoked on a **background thread**.
+
+     - parameters:
+         - callback: A `ResultsController.SectionIndexTitleCallback`.
+     */
     public func setFormatSectionIndexTitleCallback(_ callback: ResultsController.SectionIndexTitleCallback?) {
         _formatSectionIndexTitleCallback = callback
     }
 
+    /**
+     The callback that's invoked to sort section index titles based on this `ResultsController`'s newly calculated sections.
+
+     - parameters:
+         - indexTitles: The calculated index titles.
+         - controller: The `ResultsController` invoking this callback.
+
+     ## See Also:
+     - `setSortSectionIndexTitles(_:)`
+     */
     public typealias SortSectionIndexTitlesCallback = (_ indexTitles: inout [String], _ controller: ResultsController<Section, Element>) -> Void
     fileprivate var _sortSectionIndexTitlesCallback: ResultsController.SortSectionIndexTitlesCallback?
+    /**
+     Set the callback that's invoked to sort section index titles based on this `ResultsController`'s newly calculated sections.
+
+     This callback is a way for you to sort the newly calculated section index titles. If no callback is set, they'll be supplied in the order that the sections occur in the dataset.
+
+     ## Example:
+
+     ```
+     controller.setSortSectionIndexTitles { (sections, _) in
+         //suppose your `Section` is an `Int`
+         sections.sort(by: { $0 < $1 })
+     }
+     ```
+
+     - note: This callback is invoked on a **background thread**.
+
+     - parameters:
+         - callback: A `ResultsController.SortSectionIndexTitlesCallback`.
+     */
     public func setSortSectionIndexTitles(_ callback: ResultsController.SortSectionIndexTitlesCallback?) {
         _sortSectionIndexTitlesCallback = callback
     }
 
+    /**
+     Creates a new `ResultsController` with the given parameters.
+
+     After instantiating a `ResultsController`, you **must** call `start()` for it to begin doing its magic.
+
+     - parameters:
+         - realm: A `Realm` instance you have created on the main thread.
+         - predicates: The `NSPredicate`s to be applied to `realm` and to the background realm this controller will create.
+         - sectionNameKeyPath: The key path to a property of your `Realm.Object` subclass to be used as a section divider. See `ResultsControllerSection` for more info.
+         - sortDescriptors: An array of `SortDescriptor`s to be applied to `realm` and to the background realm this controller will create.
+
+     - throws:
+         - `ResultsControllerError.noSortDescriptors`
+             - if `sortDescriptors` is empty
+         - `ResultsControllerError.noSectionNameKeyPath`
+             - if `sectionNameKeyPath` is empty
+         - `ResultsControllerError.sortDescriptorMismatch`
+             - if the first `SortDescriptor`'s key path is different than `sectionNameKeyPath`
+         - `ResultsControllerError.noSchema`
+             - if `Element.sharedSchema()` returns `nil`
+             - this should never happen, but you never know...
+         - `ResultsControllerError.invalidSchema`
+             - if `sectionNameKeyPath` is not a valid key path of `Element`
+             - in other words, if there is no property in your object that can be accessed via `sectionNameKeyPath`
+         - `ResultsControllerError.propertyTypeMismatch`
+             - if the property returned by your `Element`'s `sectionNameKeyPath` is not of the same type as this controller's `Section`
+
+     - note: You **must** call this method from the main thread.
+
+     ## See Also:
+     - [BackgroundRealm](https://github.com/BellAppLab/BackgroundRealm)
+     - `ResultsControllerError`
+     */
     public init(realm: Realm,
                 predicates: [NSPredicate] = [],
                 sectionNameKeyPath: String,
@@ -153,13 +386,58 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
         }
     }
 
+    /**
+     Starts the `ResultsController` and call the `changeCallback` with the `reload` option.
+
+     By default, the `ResultsController` does **not** start calculating sections once you instantiate it. Thus you must call `start()` after creating one. This is to avoid the overhead of calculating all sections before it is actually needed.
+
+     ## See Also:
+     - `init(realm:predicates:sectionNameKeyPath:sortDescriptors:)`
+     */
     public func start() {
         setup()
     }
 
-    //MARK: Search
-    public var searchDelay: TimeInterval = 0.2
+    /**
+     Recalculates all sections in the `ResultsController` and call the `changeCallback` with the `reload` option.
 
+     You typically don't need to call this method, but it's here for convenience.
+
+     ## See Also:
+     - `init(realm:predicates:sectionNameKeyPath:sortDescriptors:)`
+     - `start()`
+     */
+    public func reload() {
+        setup()
+    }
+
+    //MARK: Search
+    /**
+     Appends an `NSPredicate` to this controller's `predicates`.
+
+     Typically, you create a predicated with user-generated input like this:
+
+     ```
+     extension <#YourViewControllerSubclass#>: UISearchBarDelegate {
+         func searchBar(_ searchBar: UISearchBar,
+                        textDidChange searchText: String)
+         {
+             guard searchText.isEmpty == false else {
+                 controller.searchPredicate = nil
+                 return
+             }
+             controller.searchPredicate = NSPredicate(format: "%K CONTAINS[c] %@", <#name of the property in your object#>, searchText)
+         }
+     }
+     ```
+
+     - warning: This property must be accesed from the **main thread**.
+
+     - note: Setting this property will cause the `ResultsController` to reload all its data.
+
+     ## See Also:
+     - `searchDelay`
+     */
     public var searchPredicate: NSPredicate? {
         didSet {
             precondition(Thread.current == Thread.main, "\(String(describing: self))'s searchPredicate must only be changed from the main thread.")
@@ -174,6 +452,18 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
             }
         }
     }
+
+    /**
+     When a `searchPredicate` is set, the `ResultsController` waits a little bit before applying it.
+
+     This is done so the whole underlying data isn't reloaded unecessarily while the user is still typing. The default value is 0.4 seconds.
+
+     - note: If there is delay alreay in progress, setting this property will **not** adjust it.
+
+     ## See Also:
+     - `searchPredicate`
+     */
+    public var searchDelay: TimeInterval = 0.4
 
     //MARK: - Private Interface
     fileprivate var backgroundRealm: BackgroundRealm!
@@ -194,24 +484,87 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
 //MARK: - RESULTS CONTROLLER's MAIN INTERFACE
 public extension ResultsController
 {
+    /**
+     The number of sections in this `ResultsController`.
+
+     You pass this value to `numberOfSections(in:)`.
+
+     - note: This method can be called from any thread.
+
+     - complexity: O(1)
+     */
     func numberOfSections() -> Int {
         return sections.count
     }
 
+    /**
+     The `Section` at a particular index.
+
+     Useful to populate section headers, such when `tableView(_:titleForHeaderInSection:)` is called.
+
+     - parameters:
+         - index: The index for which you want the equivalent `Section`.
+
+     - returns: The `Section` at `index`.
+
+     - note: This method can be called from any thread.
+
+     - complexity: O(1)
+     */
     func section(at index: Int) -> Section {
         guard let key = sections.key(at: index) else { fatalError("Section name not found for index \(index)") }
         return key
     }
 
+    /**
+     The index of a particular `Section, or `nil` if none is found.
+
+     - parameters:
+         - section: The `Section` for which you want the equivalent index.
+
+     - returns: The index of `Section`.
+
+     - note: This method can be called from any thread.
+
+     - complexity: O(n)
+     */
     func indexOf(section: Section) -> Int? {
         return sections.indexOf(key: section)
     }
 
+    /**
+     The number of items in a given section of this `ResultsController`.
+
+     You pass this value to `tableView(_:numberOfRowsInSection:)` or `collectionView(_:numberOfItemsInSection:)`.
+
+     - parameters:
+         - section: The `Section` for which you want the `Element` count.
+
+     - returns: The number of `Element`s.
+
+     - note: This method can be called from any thread.
+
+     - complexity: O(1)
+     */
     func numberOfItems(in section: Int) -> Int {
         guard let set = sections[section] else { fatalError("Items not found for section at index \(section)") }
         return set.count
     }
 
+    /**
+     Get the `Element` at a given `IndexPath`.
+
+     You typically use this method in `tableView(_:cellForRowAt:)` and/or the `UICollectionView` equivalent.
+
+     - parameters:
+         - indexPath: The `IndexPath` for which you want to retrieve an `Element`.
+
+     - returns: The `Element` at the given `IndexPath` or `nil` if none has been found.
+
+     - note: This method can only be called from the **main thread**.
+
+     - complexity: Whatever the complexity of calling `realm.objects(Element.self).filter(...)[indexPath.item]` is.
+     */
     func item(at indexPath: IndexPath) -> Element? {
         precondition(Thread.current == Thread.main, "Trying to access a \(String(describing: self)) object from outside of the main thread")
 
@@ -222,10 +575,37 @@ public extension ResultsController
         return objects.filter("%K == %@", sectionNameKeyPath, key)[indexPath.item]
     }
 
+    /**
+     Get the section index titles this `ResultsController` has computed.
+
+     This method only returns the index titles if a `SectionIndexTitleCallback` has been set. Otherwise, `nil`.
+
+     - note: This method can be called from any thread.
+
+     ## See Also
+     - `setChangeCallback(_:)`
+     */
     func indexTitles() -> [String]? {
         return sectionIndexTitles
     }
 
+    /**
+     Get the `IndexPath` for the first item in the section with the given index title.
+
+     You typically pass the result of this method to `tableView(_:sectionForSectionIndexTitle:at:)`.
+
+     - warning: Only call this method if you have supplied a `SectionIndexTitleCallback` to this `ResultsController`. Calling this method without having supplied a `SectionIndexTitleCallback` is a programmer error and will crash your app.
+
+     - parameters:
+         - indexTitle: The index title for which you want to retrieve an `IndexPath`.
+
+     - returns: The `IndexPath` for the first item in the section with the given index title.
+
+     - note: This method can be called from any thread.
+
+     ## See Also
+     - `setChangeCallback(_:)`
+     */
     func indexPath(forIndexTitle indexTitle: String) -> IndexPath {
         precondition(sectionIndexTitles != nil,
                      "Trying to access a \(String(describing: self)) indexTitle, but no `setFormatSectionIndexTitleCallback` has been set.")

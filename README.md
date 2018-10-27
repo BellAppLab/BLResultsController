@@ -8,11 +8,26 @@
 
 ![BLResultsController](./Images/BLResultsController.png)
 
-Background Realm is a collection of handy classes and extensions that make it easier to work with `RealmSwift` in the background.
+Contrary to popular belief, BLResultsController is **not** a drop-in replacement for the `NSFetchedResultsController` to be used with Realm. Oh no. It's _better_.
 
-It's main focus is to enhance existing `Realm`s and Realm-based code bases with very little overhead and refactoring. 
+A `ResultsController` takes a `Realm.Results` and divides its objects into sections based on the `sectionNameKeyPath` and the first `sortDescriptor`. It then calculates the relative positions of those objects and generates section indices and `IndexPath`s that are ready to be passed to `UITableView`s and `UICollectionView`s.
 
-**Note**: Although this module makes it more convenient to work with a `Realm` in the background, it does **not** make  `Realm`s nor its objects thread-safe. They should still be accessed only from within their appropriate thread.
+But **no expensive calculations are made on the main thread**. That's right. Everything is done in the background, so your UI will remain as smooth and responsive as always. 
+
+As with `Realm.Results`, the `ResultsController` is a live, auto-updating container that will keep notifying you of changes in the dataset for as long as you hold a strong reference to it. You register to receive those changes by calling `setChangeCallback(_:)` on your controller.
+
+Changes to the underlying dataset are calculated on a background queue, therefore the UI thread is not impacted by the `ResultsController`'s overhead.
+
+**Note**: As with `Realm` itself, the `ResultsController` is **not** thread-safe. You should only call most of its methods from the main thread.
+
+## Features
+
+- [X] Calculates everything on a **background thread**. 🏎
+- [X] Calculates section index titles. 😲
+- [X] Allows for user-initiated search. 🕵️‍♀️🕵️‍♂️
+- [X] Most methods return in O(1). 😎
+- [X] Well documented. 🤓
+- [X] Well tested. 👩‍🔬👨‍🔬
 
 ## Specs
 
@@ -22,74 +37,107 @@ It's main focus is to enhance existing `Realm`s and Realm-based code bases with 
 * macOS 10.10+
 * Swift 4.0+
 
-## Writing to a Realm in the background
+`BLResultsController` also uses the amazing [BackgroundRealm](https://github.com/BellAppLab/BackgroundRealm). Have a look!
 
-Commiting write transactions in the background becomes as easy as:
+## Example
+
+![ResultsController](./Images/results_controller.gif)
 
 ```swift
-Realm.writeInBackground(configuration: <#T##Realm.Configuration?#>) { (realm, error) in
-    <#code#>
+import UIKit
+import RealmSwift
+import BLResultsController
+
+class ViewController: UITableViewController {
+    let controller: ResultsController<<#SectionType#>>, <#ElementType#>> = {
+        do {
+            let realm = <#instantiate your realm#>
+            let keyPath = <#the key path to your Element's property to be used as a section#>
+            return try ResultsController(
+                realm: realm,
+                sectionNameKeyPath: keyPath,
+                sortDescriptors: [
+                    SortDescriptor(keyPath: keyPath)
+                ]
+            )
+        } catch {
+            assertionFailure("\(error)")
+            //do something about the error
+        }
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        controller.setChangeCallback { [weak self] change in
+            switch change {
+            case .reload(_):
+                self?.tableView.reloadData()
+            case .sectionUpdate(_, let insertedSections, let deletedSections):
+                self?.tableView.beginUpdates()
+                insertedSections.forEach { self?.tableView.insertSections($0, with: .automatic) }
+                deletedSections.forEach { self?.tableView.deleteSections($0, with: .automatic) }
+                self?.tableView.endUpdates()
+            case .rowUpdate(_, let insertedItems, let deletedItems, let updatedItems):
+                self?.tableView.beginUpdates()
+                self?.tableView.insertRows(at: insertedItems, with: .automatic)
+                self?.tableView.deleteRows(at: deletedItems, with: .automatic)
+                self?.tableView.reloadRows(at: updatedItems, with: .automatic)
+                self?.tableView.endUpdates()
+            }
+        }
+        
+        controller.setFormatSectionIndexTitleCallback { (section, _) -> String in
+            return section
+        }
+        
+        controller.setSortSectionIndexTitles { (sections, _) in
+            sections.sort(by: { $0 < $1 })
+        }
+
+        controller.start()
+    }
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return controller.numberOfSections()
+    }
+
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int
+    {
+        return controller.numberOfItems(in: section)
+    }
+
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: <#identifier#>) else {
+            fatalError("Did we configure the cell correctly on IB?")
+        }
+        <#code#>
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView,
+                            titleForHeaderInSection section: Int) -> String?
+    {
+        return controller.section(at: section)
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return controller.indexTitles()
+    }
+    
+    override func tableView(_ tableView: UITableView,
+                            sectionForSectionIndexTitle title: String,
+                            at index: Int) -> Int
+    {
+        return controller.indexPath(forIndexTitle: title).section
+    }
 }
 ```
 
-Optionally, you can set a default `backgroundConfiguration` that will be used in all write transactions in the background:
-
-```swift
-Realm.Configuration.backgroundConfiguration = <#T##Realm.Configuration?#>
-
-Realm.writeInBackground { (realm, error) in
-    <#code#>
-}
-```
-
-Finally, you can easily move from any `Realm` instance to its background counterpart:
-
-```swift
-let realm = try Realm()
-
-realm.writeInBackground { (backgroundRealm, error) in 
-<#code#>
-}
-```
-
-## The `BackgroundRealm`
-
-Background Realm exposes a `BackgroundRealm`  class, which basically:
-
-1. creates a private `Thread` and `RunLoop` where a new background `Realm` will be opened
-2. opens a `Realm` in the private thread
-3. runs work in the background thread
-
-This is particularly useful if you'd like to:
-
-- make computationally expensive changes to the `Realm`
-- register for change notifications in the background, without necessarily triggering a UI update right away
-
-### Usage
-
-- Creating a `BackgroundRealm` using `Realm.Configuration.backgroundConfiguration`:
-
-```swift
-let backgroundRealm = BackgroundRealm { (realm, error) in
-    <#code#>
-}
-```
-
-- Creating a `BackgroundRealm` using a custom configuration:
-
-```swift
-let backgroundRealm = BackgroundRealm(configuration: <#T##Realm.Configuration?#>) { (realm, error) in
-    <#code#>
-}
-```
-
-- Creating a `BackgroundRealm` using a file `URL`:
-
-```swift
-let backgroundRealm = BackgroundRealm(fileURL: <#T##URL#>) { (realm, error) in
-    <#code#>
-}
-```
+Boom 💥
 
 ## Installation
 

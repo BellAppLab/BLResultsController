@@ -13,7 +13,7 @@ class ViewController: UITableViewController
                 sortDescriptors: [
                     SortDescriptor(keyPath: "_priority",
                                    ascending: false),
-                    SortDescriptor(keyPath: "text",
+                    SortDescriptor(keyPath: "letter",
                                    ascending: true)
                 ]
             )

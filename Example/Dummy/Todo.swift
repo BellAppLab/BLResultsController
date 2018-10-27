@@ -58,7 +58,7 @@ public extension Priority {
         return letters.map {
             let todo = Todo()
             todo.priority = self
-            todo.text = "Fix Thing \($0)"
+            todo.letter = $0
             return todo
         }
     }
@@ -68,7 +68,12 @@ public extension Priority {
 @objcMembers
 public final class Todo: Object
 {
-    dynamic var text: String = ""
+    dynamic var letter: String = ""
+    dynamic var extraInfo: String = UUID().uuidString
+
+    var text: String {
+        return "Fix Thing \(letter)"
+    }
 
     @objc
     private dynamic var _priority: Int = Priority.default.rawValue

@@ -93,7 +93,7 @@ class BLResultsControllerItems_Tests: XCTestCase
         let sortDescriptors = [
             SortDescriptor(keyPath: "_priority",
                            ascending: ascending),
-            SortDescriptor(keyPath: "text",
+            SortDescriptor(keyPath: "letter",
                            ascending: true)
         ]
 
