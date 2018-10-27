@@ -38,7 +38,6 @@ Changes to the underlying dataset are calculated on a background queue, therefor
   s.ios.deployment_target = "9.0"
   s.osx.deployment_target = "10.10"
   s.tvos.deployment_target = "10.0"
-  s.watchos.deployment_target = "3.0"
 
   s.module_name         = 'BLResultsController'
 
