@@ -8,6 +8,10 @@
     - [Latest supported version](https://static.realm.io/downloads/swift/realm-swift-3.11.1.zip) - v3.11.1
 3. Navigate to your clone's folder and create a symbolic link to the Realm libraries
     - `ln -s <path/to/realm> ./Realm`
+4. Clone [BackgroundRealm](https://github.com/BellAppLab/BackgroundRealm) somewhere
+    - `git clone https://github.com/BellAppLab/BackgroundRealm`
+5. Create a symbolic link to `BackgroundRealm`
+    - `ln -s <path/to/BackgroundRealm> ./BackgroundRealm`
 
 ## Changing Versions
 
