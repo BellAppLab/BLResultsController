@@ -551,6 +551,7 @@ public extension ResultsController
      - complexity: O(1)
      */
     func numberOfItems(in section: Int) -> Int {
+        guard sections.isEmpty == false else { return 0 }
         guard let set = sections[section] else { fatalError("Items not found for section at index \(section)") }
         return set.count
     }
