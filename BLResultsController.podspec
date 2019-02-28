@@ -54,4 +54,6 @@ Changes to the underlying dataset are calculated on a background queue, therefor
   s.dependency          'RealmSwift', '~> 3.0'
   s.dependency          'BackgroundRealm', '~> 1.0'
 
+  s.swift_version       = "4.2"
+
 end
