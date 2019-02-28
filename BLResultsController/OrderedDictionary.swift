@@ -72,6 +72,7 @@ struct OrderedDictionary<Key: Hashable, Value>: ExpressibleByDictionaryLiteral
     }
     
     func value(at index: Int) -> Value? {
+        guard isEmpty == false else { return nil }
         precondition(index < count, "Index should be smaller than object count")
         precondition(index >= 0, "Index should be greater than 0")
         
