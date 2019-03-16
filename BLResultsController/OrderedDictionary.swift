@@ -77,7 +77,8 @@ struct OrderedDictionary<Key: Hashable, Value>: ExpressibleByDictionaryLiteral
         precondition(index >= 0, "Index should be greater than 0")
         
         guard let key = indices[index] else {
-            preconditionFailure("Index does not correspond to any keys in the dictionary")
+            assertionFailure("Index does not correspond to any keys in the dictionary")
+            return nil
         }
         
         return objects[key]
