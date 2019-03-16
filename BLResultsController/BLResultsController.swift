@@ -573,8 +573,13 @@ public extension ResultsController
     func item(at indexPath: IndexPath) -> Element? {
         precondition(Thread.current == Thread.main, "Trying to access a \(String(describing: self)) object from outside of the main thread")
 
+        guard sections.isEmpty == false else {
+            return nil
+        }
+
         guard let key = sections.key(at: indexPath.section) else {
-            fatalError("Section name not found for index \(index)")
+            assertionFailure("Section name not found for index \(index)")
+            return nil
         }
 
         return objects.filter("%K == %@", sectionNameKeyPath, key)[indexPath.item]
