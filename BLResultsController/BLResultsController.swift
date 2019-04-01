@@ -515,9 +515,8 @@ public extension ResultsController
 
      - complexity: O(1)
      */
-    func section(at index: Int) -> Section {
-        guard let key = sections.key(at: index) else { fatalError("Section name not found for index \(index)") }
-        return key
+    func section(at index: Int) -> Section? {
+        return sections.key(at: index)
     }
 
     /**
@@ -552,7 +551,10 @@ public extension ResultsController
      */
     func numberOfItems(in section: Int) -> Int {
         guard sections.isEmpty == false else { return 0 }
-        guard let set = sections[section] else { fatalError("Items not found for section at index \(section)") }
+        guard let set = sections[section] else {
+          assertionFailure("Items not found for section at index \(section)")
+          return 0
+        }
         return set.count
     }
 
@@ -577,8 +579,12 @@ public extension ResultsController
             return nil
         }
 
+        guard objects.isEmpty == false else {
+            return nil
+        }
+
         guard let key = sections.key(at: indexPath.section) else {
-            assertionFailure("Section name not found for index \(index)")
+            assertionFailure("Section name not found for index \(indexPath)")
             return nil
         }
 
@@ -619,7 +625,7 @@ public extension ResultsController
     func indexPath(forIndexTitle indexTitle: String) -> IndexPath {
         precondition(sectionIndexTitles != nil,
                      "Trying to access a \(String(describing: self)) indexTitle, but no `setFormatSectionIndexTitleCallback` has been set.")
-        guard let section = sectionIndexTitles!.index(of: indexTitle) else {
+        guard let section = sectionIndexTitles!.firstIndex(of: indexTitle) else {
             return IndexPath(item: 0, section: 0)
         }
         return IndexPath(item: 0, section: section)
@@ -653,9 +659,9 @@ fileprivate extension ResultsController
                 case .error(let error):
                     assertionFailure("\(className) error: \(error)")
                 case .initial(let collection):
-                    self?.processInitialLoad(collection)
+                    self?.processInitialLoad(collection.map { $0 })
                 case .update(let collection, let deletions, let insertions, let modifications):
-                    self?.processUpdate(collection,
+                    self?.processUpdate(collection.map { $0 },
                                         insertions: insertions,
                                         deletions: deletions,
                                         modifications: modifications)
@@ -715,7 +721,7 @@ fileprivate extension ResultsController
 fileprivate extension ResultsController
 {
     //MARK: Sections
-    private func shouldReload(results: Results<Element>) -> Bool {
+    private func shouldReload(results: [Element]) -> Bool {
         switch (sections.isEmpty, results.isEmpty) {
         case (true, false),
              (false, true),
@@ -731,13 +737,13 @@ fileprivate extension ResultsController
         sectionIndexTitles = nil
     }
 
-    func processInitialLoad(_ results: Results<Element>)
+    func processInitialLoad(_ results: [Element])
     {
         updateSections(results: results)
         notifyReload()
     }
 
-    private func updateSections(results: Results<Element>)
+    private func updateSections(results: [Element])
     {
         resetSections()
         results.enumerated().forEach { (offset, element) in
@@ -764,7 +770,7 @@ fileprivate extension ResultsController
         case insertion, deletion, update
     }
 
-    func processUpdate(_ results: Results<Element>,
+    func processUpdate(_ results: [Element],
                        insertions: [Int],
                        deletions: [Int],
                        modifications: [Int])

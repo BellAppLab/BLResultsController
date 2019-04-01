@@ -161,9 +161,12 @@ class BLResultsControllerSetup_Tests: XCTestCase
                 }
 
                 allSections.enumerated().forEach {
-                    let section = Priority(rawValue: c.section(at: $0))
+                    guard let s = c.section(at: $0), let section = Priority(rawValue: s) else {
+                        XCTFail("No section")
+                        return
+                    }
                     XCTAssertNotNil(section, "Transforming a section into a Priority should not render a nil result")
-                    XCTAssertEqual(section!, $1, "Section \(section!) with rawValue \(section!.rawValue) should be equal to \($1)")
+                    XCTAssertEqual(section, $1, "Section \(section) with rawValue \(section.rawValue) should be equal to \($1)")
                 }
 
                 if reloadCount == 1 {

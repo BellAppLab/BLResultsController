@@ -286,13 +286,21 @@ class BLResultsControllerUpdates_Tests: XCTestCase
                     expectLastRowsToBeRemoved.fulfill()
                 }
                 (0..<c.numberOfSections()).forEach {
-                    if c.numberOfItems(in: c.section(at: $0)) == 23 {
+                    guard let section = c.section(at: $0) else {
+                        XCTFail("No section")
+                        return
+                    }
+                    if c.numberOfItems(in: section) == 23 {
                         expectFinalSectionsToHave23Items.fulfill()
                     }
                 }
             case .reload(let c):
                 (0..<c.numberOfSections()).forEach {
-                    if c.numberOfItems(in: c.section(at: $0)) == 24 {
+                    guard let section = c.section(at: $0) else {
+                        XCTFail("No section")
+                        return
+                    }
+                    if c.numberOfItems(in: section) == 24 {
                         expectInitialSectionsToHave24Items.fulfill()
                     }
                 }
@@ -419,13 +427,21 @@ class BLResultsControllerUpdates_Tests: XCTestCase
                     dontExpectDeletionsToBeCalled.fulfill()
                 }
                 (0..<c.numberOfSections()).forEach {
-                    if c.numberOfItems(in: c.section(at: $0)) == 24 {
+                    guard let section = c.section(at: $0) else {
+                        XCTFail("No section")
+                        return
+                    }
+                    if c.numberOfItems(in: section) == 24 {
                         expectFinalSectionsToHave24Items.fulfill()
                     }
                 }
             case .reload(let c):
                 (0..<c.numberOfSections()).forEach {
-                    if c.numberOfItems(in: c.section(at: $0)) == 23 {
+                    guard let section = c.section(at: $0) else {
+                        XCTFail("No section")
+                        return
+                    }
+                    if c.numberOfItems(in: section) == 23 {
                         expectInitialSectionsToHave23Items.fulfill()
                     }
                 }

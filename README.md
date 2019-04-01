@@ -1,4 +1,4 @@
-# BLResultsController [![Version](https://img.shields.io/badge/Version-1.0.2-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
+# BLResultsController [![Version](https://img.shields.io/badge/Version-1.1.0-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
 
 [![Platforms](https://img.shields.io/badge/Platforms-iOS|tvOS|macOS-brightgreen.svg?style=flat)](#installation)
 [![Swift support](https://img.shields.io/badge/Swift-4.0%20%7C%204.1%20%7C%204.2-red.svg?style=flat)](#swift-versions-support)
@@ -145,7 +145,7 @@ Boom 💥
 ### Cocoapods
 
 ```ruby
-pod 'BLResultsController', '~> 1.0'
+pod 'BLResultsController', '~> 1.1'
 ```
 
 Then `import BLResultsController` where needed.
@@ -153,7 +153,7 @@ Then `import BLResultsController` where needed.
 ### Carthage
 
 ```swift
-github "BellAppLab/BLResultsController" ~> 1.0
+github "BellAppLab/BLResultsController" ~> 1.1
 ```
 
 Then `import BLResultsController` where needed.

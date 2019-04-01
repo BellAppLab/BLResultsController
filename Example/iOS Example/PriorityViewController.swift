@@ -137,6 +137,7 @@ extension PriorityViewController {
     override func tableView(_ tableView: UITableView,
                             titleForHeaderInSection section: Int) -> String?
     {
-        return "\(Priority(rawValue: controller.section(at: section))?.title ?? "") priority"
+        guard let section = controller.section(at: section) else { return nil }
+        return "\(Priority(rawValue: section)?.title ?? "") priority"
     }
 }
