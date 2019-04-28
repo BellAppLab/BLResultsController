@@ -9,7 +9,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
 
     func applicationDidFinishLaunching(_ aNotification: Notification)
     {
-        makeDummyRealm()
+//        makeDummyRealm()
     }
 
     func applicationWillTerminate(_ aNotification: Notification)
