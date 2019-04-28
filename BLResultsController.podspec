@@ -42,11 +42,11 @@ Changes to the underlying dataset are calculated on a background queue, therefor
   s.osx.deployment_target = "10.11"
   s.tvos.deployment_target = "10.0"
 
-  s.module_name         = 'BLResultsController/*.swift', 'Aux/Differ/**/*.swift'
+  s.module_name         = 'BLResultsController'
 
   s.source              = { :git => "https://github.com/BellAppLab/BLResultsController.git", :tag => "#{s.version}" }
 
-  s.source_files        = "BLResultsController"
+  s.source_files        = 'BLResultsController/*.swift', 'Aux/Differ/**/*.swift'
 
   s.framework           = "Foundation"
   s.ios.framework       = 'UIKit'
