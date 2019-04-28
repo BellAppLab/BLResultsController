@@ -33,6 +33,10 @@ import AppKit
 import BackgroundRealm
 #endif
 
+#if canImport(Differ)
+import Differ
+#endif
+
 
 //MARK: - RESULTS CONTROLLER
 /**
