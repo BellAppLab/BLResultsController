@@ -27,12 +27,10 @@
 		652CEF5022762588003696FB /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4122762584003696FB /* NestedExtendedDiff.swift */; };
 		652CEF5122762588003696FB /* ExtendedPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4222762584003696FB /* ExtendedPatch.swift */; };
 		652CEF5222762588003696FB /* ExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4322762584003696FB /* ExtendedDiff.swift */; };
-		652CEF5322762588003696FB /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4422762584003696FB /* Diff+UIKit.swift */; };
 		652CEF5422762588003696FB /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4522762584003696FB /* Diff.swift */; };
 		652CEF5522762588003696FB /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4622762584003696FB /* NestedDiff.swift */; };
 		652CEF5622762588003696FB /* GenericPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4722762584003696FB /* GenericPatch.swift */; };
 		652CEF5722762588003696FB /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4822762584003696FB /* Patch.swift */; };
-		652CEF5822762588003696FB /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4922762584003696FB /* Diff+AppKit.swift */; };
 		652CEF5922762588003696FB /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4A22762584003696FB /* NestedBatchUpdate.swift */; };
 		652CEF5A22762588003696FB /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4B22762584003696FB /* BatchUpdate.swift */; };
 		652CEF5B22762588003696FB /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4C22762584003696FB /* Patch+Apply.swift */; };
@@ -42,12 +40,10 @@
 		652CEF5F22762589003696FB /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4122762584003696FB /* NestedExtendedDiff.swift */; };
 		652CEF6022762589003696FB /* ExtendedPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4222762584003696FB /* ExtendedPatch.swift */; };
 		652CEF6122762589003696FB /* ExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4322762584003696FB /* ExtendedDiff.swift */; };
-		652CEF6222762589003696FB /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4422762584003696FB /* Diff+UIKit.swift */; };
 		652CEF6322762589003696FB /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4522762584003696FB /* Diff.swift */; };
 		652CEF6422762589003696FB /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4622762584003696FB /* NestedDiff.swift */; };
 		652CEF6522762589003696FB /* GenericPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4722762584003696FB /* GenericPatch.swift */; };
 		652CEF6622762589003696FB /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4822762584003696FB /* Patch.swift */; };
-		652CEF6722762589003696FB /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4922762584003696FB /* Diff+AppKit.swift */; };
 		652CEF6822762589003696FB /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4A22762584003696FB /* NestedBatchUpdate.swift */; };
 		652CEF6922762589003696FB /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4B22762584003696FB /* BatchUpdate.swift */; };
 		652CEF6A22762589003696FB /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4C22762584003696FB /* Patch+Apply.swift */; };
@@ -57,12 +53,10 @@
 		652CEF6E2276258A003696FB /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4122762584003696FB /* NestedExtendedDiff.swift */; };
 		652CEF6F2276258A003696FB /* ExtendedPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4222762584003696FB /* ExtendedPatch.swift */; };
 		652CEF702276258A003696FB /* ExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4322762584003696FB /* ExtendedDiff.swift */; };
-		652CEF712276258A003696FB /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4422762584003696FB /* Diff+UIKit.swift */; };
 		652CEF722276258A003696FB /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4522762584003696FB /* Diff.swift */; };
 		652CEF732276258A003696FB /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4622762584003696FB /* NestedDiff.swift */; };
 		652CEF742276258A003696FB /* GenericPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4722762584003696FB /* GenericPatch.swift */; };
 		652CEF752276258A003696FB /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4822762584003696FB /* Patch.swift */; };
-		652CEF762276258A003696FB /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4922762584003696FB /* Diff+AppKit.swift */; };
 		652CEF772276258A003696FB /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4A22762584003696FB /* NestedBatchUpdate.swift */; };
 		652CEF782276258A003696FB /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4B22762584003696FB /* BatchUpdate.swift */; };
 		652CEF792276258A003696FB /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEF4C22762584003696FB /* Patch+Apply.swift */; };
@@ -262,12 +256,10 @@
 		652CEF4122762584003696FB /* NestedExtendedDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedExtendedDiff.swift; sourceTree = "<group>"; };
 		652CEF4222762584003696FB /* ExtendedPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedPatch.swift; sourceTree = "<group>"; };
 		652CEF4322762584003696FB /* ExtendedDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedDiff.swift; sourceTree = "<group>"; };
-		652CEF4422762584003696FB /* Diff+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diff+UIKit.swift"; sourceTree = "<group>"; };
 		652CEF4522762584003696FB /* Diff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diff.swift; sourceTree = "<group>"; };
 		652CEF4622762584003696FB /* NestedDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedDiff.swift; sourceTree = "<group>"; };
 		652CEF4722762584003696FB /* GenericPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPatch.swift; sourceTree = "<group>"; };
 		652CEF4822762584003696FB /* Patch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patch.swift; sourceTree = "<group>"; };
-		652CEF4922762584003696FB /* Diff+AppKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diff+AppKit.swift"; sourceTree = "<group>"; };
 		652CEF4A22762584003696FB /* NestedBatchUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedBatchUpdate.swift; sourceTree = "<group>"; };
 		652CEF4B22762584003696FB /* BatchUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchUpdate.swift; sourceTree = "<group>"; };
 		652CEF4C22762584003696FB /* Patch+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patch+Apply.swift"; sourceTree = "<group>"; };
@@ -575,12 +567,10 @@
 				652CEF4122762584003696FB /* NestedExtendedDiff.swift */,
 				652CEF4222762584003696FB /* ExtendedPatch.swift */,
 				652CEF4322762584003696FB /* ExtendedDiff.swift */,
-				652CEF4422762584003696FB /* Diff+UIKit.swift */,
 				652CEF4522762584003696FB /* Diff.swift */,
 				652CEF4622762584003696FB /* NestedDiff.swift */,
 				652CEF4722762584003696FB /* GenericPatch.swift */,
 				652CEF4822762584003696FB /* Patch.swift */,
-				652CEF4922762584003696FB /* Diff+AppKit.swift */,
 				652CEF4A22762584003696FB /* NestedBatchUpdate.swift */,
 				652CEF4B22762584003696FB /* BatchUpdate.swift */,
 				652CEF4C22762584003696FB /* Patch+Apply.swift */,
@@ -1454,7 +1444,6 @@
 				652CEF5022762588003696FB /* NestedExtendedDiff.swift in Sources */,
 				652CEDD4227619EB003696FB /* BackgroundRealm.swift in Sources */,
 				652CEDD3227619EB003696FB /* BackgroundRealm+Errors.swift in Sources */,
-				652CEF5322762588003696FB /* Diff+UIKit.swift in Sources */,
 				652CEF5222762588003696FB /* ExtendedDiff.swift in Sources */,
 				652CEF5E22762588003696FB /* LinkedList.swift in Sources */,
 				652CEF5522762588003696FB /* NestedDiff.swift in Sources */,
@@ -1473,7 +1462,6 @@
 				652CEF5B22762588003696FB /* Patch+Apply.swift in Sources */,
 				6575D15E212D2E87001524A2 /* BLResultsController.swift in Sources */,
 				652CEF5D22762588003696FB /* ExtendedPatch+Apply.swift in Sources */,
-				652CEF5822762588003696FB /* Diff+AppKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1513,7 +1501,6 @@
 				652CEF5F22762589003696FB /* NestedExtendedDiff.swift in Sources */,
 				652CEDD7227619EC003696FB /* BackgroundRealm.swift in Sources */,
 				652CEDD6227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */,
-				652CEF6222762589003696FB /* Diff+UIKit.swift in Sources */,
 				652CEF6122762589003696FB /* ExtendedDiff.swift in Sources */,
 				652CEF6D22762589003696FB /* LinkedList.swift in Sources */,
 				652CEF6422762589003696FB /* NestedDiff.swift in Sources */,
@@ -1532,7 +1519,6 @@
 				652CEF6A22762589003696FB /* Patch+Apply.swift in Sources */,
 				6575D160212D2E87001524A2 /* BLResultsController.swift in Sources */,
 				652CEF6C22762589003696FB /* ExtendedPatch+Apply.swift in Sources */,
-				652CEF6722762589003696FB /* Diff+AppKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1572,7 +1558,6 @@
 				652CEF6E2276258A003696FB /* NestedExtendedDiff.swift in Sources */,
 				652CEDDA227619EC003696FB /* BackgroundRealm.swift in Sources */,
 				652CEDD9227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */,
-				652CEF712276258A003696FB /* Diff+UIKit.swift in Sources */,
 				652CEF702276258A003696FB /* ExtendedDiff.swift in Sources */,
 				652CEF7C2276258A003696FB /* LinkedList.swift in Sources */,
 				652CEF732276258A003696FB /* NestedDiff.swift in Sources */,
@@ -1591,7 +1576,6 @@
 				652CEF792276258A003696FB /* Patch+Apply.swift in Sources */,
 				6575D161212D2E87001524A2 /* BLResultsController.swift in Sources */,
 				652CEF7B2276258A003696FB /* ExtendedPatch+Apply.swift in Sources */,
-				652CEF762276258A003696FB /* Diff+AppKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
