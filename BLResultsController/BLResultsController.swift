@@ -818,7 +818,7 @@ private extension NestedBatchUpdate
 {
     private static let includeMoves = false
 
-    func sectionDeletions(includingMoves: Bool = includeMoves) -> IndexSet {
+    func sectionDeletions(includingMoves: Bool = NestedBatchUpdate.includeMoves) -> IndexSet {
         guard includingMoves else { return sectionDeletions }
         var result = sectionDeletions
         sectionMoves.forEach {
@@ -827,7 +827,7 @@ private extension NestedBatchUpdate
         return result
     }
 
-    func sectionInsertions(includingMoves: Bool = includeMoves) -> IndexSet {
+    func sectionInsertions(includingMoves: Bool = NestedBatchUpdate.includeMoves) -> IndexSet {
         guard includingMoves else { return sectionInsertions }
         var result = sectionInsertions
         sectionMoves.forEach {
@@ -836,7 +836,7 @@ private extension NestedBatchUpdate
         return result
     }
 
-    func itemDeletions(includingMoves: Bool = includeMoves) -> [IndexPath] {
+    func itemDeletions(includingMoves: Bool = NestedBatchUpdate.includeMoves) -> [IndexPath] {
         guard includingMoves else { return itemDeletions }
         var result = itemDeletions
         itemMoves.forEach {
@@ -845,7 +845,7 @@ private extension NestedBatchUpdate
         return result
     }
 
-    func itemInsertions(includingMoves: Bool = includeMoves) -> [IndexPath] {
+    func itemInsertions(includingMoves: Bool = NestedBatchUpdate.includeMoves) -> [IndexPath] {
         guard includingMoves else { return itemInsertions }
         var result = itemInsertions
         itemMoves.forEach {
