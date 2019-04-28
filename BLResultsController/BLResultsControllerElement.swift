@@ -23,8 +23,26 @@
 import Foundation
 import class RealmSwift.Object
 
+/**
+ The `ResultsControllerElement` protocol defines the way by which the `ResultsController` will uniquely identify each object within its results.
 
+ ## Example
+
+ ```swift
+ public final class Foo: Object, ResultsControllerElement
+ {
+    //If your class doesn't have a unique identifier yet, do this
+    public dynamic var resultsControllerId: String = UUID().uuidString
+
+     //If it does, you can do this
+     public var resultsControllerId: String {
+         return <#id#>
+     }
+ }
+ ```
+ */
 public protocol ResultsControllerElement: Object {
+    /// The unique identifier for this Object.
     var resultsControllerId: String { get }
 }
 
