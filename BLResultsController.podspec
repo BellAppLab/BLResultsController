@@ -42,7 +42,7 @@ Changes to the underlying dataset are calculated on a background queue, therefor
   s.osx.deployment_target = "10.11"
   s.tvos.deployment_target = "10.0"
 
-  s.module_name         = 'BLResultsController'
+  s.module_name         = 'BLResultsController/*.swift', 'Aux/Differ/**/*.swift'
 
   s.source              = { :git => "https://github.com/BellAppLab/BLResultsController.git", :tag => "#{s.version}" }
 
@@ -55,6 +55,5 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 
   s.dependency          'RealmSwift', '~> 3.0'
   s.dependency          'BackgroundRealm', '~> 1.0'
-  s.dependency          'Differ', '~> 1.4'
 
 end

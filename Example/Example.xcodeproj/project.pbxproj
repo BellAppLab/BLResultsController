@@ -15,6 +15,60 @@
 		652AC76A212E911F00123850 /* dummy.realm in Resources */ = {isa = PBXBuildFile; fileRef = 652AC763212E911F00123850 /* dummy.realm */; };
 		652AC76F212E911F00123850 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AC764212E911F00123850 /* Dummy.swift */; };
 		652AC776212E920F00123850 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AC771212E920F00123850 /* Todo.swift */; };
+		652CEDD2227619EB003696FB /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */; };
+		652CEDD3227619EB003696FB /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */; };
+		652CEDD4227619EB003696FB /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCE227619C4003696FB /* BackgroundRealm.swift */; };
+		652CEDD5227619EC003696FB /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */; };
+		652CEDD6227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */; };
+		652CEDD7227619EC003696FB /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCE227619C4003696FB /* BackgroundRealm.swift */; };
+		652CEDD8227619EC003696FB /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */; };
+		652CEDD9227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */; };
+		652CEDDA227619EC003696FB /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCE227619C4003696FB /* BackgroundRealm.swift */; };
+		652CEDDB227619F2003696FB /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9A227619C5003696FB /* NestedExtendedDiff.swift */; };
+		652CEDDC227619F2003696FB /* ExtendedPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9B227619C5003696FB /* ExtendedPatch.swift */; };
+		652CEDDD227619F2003696FB /* ExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9C227619C5003696FB /* ExtendedDiff.swift */; };
+		652CEDDE227619F2003696FB /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9D227619C5003696FB /* Diff+UIKit.swift */; };
+		652CEDDF227619F2003696FB /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9E227619C5003696FB /* Diff.swift */; };
+		652CEDE0227619F2003696FB /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9F227619C5003696FB /* NestedDiff.swift */; };
+		652CEDE1227619F2003696FB /* GenericPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA0227619C5003696FB /* GenericPatch.swift */; };
+		652CEDE2227619F2003696FB /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA1227619C5003696FB /* Patch.swift */; };
+		652CEDE3227619F2003696FB /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA2227619C5003696FB /* Diff+AppKit.swift */; };
+		652CEDE4227619F2003696FB /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA3227619C5003696FB /* NestedBatchUpdate.swift */; };
+		652CEDE5227619F2003696FB /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA4227619C5003696FB /* BatchUpdate.swift */; };
+		652CEDE6227619F2003696FB /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA5227619C5003696FB /* Patch+Apply.swift */; };
+		652CEDE7227619F2003696FB /* Patch+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA6227619C5003696FB /* Patch+Sort.swift */; };
+		652CEDE8227619F2003696FB /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA7227619C5003696FB /* ExtendedPatch+Apply.swift */; };
+		652CEDE9227619F2003696FB /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA8227619C5003696FB /* LinkedList.swift */; };
+		652CEDEA227619F3003696FB /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9A227619C5003696FB /* NestedExtendedDiff.swift */; };
+		652CEDEB227619F3003696FB /* ExtendedPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9B227619C5003696FB /* ExtendedPatch.swift */; };
+		652CEDEC227619F3003696FB /* ExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9C227619C5003696FB /* ExtendedDiff.swift */; };
+		652CEDED227619F3003696FB /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9D227619C5003696FB /* Diff+UIKit.swift */; };
+		652CEDEE227619F3003696FB /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9E227619C5003696FB /* Diff.swift */; };
+		652CEDEF227619F3003696FB /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9F227619C5003696FB /* NestedDiff.swift */; };
+		652CEDF0227619F3003696FB /* GenericPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA0227619C5003696FB /* GenericPatch.swift */; };
+		652CEDF1227619F3003696FB /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA1227619C5003696FB /* Patch.swift */; };
+		652CEDF2227619F3003696FB /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA2227619C5003696FB /* Diff+AppKit.swift */; };
+		652CEDF3227619F3003696FB /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA3227619C5003696FB /* NestedBatchUpdate.swift */; };
+		652CEDF4227619F3003696FB /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA4227619C5003696FB /* BatchUpdate.swift */; };
+		652CEDF5227619F3003696FB /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA5227619C5003696FB /* Patch+Apply.swift */; };
+		652CEDF6227619F3003696FB /* Patch+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA6227619C5003696FB /* Patch+Sort.swift */; };
+		652CEDF7227619F3003696FB /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA7227619C5003696FB /* ExtendedPatch+Apply.swift */; };
+		652CEDF8227619F3003696FB /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA8227619C5003696FB /* LinkedList.swift */; };
+		652CEDF9227619F3003696FB /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9A227619C5003696FB /* NestedExtendedDiff.swift */; };
+		652CEDFA227619F3003696FB /* ExtendedPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9B227619C5003696FB /* ExtendedPatch.swift */; };
+		652CEDFB227619F3003696FB /* ExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9C227619C5003696FB /* ExtendedDiff.swift */; };
+		652CEDFC227619F3003696FB /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9D227619C5003696FB /* Diff+UIKit.swift */; };
+		652CEDFD227619F3003696FB /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9E227619C5003696FB /* Diff.swift */; };
+		652CEDFE227619F3003696FB /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CED9F227619C5003696FB /* NestedDiff.swift */; };
+		652CEDFF227619F3003696FB /* GenericPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA0227619C5003696FB /* GenericPatch.swift */; };
+		652CEE00227619F3003696FB /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA1227619C5003696FB /* Patch.swift */; };
+		652CEE01227619F3003696FB /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA2227619C5003696FB /* Diff+AppKit.swift */; };
+		652CEE02227619F3003696FB /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA3227619C5003696FB /* NestedBatchUpdate.swift */; };
+		652CEE03227619F3003696FB /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA4227619C5003696FB /* BatchUpdate.swift */; };
+		652CEE04227619F3003696FB /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA5227619C5003696FB /* Patch+Apply.swift */; };
+		652CEE05227619F3003696FB /* Patch+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA6227619C5003696FB /* Patch+Sort.swift */; };
+		652CEE06227619F3003696FB /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA7227619C5003696FB /* ExtendedPatch+Apply.swift */; };
+		652CEE07227619F3003696FB /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CEDA8227619C5003696FB /* LinkedList.swift */; };
 		6532140C2181C098006F7A13 /* Aux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6532140B2181C098006F7A13 /* Aux.swift */; };
 		6532140D2181C098006F7A13 /* Aux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6532140B2181C098006F7A13 /* Aux.swift */; };
 		6532140E2181C098006F7A13 /* Aux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6532140B2181C098006F7A13 /* Aux.swift */; };
@@ -80,15 +134,6 @@
 		6575D184212D80FF001524A2 /* Timer+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D171212D4452001524A2 /* Timer+BLResultsController.swift */; };
 		6575D185212D8100001524A2 /* Timer+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D171212D4452001524A2 /* Timer+BLResultsController.swift */; };
 		6575D186212D8101001524A2 /* Timer+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D171212D4452001524A2 /* Timer+BLResultsController.swift */; };
-		6581B951217EECE70055F5C4 /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B94B217EECDF0055F5C4 /* Realm+BackgroundRealm.swift */; };
-		6581B952217EECE70055F5C4 /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B94C217EECDF0055F5C4 /* BackgroundRealm+Errors.swift */; };
-		6581B953217EECE70055F5C4 /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B94D217EECDF0055F5C4 /* BackgroundRealm.swift */; };
-		6581B954217EECE80055F5C4 /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B94B217EECDF0055F5C4 /* Realm+BackgroundRealm.swift */; };
-		6581B955217EECE80055F5C4 /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B94C217EECDF0055F5C4 /* BackgroundRealm+Errors.swift */; };
-		6581B956217EECE80055F5C4 /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B94D217EECDF0055F5C4 /* BackgroundRealm.swift */; };
-		6581B957217EECE80055F5C4 /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B94B217EECDF0055F5C4 /* Realm+BackgroundRealm.swift */; };
-		6581B958217EECE80055F5C4 /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B94C217EECDF0055F5C4 /* BackgroundRealm+Errors.swift */; };
-		6581B959217EECE80055F5C4 /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B94D217EECDF0055F5C4 /* BackgroundRealm.swift */; };
 		6581B95B217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B95A217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift */; };
 		6581B95C217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B95A217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift */; };
 		6581B95D217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B95A217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift */; };
@@ -112,51 +157,6 @@
 		65CB1AC322737203000E4996 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65CB1A8822736EC1000E4996 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65CB1AC422737203000E4996 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CB1A8922736EC1000E4996 /* Realm.framework */; };
 		65CB1AC522737203000E4996 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65CB1A8922736EC1000E4996 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		65CB1B0F22738EDD000E4996 /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF522738EC8000E4996 /* NestedExtendedDiff.swift */; };
-		65CB1B1022738EDD000E4996 /* ExtendedPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF622738EC8000E4996 /* ExtendedPatch.swift */; };
-		65CB1B1122738EDD000E4996 /* ExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF722738EC8000E4996 /* ExtendedDiff.swift */; };
-		65CB1B1222738EDD000E4996 /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF822738EC8000E4996 /* Diff+UIKit.swift */; };
-		65CB1B1322738EDD000E4996 /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF922738EC8000E4996 /* Diff.swift */; };
-		65CB1B1422738EDD000E4996 /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFA22738EC8000E4996 /* NestedDiff.swift */; };
-		65CB1B1522738EDD000E4996 /* GenericPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFB22738EC8000E4996 /* GenericPatch.swift */; };
-		65CB1B1622738EDD000E4996 /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFC22738EC8000E4996 /* Patch.swift */; };
-		65CB1B1722738EDD000E4996 /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFD22738EC8000E4996 /* Diff+AppKit.swift */; };
-		65CB1B1822738EDD000E4996 /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFE22738EC8000E4996 /* NestedBatchUpdate.swift */; };
-		65CB1B1922738EDD000E4996 /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFF22738EC8000E4996 /* BatchUpdate.swift */; };
-		65CB1B1A22738EDD000E4996 /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0022738EC8000E4996 /* Patch+Apply.swift */; };
-		65CB1B1B22738EDD000E4996 /* Patch+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0122738EC8000E4996 /* Patch+Sort.swift */; };
-		65CB1B1C22738EDD000E4996 /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0222738EC8000E4996 /* ExtendedPatch+Apply.swift */; };
-		65CB1B1D22738EDD000E4996 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0322738EC8000E4996 /* LinkedList.swift */; };
-		65CB1B1E22738EDE000E4996 /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF522738EC8000E4996 /* NestedExtendedDiff.swift */; };
-		65CB1B1F22738EDE000E4996 /* ExtendedPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF622738EC8000E4996 /* ExtendedPatch.swift */; };
-		65CB1B2022738EDE000E4996 /* ExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF722738EC8000E4996 /* ExtendedDiff.swift */; };
-		65CB1B2122738EDE000E4996 /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF822738EC8000E4996 /* Diff+UIKit.swift */; };
-		65CB1B2222738EDE000E4996 /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF922738EC8000E4996 /* Diff.swift */; };
-		65CB1B2322738EDE000E4996 /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFA22738EC8000E4996 /* NestedDiff.swift */; };
-		65CB1B2422738EDE000E4996 /* GenericPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFB22738EC8000E4996 /* GenericPatch.swift */; };
-		65CB1B2522738EDE000E4996 /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFC22738EC8000E4996 /* Patch.swift */; };
-		65CB1B2622738EDE000E4996 /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFD22738EC8000E4996 /* Diff+AppKit.swift */; };
-		65CB1B2722738EDE000E4996 /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFE22738EC8000E4996 /* NestedBatchUpdate.swift */; };
-		65CB1B2822738EDE000E4996 /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFF22738EC8000E4996 /* BatchUpdate.swift */; };
-		65CB1B2922738EDE000E4996 /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0022738EC8000E4996 /* Patch+Apply.swift */; };
-		65CB1B2A22738EDE000E4996 /* Patch+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0122738EC8000E4996 /* Patch+Sort.swift */; };
-		65CB1B2B22738EDE000E4996 /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0222738EC8000E4996 /* ExtendedPatch+Apply.swift */; };
-		65CB1B2C22738EDE000E4996 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0322738EC8000E4996 /* LinkedList.swift */; };
-		65CB1B2D22738EDF000E4996 /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF522738EC8000E4996 /* NestedExtendedDiff.swift */; };
-		65CB1B2E22738EDF000E4996 /* ExtendedPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF622738EC8000E4996 /* ExtendedPatch.swift */; };
-		65CB1B2F22738EDF000E4996 /* ExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF722738EC8000E4996 /* ExtendedDiff.swift */; };
-		65CB1B3022738EDF000E4996 /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF822738EC8000E4996 /* Diff+UIKit.swift */; };
-		65CB1B3122738EDF000E4996 /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AF922738EC8000E4996 /* Diff.swift */; };
-		65CB1B3222738EDF000E4996 /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFA22738EC8000E4996 /* NestedDiff.swift */; };
-		65CB1B3322738EDF000E4996 /* GenericPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFB22738EC8000E4996 /* GenericPatch.swift */; };
-		65CB1B3422738EDF000E4996 /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFC22738EC8000E4996 /* Patch.swift */; };
-		65CB1B3522738EDF000E4996 /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFD22738EC8000E4996 /* Diff+AppKit.swift */; };
-		65CB1B3622738EDF000E4996 /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFE22738EC8000E4996 /* NestedBatchUpdate.swift */; };
-		65CB1B3722738EDF000E4996 /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1AFF22738EC8000E4996 /* BatchUpdate.swift */; };
-		65CB1B3822738EDF000E4996 /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0022738EC8000E4996 /* Patch+Apply.swift */; };
-		65CB1B3922738EDF000E4996 /* Patch+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0122738EC8000E4996 /* Patch+Sort.swift */; };
-		65CB1B3A22738EDF000E4996 /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0222738EC8000E4996 /* ExtendedPatch+Apply.swift */; };
-		65CB1B3B22738EDF000E4996 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB1B0322738EC8000E4996 /* LinkedList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,6 +251,28 @@
 		652AC763212E911F00123850 /* dummy.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = dummy.realm; sourceTree = "<group>"; };
 		652AC764212E911F00123850 /* Dummy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		652AC771212E920F00123850 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		652CECCA227619C4003696FB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+BackgroundRealm.swift"; sourceTree = "<group>"; };
+		652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BackgroundRealm+Errors.swift"; sourceTree = "<group>"; };
+		652CECCE227619C4003696FB /* BackgroundRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRealm.swift; sourceTree = "<group>"; };
+		652CED02227619C4003696FB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		652CED6C227619C5003696FB /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		652CED7A227619C5003696FB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		652CED9A227619C5003696FB /* NestedExtendedDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedExtendedDiff.swift; sourceTree = "<group>"; };
+		652CED9B227619C5003696FB /* ExtendedPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedPatch.swift; sourceTree = "<group>"; };
+		652CED9C227619C5003696FB /* ExtendedDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedDiff.swift; sourceTree = "<group>"; };
+		652CED9D227619C5003696FB /* Diff+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diff+UIKit.swift"; sourceTree = "<group>"; };
+		652CED9E227619C5003696FB /* Diff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diff.swift; sourceTree = "<group>"; };
+		652CED9F227619C5003696FB /* NestedDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedDiff.swift; sourceTree = "<group>"; };
+		652CEDA0227619C5003696FB /* GenericPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPatch.swift; sourceTree = "<group>"; };
+		652CEDA1227619C5003696FB /* Patch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patch.swift; sourceTree = "<group>"; };
+		652CEDA2227619C5003696FB /* Diff+AppKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diff+AppKit.swift"; sourceTree = "<group>"; };
+		652CEDA3227619C5003696FB /* NestedBatchUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedBatchUpdate.swift; sourceTree = "<group>"; };
+		652CEDA4227619C5003696FB /* BatchUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchUpdate.swift; sourceTree = "<group>"; };
+		652CEDA5227619C5003696FB /* Patch+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patch+Apply.swift"; sourceTree = "<group>"; };
+		652CEDA6227619C5003696FB /* Patch+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patch+Sort.swift"; sourceTree = "<group>"; };
+		652CEDA7227619C5003696FB /* ExtendedPatch+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedPatch+Apply.swift"; sourceTree = "<group>"; };
+		652CEDA8227619C5003696FB /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
 		6532140B2181C098006F7A13 /* Aux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aux.swift; sourceTree = "<group>"; };
 		653936CF21851143004FF652 /* NameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
 		653936D021851143004FF652 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -312,13 +334,6 @@
 		6581B8F0217EE9250055F5C4 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		6581B8F1217EE9250055F5C4 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		6581B935217EEA550055F5C4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CONTRIBUTING.md; path = ../CONTRIBUTING.md; sourceTree = "<group>"; };
-		6581B949217EECDF0055F5C4 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		6581B94B217EECDF0055F5C4 /* Realm+BackgroundRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+BackgroundRealm.swift"; sourceTree = "<group>"; };
-		6581B94C217EECDF0055F5C4 /* BackgroundRealm+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BackgroundRealm+Errors.swift"; sourceTree = "<group>"; };
-		6581B94D217EECDF0055F5C4 /* BackgroundRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRealm.swift; sourceTree = "<group>"; };
-		6581B94E217EECDF0055F5C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		6581B94F217EECDF0055F5C4 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		6581B950217EECDF0055F5C4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		6581B95A217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLResultsControllerSections_Tests.swift; sourceTree = "<group>"; };
 		6581B95E217EFB5A0055F5C4 /* BLResultsControllerItems_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLResultsControllerItems_Tests.swift; sourceTree = "<group>"; };
 		658BBA4D217CE44E00963023 /* BLResultsController+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BLResultsController+Errors.swift"; sourceTree = "<group>"; };
@@ -372,23 +387,6 @@
 		65CB1AAF22736EC1000E4996 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		65CB1AB022736EC1000E4996 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		65CB1AB122736EC1000E4996 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		65CB1AC722738EC8000E4996 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		65CB1AD522738EC8000E4996 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		65CB1AF522738EC8000E4996 /* NestedExtendedDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedExtendedDiff.swift; sourceTree = "<group>"; };
-		65CB1AF622738EC8000E4996 /* ExtendedPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedPatch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		65CB1AF722738EC8000E4996 /* ExtendedDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedDiff.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		65CB1AF822738EC8000E4996 /* Diff+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diff+UIKit.swift"; sourceTree = "<group>"; };
-		65CB1AF922738EC8000E4996 /* Diff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diff.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		65CB1AFA22738EC8000E4996 /* NestedDiff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedDiff.swift; sourceTree = "<group>"; };
-		65CB1AFB22738EC8000E4996 /* GenericPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPatch.swift; sourceTree = "<group>"; };
-		65CB1AFC22738EC8000E4996 /* Patch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		65CB1AFD22738EC8000E4996 /* Diff+AppKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diff+AppKit.swift"; sourceTree = "<group>"; };
-		65CB1AFE22738EC8000E4996 /* NestedBatchUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedBatchUpdate.swift; sourceTree = "<group>"; };
-		65CB1AFF22738EC8000E4996 /* BatchUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchUpdate.swift; sourceTree = "<group>"; };
-		65CB1B0022738EC8000E4996 /* Patch+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patch+Apply.swift"; sourceTree = "<group>"; };
-		65CB1B0122738EC8000E4996 /* Patch+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Patch+Sort.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		65CB1B0222738EC8000E4996 /* ExtendedPatch+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedPatch+Apply.swift"; sourceTree = "<group>"; };
-		65CB1B0322738EC8000E4996 /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -475,8 +473,7 @@
 				6575D156212D2C4B001524A2 /* BLResultsController.podspec */,
 				6575D154212D2C4B001524A2 /* LICENSE */,
 				6581B8DD217EE9240055F5C4 /* Realm */,
-				65CB1AC622738EC8000E4996 /* Differ */,
-				6581B948217EECDF0055F5C4 /* BackgroundRealm */,
+				652CECC8227619C4003696FB /* Aux */,
 				652AC762212E911F00123850 /* Dummy */,
 				6575D15C212D2E87001524A2 /* BLResultsController */,
 				6575D0B1212D2AC6001524A2 /* iOS Example */,
@@ -520,6 +517,76 @@
 				6567CE1E2180660000148FA4 /* Aux_Tests.swift */,
 			);
 			path = Dummy;
+			sourceTree = "<group>";
+		};
+		652CECC8227619C4003696FB /* Aux */ = {
+			isa = PBXGroup;
+			children = (
+				652CECC9227619C4003696FB /* BackgroundRealm */,
+				652CED6B227619C5003696FB /* Differ */,
+			);
+			name = Aux;
+			path = ../Aux;
+			sourceTree = "<group>";
+		};
+		652CECC9227619C4003696FB /* BackgroundRealm */ = {
+			isa = PBXGroup;
+			children = (
+				652CECCA227619C4003696FB /* LICENSE */,
+				652CECCB227619C4003696FB /* BackgroundRealm */,
+				652CED02227619C4003696FB /* README.md */,
+			);
+			path = BackgroundRealm;
+			sourceTree = "<group>";
+		};
+		652CECCB227619C4003696FB /* BackgroundRealm */ = {
+			isa = PBXGroup;
+			children = (
+				652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */,
+				652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */,
+				652CECCE227619C4003696FB /* BackgroundRealm.swift */,
+			);
+			path = BackgroundRealm;
+			sourceTree = "<group>";
+		};
+		652CED6B227619C5003696FB /* Differ */ = {
+			isa = PBXGroup;
+			children = (
+				652CED6C227619C5003696FB /* LICENSE.md */,
+				652CED7A227619C5003696FB /* README.md */,
+				652CED98227619C5003696FB /* Sources */,
+			);
+			path = Differ;
+			sourceTree = "<group>";
+		};
+		652CED98227619C5003696FB /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				652CED99227619C5003696FB /* Differ */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		652CED99227619C5003696FB /* Differ */ = {
+			isa = PBXGroup;
+			children = (
+				652CED9A227619C5003696FB /* NestedExtendedDiff.swift */,
+				652CED9B227619C5003696FB /* ExtendedPatch.swift */,
+				652CED9C227619C5003696FB /* ExtendedDiff.swift */,
+				652CED9D227619C5003696FB /* Diff+UIKit.swift */,
+				652CED9E227619C5003696FB /* Diff.swift */,
+				652CED9F227619C5003696FB /* NestedDiff.swift */,
+				652CEDA0227619C5003696FB /* GenericPatch.swift */,
+				652CEDA1227619C5003696FB /* Patch.swift */,
+				652CEDA2227619C5003696FB /* Diff+AppKit.swift */,
+				652CEDA3227619C5003696FB /* NestedBatchUpdate.swift */,
+				652CEDA4227619C5003696FB /* BatchUpdate.swift */,
+				652CEDA5227619C5003696FB /* Patch+Apply.swift */,
+				652CEDA6227619C5003696FB /* Patch+Sort.swift */,
+				652CEDA7227619C5003696FB /* ExtendedPatch+Apply.swift */,
+				652CEDA8227619C5003696FB /* LinkedList.swift */,
+			);
+			path = Differ;
 			sourceTree = "<group>";
 		};
 		6575D0B1212D2AC6001524A2 /* iOS Example */ = {
@@ -729,29 +796,6 @@
 				6581B8F0217EE9250055F5C4 /* Realm.framework */,
 			);
 			path = "swift-4.0";
-			sourceTree = "<group>";
-		};
-		6581B948217EECDF0055F5C4 /* BackgroundRealm */ = {
-			isa = PBXGroup;
-			children = (
-				6581B949217EECDF0055F5C4 /* LICENSE */,
-				6581B94A217EECDF0055F5C4 /* BackgroundRealm */,
-				6581B94E217EECDF0055F5C4 /* README.md */,
-				6581B94F217EECDF0055F5C4 /* .gitignore */,
-				6581B950217EECDF0055F5C4 /* CONTRIBUTING.md */,
-			);
-			name = BackgroundRealm;
-			path = ../BackgroundRealm;
-			sourceTree = "<group>";
-		};
-		6581B94A217EECDF0055F5C4 /* BackgroundRealm */ = {
-			isa = PBXGroup;
-			children = (
-				6581B94D217EECDF0055F5C4 /* BackgroundRealm.swift */,
-				6581B94B217EECDF0055F5C4 /* Realm+BackgroundRealm.swift */,
-				6581B94C217EECDF0055F5C4 /* BackgroundRealm+Errors.swift */,
-			);
-			path = BackgroundRealm;
 			sourceTree = "<group>";
 		};
 		65CB1A6322736EC1000E4996 /* realm-swift-3.14.2 */ = {
@@ -1034,47 +1078,6 @@
 				65CB1AB022736EC1000E4996 /* Realm.framework */,
 			);
 			path = "swift-10.2.1";
-			sourceTree = "<group>";
-		};
-		65CB1AC622738EC8000E4996 /* Differ */ = {
-			isa = PBXGroup;
-			children = (
-				65CB1AC722738EC8000E4996 /* LICENSE.md */,
-				65CB1AD522738EC8000E4996 /* README.md */,
-				65CB1AF322738EC8000E4996 /* Sources */,
-			);
-			name = Differ;
-			path = ../Differ;
-			sourceTree = "<group>";
-		};
-		65CB1AF322738EC8000E4996 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				65CB1AF422738EC8000E4996 /* Differ */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		65CB1AF422738EC8000E4996 /* Differ */ = {
-			isa = PBXGroup;
-			children = (
-				65CB1AF522738EC8000E4996 /* NestedExtendedDiff.swift */,
-				65CB1AF622738EC8000E4996 /* ExtendedPatch.swift */,
-				65CB1AF722738EC8000E4996 /* ExtendedDiff.swift */,
-				65CB1AF822738EC8000E4996 /* Diff+UIKit.swift */,
-				65CB1AF922738EC8000E4996 /* Diff.swift */,
-				65CB1AFA22738EC8000E4996 /* NestedDiff.swift */,
-				65CB1AFB22738EC8000E4996 /* GenericPatch.swift */,
-				65CB1AFC22738EC8000E4996 /* Patch.swift */,
-				65CB1AFD22738EC8000E4996 /* Diff+AppKit.swift */,
-				65CB1AFE22738EC8000E4996 /* NestedBatchUpdate.swift */,
-				65CB1AFF22738EC8000E4996 /* BatchUpdate.swift */,
-				65CB1B0022738EC8000E4996 /* Patch+Apply.swift */,
-				65CB1B0122738EC8000E4996 /* Patch+Sort.swift */,
-				65CB1B0222738EC8000E4996 /* ExtendedPatch+Apply.swift */,
-				65CB1B0322738EC8000E4996 /* LinkedList.swift */,
-			);
-			path = Differ;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1444,30 +1447,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65CB1B1322738EDD000E4996 /* Diff.swift in Sources */,
-				65CB1B0F22738EDD000E4996 /* NestedExtendedDiff.swift in Sources */,
-				6581B953217EECE70055F5C4 /* BackgroundRealm.swift in Sources */,
-				6581B952217EECE70055F5C4 /* BackgroundRealm+Errors.swift in Sources */,
-				65CB1B1222738EDD000E4996 /* Diff+UIKit.swift in Sources */,
-				65CB1B1122738EDD000E4996 /* ExtendedDiff.swift in Sources */,
-				65CB1B1D22738EDD000E4996 /* LinkedList.swift in Sources */,
-				65CB1B1422738EDD000E4996 /* NestedDiff.swift in Sources */,
+				652CEDDF227619F2003696FB /* Diff.swift in Sources */,
+				652CEDDB227619F2003696FB /* NestedExtendedDiff.swift in Sources */,
+				652CEDD4227619EB003696FB /* BackgroundRealm.swift in Sources */,
+				652CEDD3227619EB003696FB /* BackgroundRealm+Errors.swift in Sources */,
+				652CEDDE227619F2003696FB /* Diff+UIKit.swift in Sources */,
+				652CEDDD227619F2003696FB /* ExtendedDiff.swift in Sources */,
+				652CEDE9227619F2003696FB /* LinkedList.swift in Sources */,
+				652CEDE0227619F2003696FB /* NestedDiff.swift in Sources */,
 				6575D168212D39B8001524A2 /* Results+BLResultsController.swift in Sources */,
-				6581B951217EECE70055F5C4 /* Realm+BackgroundRealm.swift in Sources */,
 				65534183227495D6005F4B81 /* BLResultsControllerElement.swift in Sources */,
-				65CB1B1B22738EDD000E4996 /* Patch+Sort.swift in Sources */,
-				65CB1B1522738EDD000E4996 /* GenericPatch.swift in Sources */,
+				652CEDD2227619EB003696FB /* Realm+BackgroundRealm.swift in Sources */,
+				652CEDE7227619F2003696FB /* Patch+Sort.swift in Sources */,
+				652CEDE1227619F2003696FB /* GenericPatch.swift in Sources */,
 				650FC1D6217DC9BE00479FEE /* BLResultsControllerSection.swift in Sources */,
-				65CB1B1822738EDD000E4996 /* NestedBatchUpdate.swift in Sources */,
-				65CB1B1922738EDD000E4996 /* BatchUpdate.swift in Sources */,
+				652CEDE4227619F2003696FB /* NestedBatchUpdate.swift in Sources */,
+				652CEDE5227619F2003696FB /* BatchUpdate.swift in Sources */,
 				6575D172212D4452001524A2 /* Timer+BLResultsController.swift in Sources */,
-				65CB1B1022738EDD000E4996 /* ExtendedPatch.swift in Sources */,
+				652CEDDC227619F2003696FB /* ExtendedPatch.swift in Sources */,
 				658BBA4E217CE44E00963023 /* BLResultsController+Errors.swift in Sources */,
-				65CB1B1622738EDD000E4996 /* Patch.swift in Sources */,
-				65CB1B1A22738EDD000E4996 /* Patch+Apply.swift in Sources */,
+				652CEDE2227619F2003696FB /* Patch.swift in Sources */,
+				652CEDE6227619F2003696FB /* Patch+Apply.swift in Sources */,
 				6575D15E212D2E87001524A2 /* BLResultsController.swift in Sources */,
-				65CB1B1C22738EDD000E4996 /* ExtendedPatch+Apply.swift in Sources */,
-				65CB1B1722738EDD000E4996 /* Diff+AppKit.swift in Sources */,
+				652CEDE8227619F2003696FB /* ExtendedPatch+Apply.swift in Sources */,
+				652CEDE3227619F2003696FB /* Diff+AppKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1503,30 +1506,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65CB1B2222738EDE000E4996 /* Diff.swift in Sources */,
-				65CB1B1E22738EDE000E4996 /* NestedExtendedDiff.swift in Sources */,
-				6581B956217EECE80055F5C4 /* BackgroundRealm.swift in Sources */,
-				6581B955217EECE80055F5C4 /* BackgroundRealm+Errors.swift in Sources */,
-				65CB1B2122738EDE000E4996 /* Diff+UIKit.swift in Sources */,
-				65CB1B2022738EDE000E4996 /* ExtendedDiff.swift in Sources */,
-				65CB1B2C22738EDE000E4996 /* LinkedList.swift in Sources */,
-				65CB1B2322738EDE000E4996 /* NestedDiff.swift in Sources */,
+				652CEDEE227619F3003696FB /* Diff.swift in Sources */,
+				652CEDEA227619F3003696FB /* NestedExtendedDiff.swift in Sources */,
+				652CEDD7227619EC003696FB /* BackgroundRealm.swift in Sources */,
+				652CEDD6227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */,
+				652CEDED227619F3003696FB /* Diff+UIKit.swift in Sources */,
+				652CEDEC227619F3003696FB /* ExtendedDiff.swift in Sources */,
+				652CEDF8227619F3003696FB /* LinkedList.swift in Sources */,
+				652CEDEF227619F3003696FB /* NestedDiff.swift in Sources */,
 				6575D16A212D39B8001524A2 /* Results+BLResultsController.swift in Sources */,
-				6581B954217EECE80055F5C4 /* Realm+BackgroundRealm.swift in Sources */,
 				65534184227495D6005F4B81 /* BLResultsControllerElement.swift in Sources */,
-				65CB1B2A22738EDE000E4996 /* Patch+Sort.swift in Sources */,
-				65CB1B2422738EDE000E4996 /* GenericPatch.swift in Sources */,
+				652CEDD5227619EC003696FB /* Realm+BackgroundRealm.swift in Sources */,
+				652CEDF6227619F3003696FB /* Patch+Sort.swift in Sources */,
+				652CEDF0227619F3003696FB /* GenericPatch.swift in Sources */,
 				650FC1D7217DC9BE00479FEE /* BLResultsControllerSection.swift in Sources */,
-				65CB1B2722738EDE000E4996 /* NestedBatchUpdate.swift in Sources */,
-				65CB1B2822738EDE000E4996 /* BatchUpdate.swift in Sources */,
+				652CEDF3227619F3003696FB /* NestedBatchUpdate.swift in Sources */,
+				652CEDF4227619F3003696FB /* BatchUpdate.swift in Sources */,
 				6575D174212D4452001524A2 /* Timer+BLResultsController.swift in Sources */,
-				65CB1B1F22738EDE000E4996 /* ExtendedPatch.swift in Sources */,
+				652CEDEB227619F3003696FB /* ExtendedPatch.swift in Sources */,
 				658BBA50217CE44E00963023 /* BLResultsController+Errors.swift in Sources */,
-				65CB1B2522738EDE000E4996 /* Patch.swift in Sources */,
-				65CB1B2922738EDE000E4996 /* Patch+Apply.swift in Sources */,
+				652CEDF1227619F3003696FB /* Patch.swift in Sources */,
+				652CEDF5227619F3003696FB /* Patch+Apply.swift in Sources */,
 				6575D160212D2E87001524A2 /* BLResultsController.swift in Sources */,
-				65CB1B2B22738EDE000E4996 /* ExtendedPatch+Apply.swift in Sources */,
-				65CB1B2622738EDE000E4996 /* Diff+AppKit.swift in Sources */,
+				652CEDF7227619F3003696FB /* ExtendedPatch+Apply.swift in Sources */,
+				652CEDF2227619F3003696FB /* Diff+AppKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1562,30 +1565,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65CB1B3122738EDF000E4996 /* Diff.swift in Sources */,
-				65CB1B2D22738EDF000E4996 /* NestedExtendedDiff.swift in Sources */,
-				6581B959217EECE80055F5C4 /* BackgroundRealm.swift in Sources */,
-				6581B958217EECE80055F5C4 /* BackgroundRealm+Errors.swift in Sources */,
-				65CB1B3022738EDF000E4996 /* Diff+UIKit.swift in Sources */,
-				65CB1B2F22738EDF000E4996 /* ExtendedDiff.swift in Sources */,
-				65CB1B3B22738EDF000E4996 /* LinkedList.swift in Sources */,
-				65CB1B3222738EDF000E4996 /* NestedDiff.swift in Sources */,
+				652CEDFD227619F3003696FB /* Diff.swift in Sources */,
+				652CEDF9227619F3003696FB /* NestedExtendedDiff.swift in Sources */,
+				652CEDDA227619EC003696FB /* BackgroundRealm.swift in Sources */,
+				652CEDD9227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */,
+				652CEDFC227619F3003696FB /* Diff+UIKit.swift in Sources */,
+				652CEDFB227619F3003696FB /* ExtendedDiff.swift in Sources */,
+				652CEE07227619F3003696FB /* LinkedList.swift in Sources */,
+				652CEDFE227619F3003696FB /* NestedDiff.swift in Sources */,
 				6575D16B212D39B8001524A2 /* Results+BLResultsController.swift in Sources */,
-				6581B957217EECE80055F5C4 /* Realm+BackgroundRealm.swift in Sources */,
 				65534185227495D6005F4B81 /* BLResultsControllerElement.swift in Sources */,
-				65CB1B3922738EDF000E4996 /* Patch+Sort.swift in Sources */,
-				65CB1B3322738EDF000E4996 /* GenericPatch.swift in Sources */,
+				652CEDD8227619EC003696FB /* Realm+BackgroundRealm.swift in Sources */,
+				652CEE05227619F3003696FB /* Patch+Sort.swift in Sources */,
+				652CEDFF227619F3003696FB /* GenericPatch.swift in Sources */,
 				650FC1D8217DC9BE00479FEE /* BLResultsControllerSection.swift in Sources */,
-				65CB1B3622738EDF000E4996 /* NestedBatchUpdate.swift in Sources */,
-				65CB1B3722738EDF000E4996 /* BatchUpdate.swift in Sources */,
+				652CEE02227619F3003696FB /* NestedBatchUpdate.swift in Sources */,
+				652CEE03227619F3003696FB /* BatchUpdate.swift in Sources */,
 				6575D175212D4452001524A2 /* Timer+BLResultsController.swift in Sources */,
-				65CB1B2E22738EDF000E4996 /* ExtendedPatch.swift in Sources */,
+				652CEDFA227619F3003696FB /* ExtendedPatch.swift in Sources */,
 				658BBA51217CE44E00963023 /* BLResultsController+Errors.swift in Sources */,
-				65CB1B3422738EDF000E4996 /* Patch.swift in Sources */,
-				65CB1B3822738EDF000E4996 /* Patch+Apply.swift in Sources */,
+				652CEE00227619F3003696FB /* Patch.swift in Sources */,
+				652CEE04227619F3003696FB /* Patch+Apply.swift in Sources */,
 				6575D161212D2E87001524A2 /* BLResultsController.swift in Sources */,
-				65CB1B3A22738EDF000E4996 /* ExtendedPatch+Apply.swift in Sources */,
-				65CB1B3522738EDF000E4996 /* Diff+AppKit.swift in Sources */,
+				652CEE06227619F3003696FB /* ExtendedPatch+Apply.swift in Sources */,
+				652CEE01227619F3003696FB /* Diff+AppKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
