@@ -35,14 +35,31 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 * RealmSwift 3.0.0+
 * iOS 9+
 * tvOS 10+
-* macOS 10.10+
-* Swift 4.0+
+* macOS 10.11+
+* Swift 4.2+
 
 `BLResultsController` also uses the amazing [BackgroundRealm](https://github.com/BellAppLab/BackgroundRealm). Have a look!
 
 ## Example
 
 ![ResultsController](./Images/results_controller.gif)
+
+Install the `ResultsControllerElement` protocol on your `RealmObject` subclass:
+
+```swift
+public final class Foo: Object, ResultsControllerElement
+{
+    //If your class doesn't have a unique identifier yet, do this
+    public dynamic var resultsControllerId: String = UUID().uuidString
+    
+    //If it does, you can do this
+    public var resultsControllerId: String {
+        return <#id#>
+    }
+}
+```
+
+Then:
 
 ```swift
 import UIKit
