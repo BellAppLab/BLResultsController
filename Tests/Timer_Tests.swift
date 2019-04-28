@@ -1,10 +1,10 @@
 import XCTest
 
 
-class Timer_Tests: XCTestCase
+class Timer_Tests: BLResultsControllerBaseTest
 {
     func testTimerFires() {
-        let expectTimerFiring = expectation(description: "BLTimer should fire")
+        let expectTimerFiring = makeExpectation("BLTimer should fire")
         let _ = BLTimer.scheduleTimer(withTimeInterval: 0.5,
                                       repeats: false)
         { (timer) in
@@ -16,7 +16,7 @@ class Timer_Tests: XCTestCase
     }
 
     func testWeakTimerFires() {
-        let expectTimerFiring = expectation(description: "Weak BLTimer should fire")
+        let expectTimerFiring = makeExpectation("Weak BLTimer should fire")
         weak var _: BLTimer? = BLTimer.scheduleTimer(withTimeInterval: 0.5,
                                                      repeats: false)
         { (timer) in
@@ -28,7 +28,7 @@ class Timer_Tests: XCTestCase
     }
 
     func testInvalidatedTimerDoesNotFire() {
-        let expectTimerFiring = expectation(description: "Invalidated BLTimer should NOT fire")
+        let expectTimerFiring = makeExpectation("Invalidated BLTimer should NOT fire")
         expectTimerFiring.isInverted = true
 
         let timer = BLTimer.scheduleTimer(withTimeInterval: 0.5,

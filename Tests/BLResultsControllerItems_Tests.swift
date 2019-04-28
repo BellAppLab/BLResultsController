@@ -4,9 +4,11 @@ import RealmSwift
 @testable import BLResultsController
 
 
-class BLResultsControllerItems_Tests: XCTestCase
+class BLResultsControllerItems_Tests: BLResultsControllerBaseTest
 {
     func testNumberOfItemsInSection() {
+        let realm = makeRealm()
+
         var allItems = [Priority: Int]()
         realm.objects(Todo.self).forEach {
             var count = allItems[$0.priority] ?? 0
@@ -14,14 +16,14 @@ class BLResultsControllerItems_Tests: XCTestCase
             allItems[$0.priority] = count
         }
 
-        let expectNumberOfSections = expectation(description: "Expect number of sections to be \(allItems.keys.count)")
+        let expectNumberOfSections = makeExpectation("Expect number of sections to be \(allItems.keys.count)")
 
-        let dontExpectErrors = expectation(description: "We don't expect errors to happen when starting the ResultsController")
+        let dontExpectErrors = makeExpectation("We don't expect errors to happen when starting the ResultsController")
         dontExpectErrors.isInverted = true
 
-        let expectNumberOfItems1 = expectation(description: "Expect number of items in section \(Priority.high) to be \(allItems[Priority.high]!)")
-        let expectNumberOfItems2 = expectation(description: "Expect number of items in section \(Priority.default) to be \(allItems[Priority.default]!)")
-        let expectNumberOfItems3 = expectation(description: "Expect number of items in section \(Priority.low) to be \(allItems[Priority.low]!)")
+        let expectNumberOfItems1 = makeExpectation("Expect number of items in section \(Priority.high) to be \(allItems[Priority.high]!)")
+        let expectNumberOfItems2 = makeExpectation("Expect number of items in section \(Priority.default) to be \(allItems[Priority.default]!)")
+        let expectNumberOfItems3 = makeExpectation("Expect number of items in section \(Priority.low) to be \(allItems[Priority.low]!)")
 
         var controller: ResultsController<Int, Todo>?
         do {
@@ -39,6 +41,8 @@ class BLResultsControllerItems_Tests: XCTestCase
             return
         }
 
+        store(controller: controller)
+
         XCTAssertNotNil(controller, "Controller should not be nil at this point")
         XCTAssertTrue(controller?.numberOfSections() == 0, "At this point, numberOfSections should be 0")
 
@@ -48,7 +52,7 @@ class BLResultsControllerItems_Tests: XCTestCase
                 XCTAssertEqual(c.numberOfSections(), allItems.keys.count, "Number of sections should be \(allItems.keys.count)")
                 expectNumberOfSections.fulfill()
 
-                Priority.allCases.forEach {
+                Priority.sortedCases.forEach {
                     let index = c.indexOf(section: $0.rawValue)
                     XCTAssertNotNil(index, "Index of section \($0) should not be nil")
                     let numberOfItems = c.numberOfItems(in: index!)
@@ -78,9 +82,13 @@ class BLResultsControllerItems_Tests: XCTestCase
                    expectNumberOfItems3,
                    dontExpectErrors],
              timeout: 4)
+
+        cleanUp()
     }
 
     func testItemAtIndexPath() {
+        let realm = makeRealm()
+
         let letters = [
             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Z"
         ]
@@ -99,7 +107,7 @@ class BLResultsControllerItems_Tests: XCTestCase
 
         var allItems = [Priority: [IndexPath]]()
         var allExpectations: [Priority: XCTestExpectation] = [:]
-        Priority.allCases.forEach {
+        Priority.sortedCases.forEach {
             let results = realm
                 .objects(Todo.self)
                 .filter("_priority == %@", $0.rawValue)
@@ -116,7 +124,7 @@ class BLResultsControllerItems_Tests: XCTestCase
                     exp = temp
                     exp.expectedFulfillmentCount += 1
                 } else {
-                    exp = expectation(description: "Expect section \($0) at index \(section) to have correct items")
+                    exp = makeExpectation("Expect section \($0) at index \(section) to have correct items")
                 }
                 allExpectations[$1.priority] = exp
             }
@@ -131,9 +139,9 @@ class BLResultsControllerItems_Tests: XCTestCase
 
         print("ALL ITEMS: \(allItems)")
 
-        let expectNumberOfSections = expectation(description: "Expect number of sections to be \(allItems.keys.count)")
+        let expectNumberOfSections = makeExpectation("Expect number of sections to be \(allItems.keys.count)")
 
-        let dontExpectErrors = expectation(description: "We don't expect errors to happen when starting the ResultsController")
+        let dontExpectErrors = makeExpectation("We don't expect errors to happen when starting the ResultsController")
         dontExpectErrors.isInverted = true
 
         var controller: ResultsController<Int, Todo>?
@@ -149,10 +157,12 @@ class BLResultsControllerItems_Tests: XCTestCase
             return
         }
 
+        store(controller: controller)
+
         XCTAssertNotNil(controller, "Controller should not be nil at this point")
         XCTAssertTrue(controller?.numberOfSections() == 0, "At this point, numberOfSections should be 0")
 
-        let expectIndexTitlesToBeNil = expectation(description: "Index titles should be nil, because we did not set the `setFormatSectionIndexTitleCallback`")
+        let expectIndexTitlesToBeNil = makeExpectation("Index titles should be nil, because we did not set the `setFormatSectionIndexTitleCallback`")
 
         controller?.setChangeCallback { (change) in
             switch change {
@@ -195,21 +205,25 @@ class BLResultsControllerItems_Tests: XCTestCase
 
         wait(for: expectationsArray,
              timeout: 8)
+
+        cleanUp()
     }
 }
 
 
-class BLResultsControllerTitles_Tests: XCTestCase
+class BLResultsControllerTitles_Tests: BLResultsControllerBaseTest
 {
     func testSectionTitles() {
-        let expectNumberOfSections = expectation(description: "Expect number of sections to be \(Priority.allCases.count)")
+        let realm = makeRealm()
 
-        let dontExpectErrors = expectation(description: "We don't expect errors to happen when starting the ResultsController")
+        let expectNumberOfSections = makeExpectation("Expect number of sections to be \(Priority.allCases.count)")
+
+        let dontExpectErrors = makeExpectation("We don't expect errors to happen when starting the ResultsController")
         dontExpectErrors.isInverted = true
 
-        let expectNumberOfItems1 = expectation(description: "Expect the section at index 0 to have a title \"\(Priority.high.title)\"")
-        let expectNumberOfItems2 = expectation(description: "Expect the section at index 1 to have a title \"\(Priority.default.title)\"")
-        let expectNumberOfItems3 = expectation(description: "Expect the section at index 2 to have a title \"\(Priority.low.title)\"")
+        let expectNumberOfItems1 = makeExpectation("Expect the section at index 0 to have a title \"\(Priority.high.title)\"")
+        let expectNumberOfItems2 = makeExpectation("Expect the section at index 1 to have a title \"\(Priority.default.title)\"")
+        let expectNumberOfItems3 = makeExpectation("Expect the section at index 2 to have a title \"\(Priority.low.title)\"")
 
         let ascending = false
 
@@ -229,10 +243,12 @@ class BLResultsControllerTitles_Tests: XCTestCase
             return
         }
 
+        store(controller: controller)
+
         XCTAssertNotNil(controller, "Controller should not be nil at this point")
         XCTAssertTrue(controller?.numberOfSections() == 0, "At this point, numberOfSections should be 0")
 
-        let dontExpectNilIndexTitles = expectation(description: "Index titles should not be nil, because we have set the `setFormatSectionIndexTitleCallback`")
+        let dontExpectNilIndexTitles = makeExpectation("Index titles should not be nil, because we have set the `setFormatSectionIndexTitleCallback`")
         dontExpectNilIndexTitles.isInverted = true
 
         controller?.setChangeCallback { (change) in
@@ -246,16 +262,16 @@ class BLResultsControllerTitles_Tests: XCTestCase
                     dontExpectNilIndexTitles.fulfill()
                 }
                 XCTAssertNotNil(indexTitles, "Index titles should not be nil, because we have set the `setFormatSectionIndexTitleCallback`")
-                XCTAssertEqual(indexTitles?.count, Priority.allCases.count, "Index titles should have \(Priority.allCases.count) items, but found \(indexTitles?.count ?? 0)")
+                XCTAssertEqual(indexTitles?.count ?? -1, Priority.allCases.count, "Index titles should have \(Priority.allCases.count) items, but found \(indexTitles?.count ?? -1)")
 
                 Priority
                     .allCases
-                    .sorted(by: { ascending ? $0.rawValue < $1.rawValue : $0.rawValue > $1.rawValue })
+                    .sorted(by: { ascending ? $0 < $1 : $0 > $1 })
                     .enumerated()
                     .forEach {
                         let title = indexTitles?[$0]
                         XCTAssertNotNil(title, "Index title at index \($0) should not be nil")
-                        XCTAssertEqual(title!, $1.title, "Index title at index \($0) should be equal to \($1.title)")
+                        XCTAssertEqual(title, $1.title, "Index title at index \($0) should be equal to \($1.title)")
 
                         switch $1 {
                         case .high:
@@ -274,7 +290,7 @@ class BLResultsControllerTitles_Tests: XCTestCase
         }
 
         controller?.setFormatSectionIndexTitleCallback { (section, _) -> String in
-            return Priority(rawValue: section)?.title ?? ""
+            return Priority(rawValue: section)!.title
         }
 
         controller?.start()
@@ -286,19 +302,23 @@ class BLResultsControllerTitles_Tests: XCTestCase
                    dontExpectErrors,
                    dontExpectNilIndexTitles],
              timeout: 4)
+
+        cleanUp()
     }
 
     func testSortingIndexTitles() {
+        let realm = makeRealm()
+
         let ascending = false
         let allCases = Priority.allCases.sorted(by: { ascending ? $0.title < $1.title : $0.title > $1.title })
-        let expectNumberOfSections = expectation(description: "Expect number of sections to be \(allCases.count)")
+        let expectNumberOfSections = makeExpectation("Expect number of sections to be \(allCases.count)")
 
-        let dontExpectErrors = expectation(description: "We don't expect errors to happen when starting the ResultsController")
+        let dontExpectErrors = makeExpectation("We don't expect errors to happen when starting the ResultsController")
         dontExpectErrors.isInverted = true
 
-        let expectNumberOfItems1 = expectation(description: "Expect the section at index 0 to have a title \"\(Priority.high.title)\"")
-        let expectNumberOfItems2 = expectation(description: "Expect the section at index 1 to have a title \"\(Priority.default.title)\"")
-        let expectNumberOfItems3 = expectation(description: "Expect the section at index 2 to have a title \"\(Priority.low.title)\"")
+        let expectNumberOfItems1 = makeExpectation("Expect the section at index 0 to have a title \"\(Priority.high.title)\"")
+        let expectNumberOfItems2 = makeExpectation("Expect the section at index 1 to have a title \"\(Priority.default.title)\"")
+        let expectNumberOfItems3 = makeExpectation("Expect the section at index 2 to have a title \"\(Priority.low.title)\"")
 
         var controller: ResultsController<Int, Todo>?
         do {
@@ -316,10 +336,12 @@ class BLResultsControllerTitles_Tests: XCTestCase
             return
         }
 
+        store(controller: controller)
+
         XCTAssertNotNil(controller, "Controller should not be nil at this point")
         XCTAssertTrue(controller?.numberOfSections() == 0, "At this point, numberOfSections should be 0")
 
-        let dontExpectNilIndexTitles = expectation(description: "Index titles should not be nil, because we have set the `setFormatSectionIndexTitleCallback`")
+        let dontExpectNilIndexTitles = makeExpectation("Index titles should not be nil, because we have set the `setFormatSectionIndexTitleCallback`")
         dontExpectNilIndexTitles.isInverted = true
 
         controller?.setChangeCallback { (change) in
@@ -333,14 +355,14 @@ class BLResultsControllerTitles_Tests: XCTestCase
                     dontExpectNilIndexTitles.fulfill()
                 }
                 XCTAssertNotNil(indexTitles, "Index titles should not be nil, because we have set the `setFormatSectionIndexTitleCallback`")
-                XCTAssertEqual(indexTitles?.count, allCases.count, "Index titles should have \(allCases.count) items, but found \(indexTitles?.count ?? 0)")
+                XCTAssertEqual(indexTitles?.count ?? -1, allCases.count, "Index titles should have \(allCases.count) items, but found \(indexTitles?.count ?? -1)")
 
                 allCases
                     .enumerated()
                     .forEach {
                         let title = indexTitles?[$0]
                         XCTAssertNotNil(title, "Index title at index \($0) should not be nil")
-                        XCTAssertEqual(title!, $1.title, "Index title at index \($0) should be equal to \($1.title)")
+                        XCTAssertEqual(title, $1.title, "Index title at index \($0) should be equal to \($1.title)")
 
                         switch $1 {
                         case .high:
@@ -375,5 +397,7 @@ class BLResultsControllerTitles_Tests: XCTestCase
                    dontExpectErrors,
                    dontExpectNilIndexTitles],
              timeout: 4)
+
+        cleanUp()
     }
 }

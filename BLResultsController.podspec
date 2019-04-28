@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name                = "BLResultsController"
-  s.version             = "1.1.0"
+  s.version             = "1.2.0"
   s.summary             = "BLResultsController is not a drop-in replacement for the `NSFetchedResultsController` to be used with Realm."
   s.screenshot          = "https://github.com/BellAppLab/BLResultsController/raw/master/Images/BLResultsController.png"
 
@@ -55,5 +55,6 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 
   s.dependency          'RealmSwift', '~> 3.0'
   s.dependency          'BackgroundRealm', '~> 1.0'
+  s.dependency          'Differ', '~> 1.4'
 
 end

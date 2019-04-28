@@ -4,69 +4,28 @@ import RealmSwift
 @testable import BLResultsController
 
 
-class BLResultsControllerUpdates_Tests: XCTestCase
+class BLResultsControllerUpdates_Tests: BLResultsControllerBaseTest
 {
-    private static let testNames: [Int: String] = [
-        0: "testRemovingAWholeSection",
-        1: "testAddingAWholeSection",
-        2: "testRemovingItemsButNotSections",
-        3: "testAddingItemsButNotSections"
-    ]
-
-    private static func copyDummyRealmTo(url: URL) {
-        do {
-            if FileManager.default.fileExists(atPath: url.path) {
-                try FileManager.default.removeItem(at: url)
-            }
-            try FileManager.default.copyItem(at: dummyURL,
-                                             to: url)
-        } catch {
-            XCTFail("\(error)")
-            abort()
-        }
-    }
-
-    private static func deleteDummyRealmAt(url: URL) {
-        do {
-            if FileManager.default.fileExists(atPath: url.path) {
-                try FileManager.default.removeItem(at: url)
-            }
-        } catch {
-            XCTFail("\(error)")
-            abort()
-        }
-    }
-
-    override class func tearDown() {
-        super.tearDown()
-
-        testNames.forEach {
-            deleteDummyRealmAt(url: dummyURLCopy(with: $0.value))
-        }
-    }
-
     func testRemovingAWholeSection() {
-        let testNumber = 0
-        BLResultsControllerUpdates_Tests.copyDummyRealmTo(url: dummyURLCopy(with: BLResultsControllerUpdates_Tests.testNames[testNumber]!))
-        let tempRealm = realmCopy(with: BLResultsControllerUpdates_Tests.testNames[testNumber]!)
+        let realm = makeRealm()
 
-        let dontExpectErrors = expectation(description: "We don't expect errors to happen when starting the ResultsController")
+        let dontExpectErrors = makeExpectation("We don't expect errors to happen when starting the ResultsController")
         dontExpectErrors.isInverted = true
 
-        let expectSectionToBeRemoved = expectation(description: "Expect a section to be removed from the ResultsController")
-        let expectSectionTwoToBeRemoved = expectation(description: "Expect section with index 2 to be removed from the ResultsController")
+        let expectSectionToBeRemoved = makeExpectation("Expect a section to be removed from the ResultsController")
+        let expectSectionTwoToBeRemoved = makeExpectation("Expect section with index 2 to be removed from the ResultsController")
 
-        let dontExpectRowChangeToBeCalled = expectation(description: "We don't expect the row change callback to be called")
+        let dontExpectRowChangeToBeCalled = makeExpectation("We don't expect the row change callback to be called")
         dontExpectRowChangeToBeCalled.isInverted = true
 
-        let dontExpectReloadToBeCalled = expectation(description: "We don't expect the reload callback to be called")
+        let dontExpectReloadToBeCalled = makeExpectation("We don't expect the reload callback to be called")
         dontExpectReloadToBeCalled.isInverted = true
         dontExpectReloadToBeCalled.expectedFulfillmentCount = 2
 
         var controller: ResultsController<Int, Todo>?
         do {
             controller = try ResultsController(
-                realm: tempRealm,
+                realm: realm,
                 sectionNameKeyPath: "_priority",
                 sortDescriptors: [
                     SortDescriptor(keyPath: "_priority",
@@ -78,6 +37,8 @@ class BLResultsControllerUpdates_Tests: XCTestCase
             dontExpectErrors.fulfill()
             return
         }
+
+        store(controller: controller)
 
         controller?.setChangeCallback { (change) in
             switch change {
@@ -102,12 +63,12 @@ class BLResultsControllerUpdates_Tests: XCTestCase
         ) { (timer) in
             timer.invalidate()
             do {
-                try tempRealm.write {
-                    let lowTodos = tempRealm
+                try realm.write {
+                    let lowTodos = realm
                         .objects(Todo.self)
                         .filter("_priority == %@", Priority.low.rawValue)
                     print("LOW TODOS: \(lowTodos)")
-                    tempRealm.delete(lowTodos)
+                    realm.delete(lowTodos)
                 }
             } catch {
                 XCTFail("\(error)")
@@ -121,33 +82,33 @@ class BLResultsControllerUpdates_Tests: XCTestCase
                    dontExpectRowChangeToBeCalled,
                    dontExpectReloadToBeCalled],
              timeout: 8)
+
+        cleanUp()
     }
 
     func testAddingAWholeSection() {
-        let testNumber = 1
-        BLResultsControllerUpdates_Tests.copyDummyRealmTo(url: dummyURLCopy(with: BLResultsControllerUpdates_Tests.testNames[testNumber]!))
-        let tempRealm = realmCopy(with: BLResultsControllerUpdates_Tests.testNames[testNumber]!)
+        let realm = makeRealm()
 
-        let dontExpectErrors = expectation(description: "We don't expect errors to happen when starting the ResultsController")
+        let dontExpectErrors = makeExpectation("We don't expect errors to happen when starting the ResultsController")
         dontExpectErrors.isInverted = true
 
-        let expectSectionToBeAdded = expectation(description: "Expect a section to be added to the ResultsController")
-        let expectSectionTwoToBeAdded = expectation(description: "Expect section with index 2 to be added to the ResultsController")
+        let expectSectionToBeAdded = makeExpectation("Expect a section to be added to the ResultsController")
+        let expectSectionTwoToBeAdded = makeExpectation("Expect section with index 2 to be added to the ResultsController")
 
-        let dontExpectRowChangeToBeCalled = expectation(description: "We don't expect the row change callback to be called")
+        let dontExpectRowChangeToBeCalled = makeExpectation("We don't expect the row change callback to be called")
         dontExpectRowChangeToBeCalled.isInverted = true
 
-        let dontExpectReloadToBeCalled = expectation(description: "We don't expect the reload callback to be called")
+        let dontExpectReloadToBeCalled = makeExpectation("We don't expect the reload callback to be called")
         dontExpectReloadToBeCalled.isInverted = true
         dontExpectReloadToBeCalled.expectedFulfillmentCount = 2
 
         do {
-            try tempRealm.write {
-                let lowTodos = tempRealm
+            try realm.write {
+                let lowTodos = realm
                     .objects(Todo.self)
                     .filter("_priority == %@", Priority.low.rawValue)
                 print("LOW TODOS: \(lowTodos)")
-                tempRealm.delete(lowTodos)
+                realm.delete(lowTodos)
             }
         } catch {
             XCTFail("\(error)")
@@ -157,7 +118,7 @@ class BLResultsControllerUpdates_Tests: XCTestCase
         var controller: ResultsController<Int, Todo>?
         do {
             controller = try ResultsController(
-                realm: tempRealm,
+                realm: realm,
                 sectionNameKeyPath: "_priority",
                 sortDescriptors: [
                     SortDescriptor(keyPath: "_priority",
@@ -169,6 +130,8 @@ class BLResultsControllerUpdates_Tests: XCTestCase
             dontExpectErrors.fulfill()
             return
         }
+
+        store(controller: controller)
 
         controller?.setChangeCallback { (change) in
             switch change {
@@ -193,10 +156,10 @@ class BLResultsControllerUpdates_Tests: XCTestCase
         ) { (timer) in
             timer.invalidate()
             do {
-                try tempRealm.write {
+                try realm.write {
                     let lowTodos = Priority.low.makeAllTodos()
                     print("LOW TODOS: \(lowTodos)")
-                    tempRealm.add(lowTodos)
+                    realm.add(lowTodos)
                 }
             } catch {
                 XCTFail("\(error)")
@@ -210,43 +173,43 @@ class BLResultsControllerUpdates_Tests: XCTestCase
                    dontExpectRowChangeToBeCalled,
                    dontExpectReloadToBeCalled],
              timeout: 8)
+
+        cleanUp()
     }
 
     func testRemovingItemsButNotSections() {
-        let testNumber = 2
-        BLResultsControllerUpdates_Tests.copyDummyRealmTo(url: dummyURLCopy(with: BLResultsControllerUpdates_Tests.testNames[testNumber]!))
-        let tempRealm = realmCopy(with: BLResultsControllerUpdates_Tests.testNames[testNumber]!)
+        let realm = makeRealm()
 
-        let dontExpectErrors = expectation(description: "We don't expect errors to happen when starting the ResultsController")
+        let dontExpectErrors = makeExpectation("We don't expect errors to happen when starting the ResultsController")
         dontExpectErrors.isInverted = true
 
-        let expectRowsToBeRemoved = expectation(description: "Expect rows to be removed from the ResultsController")
-        let expectLastRowsToBeRemoved = expectation(description: "Expect the row change callback to have 5 deletions")
-        expectLastRowsToBeRemoved.expectedFulfillmentCount = 5
+        let expectRowsToBeRemoved = makeExpectation("Expect rows to be removed from the ResultsController")
+        let expectLastRowsToBeRemoved = makeExpectation("Expect the row change callback to have 3 deletions")
+        expectLastRowsToBeRemoved.expectedFulfillmentCount = 3
 
-        let dontExpectSectionChangeToBeCalled = expectation(description: "We don't expect the section change callback to be called")
+        let dontExpectSectionChangeToBeCalled = makeExpectation("We don't expect the section change callback to be called")
         dontExpectSectionChangeToBeCalled.isInverted = true
 
-        let dontExpectReloadToBeCalled = expectation(description: "We don't expect the reload callback to be called")
+        let dontExpectReloadToBeCalled = makeExpectation("We don't expect the reload callback to be called")
         dontExpectReloadToBeCalled.isInverted = true
         dontExpectReloadToBeCalled.expectedFulfillmentCount = 2
 
-        let expectInsertionsToBeCalled = expectation(description: "Expect the row change callback to have 2 insertions")
-        expectInsertionsToBeCalled.expectedFulfillmentCount = 2
+        let dontExpectInsertionsToBeCalled = makeExpectation("We don't expect the row change callback to have insertions")
+        dontExpectInsertionsToBeCalled.isInverted = true
 
-        let dontExpectUpdatesToBeCalled = expectation(description: "We don't expect the row change callback to have updates")
+        let dontExpectUpdatesToBeCalled = makeExpectation("We don't expect the row change callback to have updates")
         dontExpectUpdatesToBeCalled.isInverted = true
 
-        let expectInitialSectionsToHave24Items = expectation(description: "Expect initial sections to have 24 items")
+        let expectInitialSectionsToHave24Items = makeExpectation("Expect initial sections to have 24 items")
         expectInitialSectionsToHave24Items.expectedFulfillmentCount = 3
 
-        let expectFinalSectionsToHave23Items = expectation(description: "Expect final sections to have 23 items")
+        let expectFinalSectionsToHave23Items = makeExpectation("Expect final sections to have 23 items")
         expectFinalSectionsToHave23Items.expectedFulfillmentCount = 3
 
         var controller: ResultsController<Int, Todo>?
         do {
             controller = try ResultsController(
-                realm: tempRealm,
+                realm: realm,
                 sectionNameKeyPath: "_priority",
                 sortDescriptors: [
                     SortDescriptor(keyPath: "_priority",
@@ -259,8 +222,10 @@ class BLResultsControllerUpdates_Tests: XCTestCase
             return
         }
 
+        store(controller: controller)
+
         var expectedIndexItems = Set<IndexPath>()
-        Priority.allCases.forEach {
+        Priority.sortedCases.forEach {
             expectedIndexItems.insert(IndexPath(item: $0.letters.count - 1, section: $0.rawValue))
         }
 
@@ -273,7 +238,7 @@ class BLResultsControllerUpdates_Tests: XCTestCase
                 XCTAssertFalse(deletedItems.isEmpty, "Deleted items should not be empty")
                 print("INSERTIONS: \(insertedItems)")
                 insertedItems.forEach { _ in
-                    expectInsertionsToBeCalled.fulfill()
+                    dontExpectInsertionsToBeCalled.fulfill()
                 }
                 updatedItems.forEach { _ in
                     dontExpectUpdatesToBeCalled.fulfill()
@@ -316,12 +281,12 @@ class BLResultsControllerUpdates_Tests: XCTestCase
         ) { (timer) in
             timer.invalidate()
             do {
-                try tempRealm.write {
-                    let zTodos = tempRealm
+                try realm.write {
+                    let zTodos = realm
                         .objects(Todo.self)
                         .filter("letter == %@", "Z")
                     print("Z TODOS: \(zTodos)")
-                    tempRealm.delete(zTodos)
+                    realm.delete(zTodos)
                 }
             } catch {
                 XCTFail("\(error)")
@@ -334,51 +299,51 @@ class BLResultsControllerUpdates_Tests: XCTestCase
                    expectLastRowsToBeRemoved,
                    dontExpectSectionChangeToBeCalled,
                    dontExpectReloadToBeCalled,
-                   expectInsertionsToBeCalled,
+                   dontExpectInsertionsToBeCalled,
                    dontExpectUpdatesToBeCalled,
                    expectFinalSectionsToHave23Items,
                    expectInitialSectionsToHave24Items],
              timeout: 8)
+
+        cleanUp()
     }
 
     func testAddingItemsButNotSections() {
-        let testNumber = 3
-        BLResultsControllerUpdates_Tests.copyDummyRealmTo(url: dummyURLCopy(with: BLResultsControllerUpdates_Tests.testNames[testNumber]!))
-        let tempRealm = realmCopy(with: BLResultsControllerUpdates_Tests.testNames[testNumber]!)
+        let realm = makeRealm()
 
-        let dontExpectErrors = expectation(description: "We don't expect errors to happen when starting the ResultsController")
+        let dontExpectErrors = makeExpectation("We don't expect errors to happen when starting the ResultsController")
         dontExpectErrors.isInverted = true
 
-        let expectRowsToBeAdded = expectation(description: "Expect rows to be added from the ResultsController")
-        let expectLastRowsToBeAdded = expectation(description: "Expect the row change callback to have 3 insertions")
+        let expectRowsToBeAdded = makeExpectation("Expect rows to be added from the ResultsController")
+        let expectLastRowsToBeAdded = makeExpectation("Expect the row change callback to have 3 insertions")
         expectLastRowsToBeAdded.expectedFulfillmentCount = 3
 
-        let dontExpectSectionChangeToBeCalled = expectation(description: "We don't expect the section change callback to be called")
+        let dontExpectSectionChangeToBeCalled = makeExpectation("We don't expect the section change callback to be called")
         dontExpectSectionChangeToBeCalled.isInverted = true
 
-        let dontExpectReloadToBeCalled = expectation(description: "We don't expect the reload callback to be called")
+        let dontExpectReloadToBeCalled = makeExpectation("We don't expect the reload callback to be called")
         dontExpectReloadToBeCalled.isInverted = true
         dontExpectReloadToBeCalled.expectedFulfillmentCount = 2
 
-        let dontExpectDeletionsToBeCalled = expectation(description: "We don't exepct the row change callback to have deletions")
+        let dontExpectDeletionsToBeCalled = makeExpectation("We don't exepct the row change callback to have deletions")
         dontExpectDeletionsToBeCalled.isInverted = true
 
-        let dontExpectUpdatesToBeCalled = expectation(description: "We don't expect the row change callback to have updates")
+        let dontExpectUpdatesToBeCalled = makeExpectation("We don't expect the row change callback to have updates")
         dontExpectUpdatesToBeCalled.isInverted = true
 
-        let expectInitialSectionsToHave23Items = expectation(description: "Expect initial sections to have 23 items")
+        let expectInitialSectionsToHave23Items = makeExpectation("Expect initial sections to have 23 items")
         expectInitialSectionsToHave23Items.expectedFulfillmentCount = 3
 
-        let expectFinalSectionsToHave24Items = expectation(description: "Expect final sections to have 24 items")
+        let expectFinalSectionsToHave24Items = makeExpectation("Expect final sections to have 24 items")
         expectFinalSectionsToHave24Items.expectedFulfillmentCount = 3
 
         do {
-            try tempRealm.write {
-                let zTodos = tempRealm
+            try realm.write {
+                let zTodos = realm
                     .objects(Todo.self)
                     .filter("letter == %@", "Z")
                 print("Z TODOS: \(zTodos)")
-                tempRealm.delete(zTodos)
+                realm.delete(zTodos)
             }
         } catch {
             XCTFail("\(error)")
@@ -388,7 +353,7 @@ class BLResultsControllerUpdates_Tests: XCTestCase
         var controller: ResultsController<Int, Todo>?
         do {
             controller = try ResultsController(
-                realm: tempRealm,
+                realm: realm,
                 sectionNameKeyPath: "_priority",
                 sortDescriptors: [
                     SortDescriptor(keyPath: "_priority",
@@ -401,8 +366,10 @@ class BLResultsControllerUpdates_Tests: XCTestCase
             return
         }
 
+        store(controller: controller)
+
         var expectedIndexItems = Set<IndexPath>()
-        Priority.allCases.forEach {
+        Priority.sortedCases.forEach {
             expectedIndexItems.insert(IndexPath(item: $0.letters.count - 1, section: $0.rawValue))
         }
 
@@ -457,10 +424,10 @@ class BLResultsControllerUpdates_Tests: XCTestCase
         ) { (timer) in
             timer.invalidate()
             do {
-                try tempRealm.write {
-                    let zTodos = Priority.allCases.map { $0.makeAllTodos().last! }
+                try realm.write {
+                    let zTodos = Priority.sortedCases.map { $0.makeAllTodos().last! }
                     print("Z TODOS: \(zTodos)")
-                    tempRealm.add(zTodos)
+                    realm.add(zTodos)
                 }
             } catch {
                 XCTFail("\(error)")
@@ -478,5 +445,7 @@ class BLResultsControllerUpdates_Tests: XCTestCase
                    expectInitialSectionsToHave23Items,
                    expectFinalSectionsToHave24Items],
              timeout: 8)
+
+        cleanUp()
     }
 }

@@ -3,7 +3,7 @@ import RealmSwift
 
 
 var dummyURL: URL {
-    return Bundle(for: BLResultsControllerSetup_Tests.self)
+    return Bundle(for: BLResultsControllerBaseTest.self)
         .url(forResource: "dummy",
              withExtension: "realm")!
 }

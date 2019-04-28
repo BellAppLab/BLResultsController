@@ -26,7 +26,7 @@ func makeDummyRealm() {
 
     var todos = [Todo]()
 
-    Priority.allCases.forEach { priority in
+    Priority.sortedCases.forEach { priority in
         todos.append(contentsOf: priority.makeAllTodos())
     }
 

@@ -4,11 +4,13 @@ import RealmSwift
 @testable import BLResultsController
 
 
-class BLResultsControllerSetup_Tests: XCTestCase
+class BLResultsControllerSetup_Tests: BLResultsControllerBaseTest
 {
     var tempController: ResultsController<Int, Todo>?
 
     func testInitErrors() {
+        let realm = makeRealm()
+
         XCTAssertThrowsError(
             try ResultsController<Int, Todo>(
                 realm: realm,
@@ -83,14 +85,14 @@ class BLResultsControllerSetup_Tests: XCTestCase
             "No exceptions should be thrown here"
         )
 
-        let dontExpectCallbackToBeCalled = expectation(description: "Change callback should not be called, because we haven't started the BackgroundRealm")
+        let dontExpectCallbackToBeCalled = makeExpectation("Change callback should not be called, because we haven't started the BackgroundRealm")
         dontExpectCallbackToBeCalled.isInverted = true
 
         tempController?.setChangeCallback { (_) in
             dontExpectCallbackToBeCalled.fulfill()
         }
 
-        let expectEverythingToBeAlright = expectation(description: "Everything should be alright")
+        let expectEverythingToBeAlright = makeExpectation("Everything should be alright")
 
         BLTimer.scheduleTimer(withTimeInterval: 2,
                               repeats: false)
@@ -103,16 +105,20 @@ class BLResultsControllerSetup_Tests: XCTestCase
         wait(for: [expectEverythingToBeAlright,
                    dontExpectCallbackToBeCalled],
              timeout: 4)
+
+        cleanUp()
     }
 
     func testChangingParameters() {
+        let realm = makeRealm()
+
         let reloadTotal = 2
         var reloadCount = 1
 
-        let expectTwoReloads = expectation(description: "Expect the ResultsController to reload twice, since we're changing its parameters")
+        let expectTwoReloads = makeExpectation("Expect the ResultsController to reload twice, since we're changing its parameters")
         expectTwoReloads.expectedFulfillmentCount = reloadTotal
 
-        let dontExpectErrors = expectation(description: "We don't expect errors to happen when starting the ResultsController")
+        let dontExpectErrors = makeExpectation("We don't expect errors to happen when starting the ResultsController")
         dontExpectErrors.isInverted = true
 
         let sectionNameKeyPath = "_priority"
@@ -139,6 +145,8 @@ class BLResultsControllerSetup_Tests: XCTestCase
             return
         }
 
+        store(controller: controller)
+
         XCTAssertNotNil(controller, "Controller should not be nil at this point")
 
         controller?.setChangeCallback { (change) in
@@ -150,11 +158,11 @@ class BLResultsControllerSetup_Tests: XCTestCase
                 if reloadCount == 1 {
                     allSections = Priority
                         .allCases
-                        .sorted(by: { $0.rawValue > $1.rawValue })
+                        .sorted(by: { $0 > $1 })
                 } else if reloadCount == 2 {
                     allSections = Priority
                         .allCases
-                        .sorted(by: { $0.rawValue < $1.rawValue })
+                        .sorted(by: { $0 < $1 })
                 } else {
                     XCTFail("This should never happen")
                     return
@@ -193,5 +201,7 @@ class BLResultsControllerSetup_Tests: XCTestCase
 
         wait(for: [expectTwoReloads, dontExpectErrors],
              timeout: 4)
+
+        cleanUp()
     }
 }

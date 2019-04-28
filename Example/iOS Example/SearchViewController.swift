@@ -54,6 +54,44 @@ class SearchViewController: UITableViewController
 }
 
 
+//MARK: - UI Actions
+extension SearchViewController {
+    @IBAction func animateButtonPressed(_ sender: Any?) {
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+
+            var indexPath = IndexPath(row: 0, section: 0)
+            DispatchQueue.main.sync {
+                guard let item = self.controller.item(at: indexPath) else { fatalError() }
+                try! realm.write {
+                    realm.delete(item)
+                }
+            }
+
+            sleep(5)
+
+            indexPath = IndexPath(row: 4, section: 0)
+            DispatchQueue.main.sync {
+                guard let item = self.controller.item(at: indexPath) else { fatalError() }
+                try! realm.write {
+                    realm.delete(item)
+                }
+            }
+
+            sleep(5)
+
+            indexPath = IndexPath(row: 3, section: 0)
+            DispatchQueue.main.sync {
+                guard let item = self.controller.item(at: indexPath) else { fatalError() }
+                try! realm.write {
+                    item.letter += "§"
+                }
+            }
+        }
+    }
+}
+
+
 //MARK: - Table View Data Source
 extension SearchViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {

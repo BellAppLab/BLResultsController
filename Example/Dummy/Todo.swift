@@ -1,15 +1,17 @@
 import Foundation
 import RealmSwift
+import protocol BLResultsController.ResultsControllerElement
 
 
-#if swift(>=4.2)
-public enum Priority: Int, CaseIterable {
+public enum Priority: Int {
     case low
     case `default`
     case high
 }
+#if swift(>=4.2)
+extension Priority: CaseIterable {}
 #else
-public enum Priority: Int {
+extension Priority: Int {
     static var allCases: [Priority] {
         return [
             .low,
@@ -17,15 +19,20 @@ public enum Priority: Int {
             .high
         ]
     }
-
-    case low
-    case `default`
-    case high
 }
 #endif
+extension Priority: Comparable {
+    public static func < (lhs: Priority, rhs: Priority) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+}
 
 
 public extension Priority {
+    static var sortedCases: [Priority] {
+        return allCases.sorted()
+    }
+
     var opposite: Priority {
         switch self {
         case .default:
@@ -66,10 +73,12 @@ public extension Priority {
 
 
 @objcMembers
-public final class Todo: Object
+public final class Todo: Object, ResultsControllerElement
 {
     dynamic var letter: String = ""
     dynamic var extraInfo: String = UUID().uuidString
+
+    public dynamic var resultsControllerId: String = UUID().uuidString
 
     var text: String {
         return "Fix Thing \(letter)"

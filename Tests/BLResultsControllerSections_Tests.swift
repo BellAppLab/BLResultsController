@@ -4,11 +4,13 @@ import RealmSwift
 @testable import BLResultsController
 
 
-class BLResultsControllerSections_Tests: XCTestCase
+class BLResultsControllerSections_Tests: BLResultsControllerBaseTest
 {
     func testNumberOfSections() {
-        let numberOfSections = Priority.allCases.count
-        let expectNumberOfSections = expectation(description: "Expect number of sections to be \(numberOfSections)")
+        let realm = makeRealm()
+
+        let numberOfSections = Priority.sortedCases.count
+        let expectNumberOfSections = makeExpectation("Expect number of sections to be \(numberOfSections)")
 
         var controller: ResultsController<Int, Todo>?
         do {
@@ -25,6 +27,8 @@ class BLResultsControllerSections_Tests: XCTestCase
             expectNumberOfSections.fulfill()
             return
         }
+
+        store(controller: controller)
 
         XCTAssertNotNil(controller, "Controller should not be nil at this point")
         XCTAssertTrue(controller?.numberOfSections() == 0, "At this point, numberOfSections should be 0")
@@ -44,16 +48,20 @@ class BLResultsControllerSections_Tests: XCTestCase
 
         wait(for: [expectNumberOfSections],
              timeout: 4)
+
+        cleanUp()
     }
 
     func testSectionAtIndex() {
-        let allSections = Priority.allCases.sorted(by: { $0.rawValue > $1.rawValue })
+        let realm = makeRealm()
+
+        let allSections = Priority.allCases.sorted(by: { $0 > $1 })
         print("ALL SECTIONS: \(allSections)")
 
         XCTAssertTrue(allSections.count == 3, "All Sections should have 3 elements")
 
         let allExpectations = allSections.enumerated().map {
-            expectation(description: "Expect section number \($0) to be \($1)")
+            makeExpectation("Expect section number \($0) to be \($1)")
         }
 
         var controller: ResultsController<Int, Todo>?
@@ -71,6 +79,8 @@ class BLResultsControllerSections_Tests: XCTestCase
             allExpectations.forEach { $0.fulfill() }
             return
         }
+
+        store(controller: controller)
 
         XCTAssertNotNil(controller, "Controller should not be nil at this point")
         XCTAssertTrue(controller?.numberOfSections() == 0, "At this point, numberOfSections should be 0")
@@ -97,16 +107,20 @@ class BLResultsControllerSections_Tests: XCTestCase
 
         wait(for: allExpectations,
              timeout: 12)
+
+        cleanUp()
     }
 
     func testIndexOfSection() {
-        let allSections = Priority.allCases.sorted(by: { $0.rawValue > $1.rawValue })
+        let realm = makeRealm()
+
+        let allSections = Priority.allCases.sorted(by: { $0 > $1 })
         print("ALL SECTIONS: \(allSections)")
 
         XCTAssertTrue(allSections.count == 3, "All Sections should have 3 elements")
 
         let allExpectations = allSections.enumerated().map {
-            expectation(description: "Expect section \($1) to have index \($0)")
+            makeExpectation("Expect section \($1) to have index \($0)")
         }
 
         var controller: ResultsController<Int, Todo>?
@@ -124,6 +138,8 @@ class BLResultsControllerSections_Tests: XCTestCase
             allExpectations.forEach { $0.fulfill() }
             return
         }
+
+        store(controller: controller)
 
         XCTAssertNotNil(controller, "Controller should not be nil at this point")
         XCTAssertTrue(controller?.numberOfSections() == 0, "At this point, numberOfSections should be 0")
@@ -147,5 +163,7 @@ class BLResultsControllerSections_Tests: XCTestCase
 
         wait(for: allExpectations,
              timeout: 12)
+
+        cleanUp()
     }
 }

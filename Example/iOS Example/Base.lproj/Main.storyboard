@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1AS-si-qNN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1AS-si-qNN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -96,6 +96,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1AS-si-qNN" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4VZ-fZ-v2C">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -249,7 +250,13 @@
                             <outlet property="delegate" destination="rF8-Kf-knM" id="BbE-5I-yMh"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="To-Do's" id="wGe-Lo-VAr"/>
+                    <navigationItem key="navigationItem" title="To-Do's" id="wGe-Lo-VAr">
+                        <barButtonItem key="rightBarButtonItem" title="Changes" id="TPs-T1-Fhi">
+                            <connections>
+                                <action selector="animateButtonPressed:" destination="rF8-Kf-knM" id="Wr6-tl-dBp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="oTh-kI-nrE" id="jPH-NA-XKw"/>
                     </connections>
