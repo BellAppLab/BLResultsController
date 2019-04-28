@@ -36,7 +36,7 @@ Changes to the underlying dataset are calculated on a background queue, therefor
   s.author              = { "Bell App Lab" => "apps@bellapplab.com" }
   s.social_media_url    = "https://twitter.com/BellAppLab"
 
-  s.swift_versions      = ["4.2", "5.0"]
+  s.swift_versions      = "5.0"
 
   s.ios.deployment_target = "9.0"
   s.osx.deployment_target = "10.11"
