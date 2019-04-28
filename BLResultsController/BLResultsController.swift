@@ -29,14 +29,6 @@ import UIKit
 import AppKit
 #endif
 
-#if canImport(BackgroundRealm)
-import BackgroundRealm
-#endif
-
-#if canImport(Differ)
-import Differ
-#endif
-
 
 //MARK: - RESULTS CONTROLLER
 /**
@@ -52,9 +44,9 @@ import Differ
 
  ## Example
 
- ```
+ ```swift
  class ViewController: UITableViewController {
-     let controller: ResultsController<<#SectionType#>>, <#ElementType#>> = {
+     let controller: ResultsController<<#SectionType#>, <#ElementType#>> = {
          do {
              let realm = <#instantiate your realm#>
              let keyPath = <#the key path to your Element's property to be used as a section#>
