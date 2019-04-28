@@ -194,7 +194,8 @@ Check [this out](./CONTRIBUTING.md).
 
 ### Credits
 
-[Logo image](https://thenounproject.com/search/?q=controller&i=316262#) by [Andres Flores](https://thenounproject.com/aflores158) from [The Noun Project](https://thenounproject.com/)
+- [Logo image](https://thenounproject.com/search/?q=controller&i=316262#) by [Andres Flores](https://thenounproject.com/aflores158) from [The Noun Project](https://thenounproject.com/)
+- Differ by [Tony Arnold](https://github.com/tonyarnold)
 
 ## License
 
