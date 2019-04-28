@@ -29,6 +29,14 @@ import UIKit
 import AppKit
 #endif
 
+#if canImport(BackgroundRealm)
+import BackgroundRealm
+#endif
+
+#if canImport(Differ)
+import Differ
+#endif
+
 
 //MARK: - RESULTS CONTROLLER
 /**
