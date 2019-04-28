@@ -21,7 +21,8 @@
  */
 
 import Foundation
-import RealmSwift
+import class RealmSwift.Results
+import struct RealmSwift.SortDescriptor
 
 
 //MARK: - Results

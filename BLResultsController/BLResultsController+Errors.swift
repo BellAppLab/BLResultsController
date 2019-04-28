@@ -21,7 +21,8 @@
  */
 
 import Foundation
-import RealmSwift
+import class RealmSwift.Object
+import enum RealmSwift.PropertyType
 
 
 /**

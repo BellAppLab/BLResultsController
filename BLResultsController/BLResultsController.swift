@@ -103,7 +103,7 @@ import BackgroundRealm
  - `start()`
  - `setChangeCallback(_:)`
  */
-public final class ResultsController<Section: ResultsControllerSection, Element: Object>
+public final class ResultsController<Section: ResultsControllerSection, Element: ResultsControllerElement>
 {
     //MARK: - Public Interface
     /// The main realm from which the `ResultsController` will fetch its data.
@@ -473,7 +473,7 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
     fileprivate var backgroundRealm: BackgroundRealm!
     fileprivate var realmChangeNotificationToken: NotificationToken!
 
-    fileprivate var sections = OrderedDictionary<Section, Set<Int>>()
+    fileprivate var elements: [InternalElement<Section>] = []
     fileprivate var sectionIndexTitles: [String]?
 
     //MARK: Search
@@ -498,7 +498,7 @@ public extension ResultsController
      - complexity: O(1)
      */
     func numberOfSections() -> Int {
-        return sections.count
+        return elements.count
     }
 
     /**
@@ -516,7 +516,7 @@ public extension ResultsController
      - complexity: O(1)
      */
     func section(at index: Int) -> Section? {
-        return sections.key(at: index)
+        return elements[index].key
     }
 
     /**
@@ -532,7 +532,7 @@ public extension ResultsController
      - complexity: O(n)
      */
     func indexOf(section: Section) -> Int? {
-        return sections.indexOf(key: section)
+        return elements.enumerated().first(where: { $0.element.key == section })?.offset
     }
 
     /**
@@ -549,13 +549,9 @@ public extension ResultsController
 
      - complexity: O(1)
      */
-    func numberOfItems(in section: Int) -> Int {
-        guard sections.isEmpty == false else { return 0 }
-        guard let set = sections[section] else {
-          assertionFailure("Items not found for section at index \(section)")
-          return 0
-        }
-        return set.count
+    func numberOfItems(in sectionIndex: Int) -> Int {
+        guard elements.isEmpty == false else { return 0 }
+        return elements[sectionIndex].items.count
     }
 
     /**
@@ -575,20 +571,17 @@ public extension ResultsController
     func item(at indexPath: IndexPath) -> Element? {
         precondition(Thread.current == Thread.main, "Trying to access a \(String(describing: self)) object from outside of the main thread")
 
-        guard sections.isEmpty == false else {
+        guard elements.isEmpty == false else {
             return nil
         }
 
-        guard objects.isEmpty == false else {
+        let element = elements[indexPath.section]
+
+        guard element.items.isEmpty == false else {
             return nil
         }
 
-        guard let key = sections.key(at: indexPath.section) else {
-            assertionFailure("Section name not found for index \(indexPath)")
-            return nil
-        }
-
-        return objects.filter("%K == %@", sectionNameKeyPath, key)[indexPath.item]
+        return objects.filter("%K == %@", sectionNameKeyPath, element.key)[indexPath.item]
     }
 
     /**
@@ -643,7 +636,7 @@ fileprivate extension ResultsController
         let sortDescriptors = self.sortDescriptors
 
         realmChangeNotificationToken = nil
-        resetSections()
+        reset()
 
         backgroundRealm = BackgroundRealm(configuration: realm.configuration) { [weak self] (realm, error) in
             assert(error == nil, "\(className) error: \(error!)")
@@ -659,9 +652,9 @@ fileprivate extension ResultsController
                 case .error(let error):
                     assertionFailure("\(className) error: \(error)")
                 case .initial(let collection):
-                    self?.processInitialLoad(collection.map { $0 })
+                    self?.processInitialLoad(collection)
                 case .update(let collection, let deletions, let insertions, let modifications):
-                    self?.processUpdate(collection.map { $0 },
+                    self?.processUpdate(collection,
                                         insertions: insertions,
                                         deletions: deletions,
                                         modifications: modifications)
@@ -686,7 +679,7 @@ fileprivate extension ResultsController
 fileprivate extension ResultsController
 {
     func notifyReload() {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.sync { [weak self] in
             guard let strongSelf = self, let callback = strongSelf._changeCallback else { return }
             callback(.reload(controller: strongSelf))
         }
@@ -695,7 +688,7 @@ fileprivate extension ResultsController
     func notifySectionChange(_ insertedSections: [IndexSet],
                              _ deletedSections: [IndexSet])
     {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.sync { [weak self] in
             guard let strongSelf = self, let callback = strongSelf._changeCallback else { return }
             callback(.sectionUpdate(controller: strongSelf,
                                     insertedSections: insertedSections,
@@ -707,7 +700,7 @@ fileprivate extension ResultsController
                          _ deletedItems: [IndexPath],
                          _ updatedItems: [IndexPath])
     {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.sync { [weak self] in
             guard let strongSelf = self, let callback = strongSelf._changeCallback else { return }
             callback(.rowUpdate(controller: strongSelf,
                                 insertedItems: insertedItems,
@@ -721,8 +714,8 @@ fileprivate extension ResultsController
 fileprivate extension ResultsController
 {
     //MARK: Sections
-    private func shouldReload(results: [Element]) -> Bool {
-        switch (sections.isEmpty, results.isEmpty) {
+    private func shouldReload(results: Results<Element>) -> Bool {
+        switch (elements.isEmpty, results.isEmpty) {
         case (true, false),
              (false, true),
              (true, true):
@@ -732,29 +725,39 @@ fileprivate extension ResultsController
         }
     }
 
-    private func resetSections() {
-        sections = OrderedDictionary<Section, Set<Int>>()
+    private func reset() {
+        elements = []
         sectionIndexTitles = nil
     }
 
-    func processInitialLoad(_ results: [Element])
-    {
-        updateSections(results: results)
+    func processInitialLoad(_ results: Results<Element>) {
+        elements = generateElements(results: results)
         notifyReload()
     }
 
-    private func updateSections(results: [Element])
+    private func generateElements(results: Results<Element>) -> [InternalElement<Section>]
     {
-        resetSections()
-        results.enumerated().forEach { (offset, element) in
-            guard let section = element.value(forKeyPath: sectionNameKeyPath) as? Section else { return }
-            self.sections.updateValue(for: section) { (existingSet) -> Set<Int> in
-                var result = existingSet ?? Set()
-                result.insert(offset)
-                return result
+        var newElements = [InternalElement<Section>]()
+        var currentElement: InternalElement<Section>?
+        results.enumerated().forEach { (offset, result) in
+            guard let section = result.value(forKeyPath: sectionNameKeyPath) as? Section else { return }
+            if let element = currentElement {
+                if element.key == section {
+                    currentElement?.insertElement(result)
+                } else {
+                    newElements.append(element)
+                    currentElement = nil
+                }
+            }
+            if currentElement == nil {
+                currentElement = InternalElement(element: result,
+                                                 key: section)
             }
         }
-        var titles = sections.compactMap {
+        if let element = currentElement {
+            newElements.append(element)
+        }
+        var titles = newElements.compactMap {
             return _formatSectionIndexTitleCallback?($0.key, self)
         }
         _sortSectionIndexTitlesCallback?(&titles, self)
@@ -763,98 +766,91 @@ fileprivate extension ResultsController
         } else {
             sectionIndexTitles = nil
         }
+        return newElements
     }
 
     //MARK: Everything else
-    private enum ProcessType {
-        case insertion, deletion, update
-    }
-
-    func processUpdate(_ results: [Element],
+    func processUpdate(_ results: Results<Element>,
                        insertions: [Int],
                        deletions: [Int],
                        modifications: [Int])
     {
-        guard !shouldReload(results: results) else {
+        guard shouldReload(results: results) == false else {
             processInitialLoad(results)
             return
         }
 
-        let oldSections = sections
-        updateSections(results: results)
+        let old = elements
+        let new = generateElements(results: results)
 
-        let insertedSections = sections.subtracting(oldSections)
-        let deletedSections = oldSections.subtracting(sections)
+        let diff = old.nestedExtendedDiff(to: new)
+        let update = NestedBatchUpdate(diff: diff)
 
-        func makeIndexPaths(processType: ProcessType) -> [IndexPath] {
-            var filteredItems: [Int]
-            switch processType {
-            case .insertion:
-                filteredItems = insertions.filter { index in
-                    return !insertedSections.contains(where: { $0.value.contains(index) })
-                }
-            case .deletion:
-                filteredItems = deletions.filter { index in
-                    return !deletedSections.contains(where: { $0.value.contains(index) })
-                }
-            case .update:
-                filteredItems = modifications
-            }
+        elements = new
 
-            var indexPaths = [IndexPath]()
-            let sections: OrderedDictionary<Section, Set<Int>>
-            switch processType {
-            case .insertion, .update:
-                sections = self.sections
-            case .deletion:
-                sections = oldSections
-            }
+        let sectionInsertions = update.sectionInsertions()
+        let sectionDeletions = update.sectionDeletions()
 
-            var sectionCountSoFar = 0
-            func currentCount() -> Int {
-                return sectionCountSoFar
-            }
-            var currentSection: OrderedDictionary<Section, Set<Int>>.Iterator? {
-                didSet {
-                    guard currentSection != nil else { return }
-                    guard currentSection?.index != oldValue?.index else { return }
-                    sectionCountSoFar += oldValue?.value.count ?? 0
-                }
-            }
-
-            sections.loop { iterator in
-                guard filteredItems.isEmpty == false else { return false }
-
-                currentSection = iterator
-
-                filteredItems = filteredItems.filter { (item) -> Bool in
-                    if iterator.value.contains(item) {
-                        indexPaths.append(IndexPath(item: item - currentCount(), section: iterator.index))
-                        return false
-                    }
-                    return true
-                }
-
-                return filteredItems.isEmpty == false
-            }
-
-            return indexPaths
-        }
-        let insertedItems = makeIndexPaths(processType: .insertion)
-        let deletedItems = makeIndexPaths(processType: .deletion)
-        let updatedItems = makeIndexPaths(processType: .update)
-
-        if !insertedSections.isEmpty || !deletedSections.isEmpty {
-            let insertedSectionsIndexSet = insertedSections.map { (index, _, _) in IndexSet(integer: index) }
-            let deletedSectionsIndexSet = deletedSections.map { (index, _, _) in IndexSet(integer: index) }
-            notifySectionChange(insertedSectionsIndexSet,
-                                deletedSectionsIndexSet)
+        if sectionInsertions.isEmpty == false ||
+            sectionDeletions.isEmpty == false
+        {
+            notifySectionChange([sectionInsertions],
+                                [sectionDeletions])
         }
 
-        if !insertedItems.isEmpty || !deletedItems.isEmpty || !updatedItems.isEmpty {
-            notifyRowChange(insertedItems,
-                            deletedItems,
-                            updatedItems)
+        let insertionIndexPaths = update.itemInsertions()
+        let deletedIndexPaths = update.itemDeletions()
+        let modifiedIndexPaths = new.indexPathsOfElements(indices: modifications)
+
+        if insertionIndexPaths.isEmpty == false ||
+            deletedIndexPaths.isEmpty == false ||
+            modifiedIndexPaths.isEmpty == false
+        {
+            notifyRowChange(insertionIndexPaths,
+                            deletedIndexPaths,
+                            modifiedIndexPaths)
         }
+    }
+}
+
+
+private extension NestedBatchUpdate
+{
+    private static let includeMoves = false
+
+    func sectionDeletions(includingMoves: Bool = includeMoves) -> IndexSet {
+        guard includingMoves else { return sectionDeletions }
+        var result = sectionDeletions
+        sectionMoves.forEach {
+            result.insert($0.from)
+        }
+        return result
+    }
+
+    func sectionInsertions(includingMoves: Bool = includeMoves) -> IndexSet {
+        guard includingMoves else { return sectionInsertions }
+        var result = sectionInsertions
+        sectionMoves.forEach {
+            result.insert($0.to)
+        }
+        return result
+    }
+
+    func itemDeletions(includingMoves: Bool = includeMoves) -> [IndexPath] {
+        guard includingMoves else { return itemDeletions }
+        var result = itemDeletions
+        itemMoves.forEach {
+            result.append($0.from)
+        }
+        return result
+    }
+
+    func itemInsertions(includingMoves: Bool = includeMoves) -> [IndexPath] {
+        guard includingMoves else { return itemInsertions }
+        var result = itemInsertions
+        itemMoves.forEach {
+            result.append($0.to)
+        }
+        return result
     }
 }
