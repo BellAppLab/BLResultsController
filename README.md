@@ -1,4 +1,4 @@
-# BLResultsController [![Version](https://img.shields.io/badge/Version-1.2.1-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
+# BLResultsController [![Version](https://img.shields.io/badge/Version-1.2.2-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
 
 [![Platforms](https://img.shields.io/badge/Platforms-iOS|tvOS|macOS-brightgreen.svg?style=flat)](#installation)
 [![Swift support](https://img.shields.io/badge/Swift-4.0%20%7C%204.1%20%7C%204.2-red.svg?style=flat)](#swift-versions-support)
@@ -195,7 +195,7 @@ Check [this out](./CONTRIBUTING.md).
 ### Credits
 
 - [Logo image](https://thenounproject.com/search/?q=controller&i=316262#) by [Andres Flores](https://thenounproject.com/aflores158) from [The Noun Project](https://thenounproject.com/)
-- Differ by [Tony Arnold](https://github.com/tonyarnold)
+- [Differ](https://github.com/tonyarnold/Differ) by [Tony Arnold](https://github.com/tonyarnold)
 
 ## License
 

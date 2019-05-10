@@ -574,8 +574,9 @@ public extension ResultsController
      */
     func item(at indexPath: IndexPath) -> Element? {
         precondition(Thread.current == Thread.main, "Trying to access a \(String(describing: self)) object from outside of the main thread")
+        precondition(indexPath.section > -1, "Index path's (\(indexPath)) section should be greated than zero")
 
-        guard elements.isEmpty == false else {
+        guard indexPath.section < elements.count else {
             return nil
         }
 
@@ -792,19 +793,35 @@ fileprivate extension ResultsController
 
         elements = new
 
-        let sectionInsertions = update.sectionInsertions()
-        let sectionDeletions = update.sectionDeletions()
+        let sectionInsertions: [IndexSet] = {
+            guard new.isEmpty == false else { return [] }
+            let result = update.sectionInsertions()
+            guard result.isEmpty == false else { return [] }
+            return [result]
+        }()
+        let sectionDeletions: [IndexSet] = {
+            guard old.isEmpty == false else { return [] }
+            let result = update.sectionDeletions()
+            guard result.isEmpty == false else { return [] }
+            return [result]
+        }()
 
         if sectionInsertions.isEmpty == false ||
             sectionDeletions.isEmpty == false
         {
-            notifySectionChange([sectionInsertions],
-                                [sectionDeletions])
+            notifySectionChange(sectionInsertions,
+                                sectionDeletions)
         }
 
-        let insertionIndexPaths = update.itemInsertions()
-        let deletedIndexPaths = update.itemDeletions()
-        let modifiedIndexPaths = new.indexPathsOfElements(indices: modifications)
+        let insertionIndexPaths = update.itemInsertions().filter {
+            return new[$0.section].items.isEmpty == false
+        }
+        let deletedIndexPaths = update.itemDeletions().filter {
+            return old[$0.section].items.isEmpty == false
+        }
+        let modifiedIndexPaths = new.indexPathsOfElements(indices: modifications).filter {
+            return new[$0.section].items.isEmpty == false
+        }
 
         if insertionIndexPaths.isEmpty == false ||
             deletedIndexPaths.isEmpty == false ||

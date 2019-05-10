@@ -231,7 +231,9 @@ class BLResultsControllerUpdates_Tests: BLResultsControllerBaseTest
 
         controller?.setChangeCallback { (change) in
             switch change {
-            case .sectionUpdate(_, _, _):
+            case .sectionUpdate(_, let insertedSections, let deletedSections):
+                print("SECTION INSERTIONS: \(insertedSections)")
+                print("SECTION DELETIONS: \(deletedSections)")
                 dontExpectSectionChangeToBeCalled.fulfill()
             case .rowUpdate(let c, let insertedItems, let deletedItems, let updatedItems):
                 expectRowsToBeRemoved.fulfill()
