@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name                = "BLResultsController"
-  s.version             = "1.2.2"
+  s.version             = "1.2.3"
   s.summary             = "BLResultsController is not a drop-in replacement for the `NSFetchedResultsController` to be used with Realm."
   s.screenshot          = "https://github.com/BellAppLab/BLResultsController/raw/master/Images/BLResultsController.png"
 
