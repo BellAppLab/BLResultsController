@@ -582,7 +582,7 @@ public extension ResultsController
 
         let element = elements[indexPath.section]
 
-        guard element.items.isEmpty == false else {
+        guard indexPath.item < element.items.count else {
             return nil
         }
 
