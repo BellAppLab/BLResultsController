@@ -814,13 +814,13 @@ fileprivate extension ResultsController
         }
 
         let insertionIndexPaths = update.itemInsertions().filter {
-            return new[$0.section].items.isEmpty == false
+            return new.isEmpty == false && new[$0.section].items.isEmpty == false
         }
         let deletedIndexPaths = update.itemDeletions().filter {
-            return old[$0.section].items.isEmpty == false
+            return old.isEmpty == false && old[$0.section].items.isEmpty == false
         }
         let modifiedIndexPaths = new.indexPathsOfElements(indices: modifications).filter {
-            return new[$0.section].items.isEmpty == false
+            return new.isEmpty == false && new[$0.section].items.isEmpty == false
         }
 
         if insertionIndexPaths.isEmpty == false ||
