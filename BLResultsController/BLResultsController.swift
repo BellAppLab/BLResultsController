@@ -791,8 +791,6 @@ fileprivate extension ResultsController
         let diff = old.nestedExtendedDiff(to: new)
         let update = NestedBatchUpdate(diff: diff)
 
-        elements = new
-
         let sectionInsertions: [IndexSet] = {
             guard new.isEmpty == false else { return [] }
             let result = update.sectionInsertions()
@@ -806,13 +804,6 @@ fileprivate extension ResultsController
             return [result]
         }()
 
-        if sectionInsertions.isEmpty == false ||
-            sectionDeletions.isEmpty == false
-        {
-            notifySectionChange(sectionInsertions,
-                                sectionDeletions)
-        }
-
         let insertionIndexPaths = update.itemInsertions().filter {
             return new.isEmpty == false && new[$0.section].items.isEmpty == false
         }
@@ -821,6 +812,15 @@ fileprivate extension ResultsController
         }
         let modifiedIndexPaths = new.indexPathsOfElements(indices: modifications).filter {
             return new.isEmpty == false && new[$0.section].items.isEmpty == false
+        }
+
+        elements = new
+
+        if sectionInsertions.isEmpty == false ||
+            sectionDeletions.isEmpty == false
+        {
+            notifySectionChange(sectionInsertions,
+                                sectionDeletions)
         }
 
         if insertionIndexPaths.isEmpty == false ||
