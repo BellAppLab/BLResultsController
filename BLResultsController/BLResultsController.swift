@@ -586,7 +586,13 @@ public extension ResultsController
             return nil
         }
 
-        return objects.filter("%K == %@", sectionNameKeyPath, element.key)[indexPath.item]
+        let results = objects.filter("%K == %@", sectionNameKeyPath, element.key)
+
+        guard indexPath.item < results.count else {
+            return nil
+        }
+
+        return results[indexPath.item]
     }
 
     /**
