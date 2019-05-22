@@ -1635,7 +1635,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
-				VERSION = 1.2.6;
+				VERSION = 1.2.7;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
@@ -1698,7 +1698,7 @@
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VALIDATE_PRODUCT = YES;
-				VERSION = 1.2.6;
+				VERSION = 1.2.7;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;

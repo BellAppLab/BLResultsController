@@ -686,41 +686,6 @@ fileprivate extension ResultsController
 
 
 //MARK: - AUX
-//MARK: Notifying the delegate
-fileprivate extension ResultsController
-{
-    func notifyReload() {
-        DispatchQueue.main.sync { [weak self] in
-            guard let strongSelf = self, let callback = strongSelf._changeCallback else { return }
-            callback(.reload(controller: strongSelf))
-        }
-    }
-
-    func notifySectionChange(_ insertedSections: [IndexSet],
-                             _ deletedSections: [IndexSet])
-    {
-        DispatchQueue.main.sync { [weak self] in
-            guard let strongSelf = self, let callback = strongSelf._changeCallback else { return }
-            callback(.sectionUpdate(controller: strongSelf,
-                                    insertedSections: insertedSections,
-                                    deletedSections: deletedSections))
-        }
-    }
-
-    func notifyRowChange(_ insertedItems: [IndexPath],
-                         _ deletedItems: [IndexPath],
-                         _ updatedItems: [IndexPath])
-    {
-        DispatchQueue.main.sync { [weak self] in
-            guard let strongSelf = self, let callback = strongSelf._changeCallback else { return }
-            callback(.rowUpdate(controller: strongSelf,
-                                insertedItems: insertedItems,
-                                deletedItems: deletedItems,
-                                updatedItems: updatedItems))
-        }
-    }
-}
-
 //MARK: Processing changes to the data model
 fileprivate extension ResultsController
 {
@@ -742,8 +707,13 @@ fileprivate extension ResultsController
     }
 
     func processInitialLoad(_ results: Results<Element>) {
-        elements = generateElements(results: results)
-        notifyReload()
+        let new = generateElements(results: results)
+        DispatchQueue.main.sync { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.elements = new
+            guard let callback = strongSelf._changeCallback else { return }
+            callback(.reload(controller: strongSelf))
+        }
     }
 
     private func generateElements(results: Results<Element>) -> [InternalElement<Section>]
@@ -819,23 +789,30 @@ fileprivate extension ResultsController
         let modifiedIndexPaths = new.indexPathsOfElements(indices: modifications).filter {
             return new.isEmpty == false && new[$0.section].items.isEmpty == false
         }
-
-        elements = new
-
-        if sectionInsertions.isEmpty == false ||
-            sectionDeletions.isEmpty == false
-        {
-            notifySectionChange(sectionInsertions,
-                                sectionDeletions)
-        }
-
-        if insertionIndexPaths.isEmpty == false ||
-            deletedIndexPaths.isEmpty == false ||
-            modifiedIndexPaths.isEmpty == false
-        {
-            notifyRowChange(insertionIndexPaths,
-                            deletedIndexPaths,
-                            modifiedIndexPaths)
+        
+        DispatchQueue.main.sync { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.elements = new
+            
+            guard let callback = strongSelf._changeCallback else { return }
+            
+            if sectionInsertions.isEmpty == false ||
+                sectionDeletions.isEmpty == false
+            {
+                callback(.sectionUpdate(controller: strongSelf,
+                                        insertedSections: sectionInsertions,
+                                        deletedSections: sectionDeletions))
+            }
+            
+            if insertionIndexPaths.isEmpty == false ||
+                deletedIndexPaths.isEmpty == false ||
+                modifiedIndexPaths.isEmpty == false
+            {
+                callback(.rowUpdate(controller: strongSelf,
+                                    insertedItems: insertionIndexPaths,
+                                    deletedItems: deletedIndexPaths,
+                                    updatedItems: modifiedIndexPaths))
+            }
         }
     }
 }
