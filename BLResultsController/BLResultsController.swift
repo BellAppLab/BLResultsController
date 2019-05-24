@@ -634,6 +634,32 @@ public extension ResultsController
         }
         return IndexPath(item: 0, section: section)
     }
+
+    /**
+      Bind the ResultsController changes to a tableView
+
+      - parameters:
+        - tableView you want to be driven by this controller
+    */
+    func bind(to tableView: UITableView) {
+        self.setChangeCallback { [unowned tableView] change in
+            switch change {
+            case .reload(_):
+                tableView.reloadData()
+            case .sectionUpdate(_, let insertedSections, let deletedSections):
+                tableView.beginUpdates()
+                insertedSections.forEach { tableView.insertSections($0, with: .automatic) }
+                deletedSections.forEach { tableView.deleteSections($0, with: .automatic) }
+                tableView.endUpdates()
+            case .rowUpdate(_, let insertedItems, let deletedItems, let updatedItems):
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertedItems, with: .automatic)
+                tableView.deleteRows(at: deletedItems, with: .automatic)
+                tableView.reloadRows(at: updatedItems, with: .automatic)
+                tableView.endUpdates()
+            }
+        }
+    }
 }
 
 
@@ -789,13 +815,13 @@ fileprivate extension ResultsController
         let modifiedIndexPaths = new.indexPathsOfElements(indices: modifications).filter {
             return new.isEmpty == false && new[$0.section].items.isEmpty == false
         }
-        
+
         DispatchQueue.main.sync { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.elements = new
-            
+
             guard let callback = strongSelf._changeCallback else { return }
-            
+
             if sectionInsertions.isEmpty == false ||
                 sectionDeletions.isEmpty == false
             {
@@ -803,7 +829,7 @@ fileprivate extension ResultsController
                                         insertedSections: sectionInsertions,
                                         deletedSections: sectionDeletions))
             }
-            
+
             if insertionIndexPaths.isEmpty == false ||
                 deletedIndexPaths.isEmpty == false ||
                 modifiedIndexPaths.isEmpty == false
