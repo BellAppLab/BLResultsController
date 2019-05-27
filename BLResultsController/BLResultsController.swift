@@ -1,3 +1,63 @@
+//Adapted from: https://github.com/mattgallagher/CwlUtils
+/*
+ ISC License
+ 
+ Copyright © 2017 Matt Gallagher ( http://cocoawithlove.com ). All rights reserved.
+ 
+ Permission to use, copy, modify, and/or distribute this software for any
+ purpose with or without fee is hereby granted, provided that the above
+ copyright notice and this permission notice appear in all copies.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+ SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+ IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */
+#if os(Linux)
+import Glibc
+#else
+import Darwin
+#endif
+
+private final class PThreadMutex {
+    func sync<R>(execute work: () throws -> R) rethrows -> R {
+        unbalancedLock()
+        defer { unbalancedUnlock() }
+        return try work()
+    }
+    
+    private var unsafeMutex = pthread_mutex_t()
+    
+    /// Default constructs as ".Normal" or ".Recursive" on request.
+    init() {
+        var attr = pthread_mutexattr_t()
+        guard pthread_mutexattr_init(&attr) == 0 else {
+            preconditionFailure()
+        }
+        pthread_mutexattr_settype(&attr, Int32(PTHREAD_MUTEX_NORMAL))
+        guard pthread_mutex_init(&unsafeMutex, &attr) == 0 else {
+            preconditionFailure()
+        }
+        pthread_mutexattr_destroy(&attr)
+    }
+    
+    deinit {
+        pthread_mutex_destroy(&unsafeMutex)
+    }
+    
+    private func unbalancedLock() {
+        pthread_mutex_lock(&unsafeMutex)
+    }
+    
+    private func unbalancedUnlock() {
+        pthread_mutex_unlock(&unsafeMutex)
+    }
+}
+
+
 /*
  Copyright (c) 2018 Bell App Lab <apps@bellapplab.com>
 
@@ -31,10 +91,6 @@ import AppKit
 
 #if canImport(BackgroundRealm)
 import BackgroundRealm
-#endif
-
-#if canImport(Differ)
-import Differ
 #endif
 
 
@@ -479,6 +535,9 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
 
     fileprivate var elements: [InternalElement<Section>] = []
     fileprivate var sectionIndexTitles: [String]?
+    
+    @nonobjc
+    fileprivate let mutex = PThreadMutex()
 
     //MARK: Search
     private var searchTimer: BLTimer? {
@@ -520,6 +579,7 @@ public extension ResultsController
      - complexity: O(1)
      */
     func section(at index: Int) -> Section? {
+        guard index < elements.count else { return nil }
         return elements[index].key
     }
 
@@ -708,11 +768,13 @@ fileprivate extension ResultsController
 
     func processInitialLoad(_ results: Results<Element>) {
         let new = generateElements(results: results)
-        DispatchQueue.main.sync { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.elements = new
-            guard let callback = strongSelf._changeCallback else { return }
-            callback(.reload(controller: strongSelf))
+        mutex.sync {
+            DispatchQueue.main.sync { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.elements = new
+                guard let callback = strongSelf._changeCallback else { return }
+                callback(.reload(controller: strongSelf))
+            }
         }
     }
 
@@ -790,28 +852,30 @@ fileprivate extension ResultsController
             return new.isEmpty == false && new[$0.section].items.isEmpty == false
         }
         
-        DispatchQueue.main.sync { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.elements = new
-            
-            guard let callback = strongSelf._changeCallback else { return }
-            
-            if sectionInsertions.isEmpty == false ||
-                sectionDeletions.isEmpty == false
-            {
-                callback(.sectionUpdate(controller: strongSelf,
-                                        insertedSections: sectionInsertions,
-                                        deletedSections: sectionDeletions))
-            }
-            
-            if insertionIndexPaths.isEmpty == false ||
-                deletedIndexPaths.isEmpty == false ||
-                modifiedIndexPaths.isEmpty == false
-            {
-                callback(.rowUpdate(controller: strongSelf,
-                                    insertedItems: insertionIndexPaths,
-                                    deletedItems: deletedIndexPaths,
-                                    updatedItems: modifiedIndexPaths))
+        mutex.sync {
+            DispatchQueue.main.sync { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.elements = new
+                
+                guard let callback = strongSelf._changeCallback else { return }
+                
+                if sectionInsertions.isEmpty == false ||
+                    sectionDeletions.isEmpty == false
+                {
+                    callback(.sectionUpdate(controller: strongSelf,
+                                            insertedSections: sectionInsertions,
+                                            deletedSections: sectionDeletions))
+                }
+                
+                if insertionIndexPaths.isEmpty == false ||
+                    deletedIndexPaths.isEmpty == false ||
+                    modifiedIndexPaths.isEmpty == false
+                {
+                    callback(.rowUpdate(controller: strongSelf,
+                                        insertedItems: insertionIndexPaths,
+                                        deletedItems: deletedIndexPaths,
+                                        updatedItems: modifiedIndexPaths))
+                }
             }
         }
     }
