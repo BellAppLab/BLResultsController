@@ -700,7 +700,7 @@ public extension ResultsController
 //MARK: - SETUP
 fileprivate extension ResultsController
 {
-    func setup() {
+    private func _setup() {
         let className = String(describing: self)
 
         let predicates = self.allPredicates
@@ -731,6 +731,12 @@ fileprivate extension ResultsController
                                         modifications: modifications)
                 }
             }
+        }
+    }
+    
+    func setup() {
+        DispatchQueue.global().async { [weak self] in
+            self?.mutex.sync { self?._setup() }
         }
     }
 
