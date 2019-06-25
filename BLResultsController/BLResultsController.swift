@@ -723,9 +723,9 @@ fileprivate extension ResultsController
                 case .error(let error):
                     assertionFailure("\(className) error: \(error)")
                 case .initial(let collection):
-                    self?.processInitialLoad(collection)
+                    self?.processInitialLoad(collection.map { $0 })
                 case .update(let collection, let deletions, let insertions, let modifications):
-                    self?.processUpdate(collection,
+                    self?.processUpdate(collection.map { $0 },
                                         insertions: insertions,
                                         deletions: deletions,
                                         modifications: modifications)
@@ -756,7 +756,7 @@ fileprivate extension ResultsController
 fileprivate extension ResultsController
 {
     //MARK: Sections
-    private func shouldReload(results: Results<Element>) -> Bool {
+    private func shouldReload(results: [Element]) -> Bool {
         switch (elements.isEmpty, results.isEmpty) {
         case (true, false),
              (false, true),
@@ -772,7 +772,7 @@ fileprivate extension ResultsController
         sectionIndexTitles = nil
     }
 
-    func processInitialLoad(_ results: Results<Element>) {
+    func processInitialLoad(_ results: [Element]) {
         let new = generateElements(results: results)
         mutex.sync {
             DispatchQueue.main.sync { [weak self] in
@@ -784,7 +784,7 @@ fileprivate extension ResultsController
         }
     }
 
-    private func generateElements(results: Results<Element>) -> [InternalElement<Section>]
+    private func generateElements(results: [Element]) -> [InternalElement<Section>]
     {
         var newElements = [InternalElement<Section>]()
         var currentElement: InternalElement<Section>?
@@ -819,7 +819,7 @@ fileprivate extension ResultsController
     }
 
     //MARK: Everything else
-    func processUpdate(_ results: Results<Element>,
+    func processUpdate(_ results: [Element],
                        insertions: [Int],
                        deletions: [Int],
                        modifications: [Int])
