@@ -1,7 +1,7 @@
-# BLResultsController [![Version](https://img.shields.io/badge/Version-1.2.10-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
+# BLResultsController [![Version](https://img.shields.io/badge/Version-2.0.0-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
 
 [![Platforms](https://img.shields.io/badge/Platforms-iOS|tvOS|macOS-brightgreen.svg?style=flat)](#installation)
-[![Swift support](https://img.shields.io/badge/Swift-4.0%20%7C%204.1%20%7C%204.2-red.svg?style=flat)](#swift-versions-support)
+[![Swift support](https://img.shields.io/badge/Swift-4.2%20%7C%205.1-red.svg?style=flat)](#swift-versions-support)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/BLResultsController.svg?style=flat&label=CocoaPods)](https://cocoapods.org/pods/BLResultsController)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Twitter](https://img.shields.io/badge/Twitter-@BellAppLab-blue.svg?style=flat)](http://twitter.com/BellAppLab)
@@ -32,7 +32,7 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 
 ## Specs
 
-* RealmSwift 3.0.0+
+* RealmSwift 4.0.0+
 * iOS 9+
 * tvOS 10+
 * macOS 10.11+
@@ -162,7 +162,7 @@ Boom 💥
 ### Cocoapods
 
 ```ruby
-pod 'BLResultsController', '~> 1.2'
+pod 'BLResultsController', '~> 2.0'
 ```
 
 Then `import BLResultsController` where needed.
@@ -170,7 +170,7 @@ Then `import BLResultsController` where needed.
 ### Carthage
 
 ```swift
-github "BellAppLab/BLResultsController" ~> 1.2
+github "BellAppLab/BLResultsController" ~> 2.0
 ```
 
 Then `import BLResultsController` where needed.
