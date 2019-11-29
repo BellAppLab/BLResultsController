@@ -6,12 +6,15 @@
 //  Copyright © 2019 Bell App Lab. All rights reserved.
 //
 
+import Foundation
 #if os(iOS) || os(tvOS)
 import UIKit
+#endif
 
 //MARK: - Table Views
 public extension ResultsController
 {
+    #if os(iOS) || os(tvOS)
     /**
       Bind the `ResultsController` changes to a `UITableView`.
 
@@ -41,12 +44,14 @@ public extension ResultsController
             }
         }
     }
+    #endif
 }
 
 
 //MARK: - Collection Views
 public extension ResultsController
 {
+    #if os(iOS) || os(tvOS)
     /**
       Bind the `ResultsController` changes to a `UICollectionView`.
 
@@ -76,5 +81,5 @@ public extension ResultsController
             }
         }
     }
+    #endif
 }
-#endif
