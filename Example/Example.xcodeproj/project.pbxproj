@@ -126,6 +126,7 @@
 		65F0457923912FC40047CC90 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0455E23912F000047CC90 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F0457B23913CFD0047CC90 /* BLResultsController+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */; };
 		65F0457C23913CFD0047CC90 /* BLResultsController+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */; };
+		65F0457D239161F90047CC90 /* BLResultsController+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1146,6 +1147,7 @@
 				650409EF2283041E009F0029 /* ExtendedDiff.swift in Sources */,
 				650409EC228303EB009F0029 /* NestedBatchUpdate.swift in Sources */,
 				650409ED228303F1009F0029 /* NestedExtendedDiff.swift in Sources */,
+				65F0457D239161F90047CC90 /* BLResultsController+UIKit.swift in Sources */,
 				6575D16B212D39B8001524A2 /* Results+BLResultsController.swift in Sources */,
 				65534185227495D6005F4B81 /* BLResultsControllerElement.swift in Sources */,
 				650409EE22830407009F0029 /* Diff.swift in Sources */,
