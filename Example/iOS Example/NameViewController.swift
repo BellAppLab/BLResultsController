@@ -84,23 +84,8 @@ class NameViewController: UITableViewController
         }
         segmentedControl.selectedSegmentIndex = Segment.letterDescending.rawValue
 
-        controller.setChangeCallback { [weak self] change in
-            switch change {
-            case .reload(_):
-                self?.tableView.reloadData()
-            case .sectionUpdate(_, let insertedSections, let deletedSections):
-                self?.tableView.beginUpdates()
-                insertedSections.forEach { self?.tableView.insertSections($0, with: .automatic) }
-                deletedSections.forEach { self?.tableView.deleteSections($0, with: .automatic) }
-                self?.tableView.endUpdates()
-            case .rowUpdate(_, let insertedItems, let deletedItems, let updatedItems):
-                self?.tableView.beginUpdates()
-                self?.tableView.insertRows(at: insertedItems, with: .automatic)
-                self?.tableView.deleteRows(at: deletedItems, with: .automatic)
-                self?.tableView.reloadRows(at: updatedItems, with: .automatic)
-                self?.tableView.endUpdates()
-            }
-        }
+
+        controller.bind(to: tableView)
 
         controller.setFormatSectionIndexTitleCallback { (section, _) -> String in
             return section

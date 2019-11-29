@@ -1,13 +1,13 @@
 //Adapted from: https://github.com/mattgallagher/CwlUtils
 /*
  ISC License
- 
+
  Copyright © 2017 Matt Gallagher ( http://cocoawithlove.com ). All rights reserved.
- 
+
  Permission to use, copy, modify, and/or distribute this software for any
  purpose with or without fee is hereby granted, provided that the above
  copyright notice and this permission notice appear in all copies.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
@@ -28,9 +28,9 @@ private final class PThreadMutex {
         defer { unbalancedUnlock() }
         return try work()
     }
-    
+
     private var unsafeMutex = pthread_mutex_t()
-    
+
     /// Default constructs as ".Normal" or ".Recursive" on request.
     init() {
         var attr = pthread_mutexattr_t()
@@ -43,15 +43,15 @@ private final class PThreadMutex {
         }
         pthread_mutexattr_destroy(&attr)
     }
-    
+
     deinit {
         pthread_mutex_destroy(&unsafeMutex)
     }
-    
+
     private func unbalancedLock() {
         pthread_mutex_lock(&unsafeMutex)
     }
-    
+
     private func unbalancedUnlock() {
         pthread_mutex_unlock(&unsafeMutex)
     }
@@ -535,7 +535,7 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
 
     fileprivate var elements: [InternalElement<Section>] = []
     fileprivate var sectionIndexTitles: [String]?
-    
+
     @nonobjc
     fileprivate let mutex = PThreadMutex()
 
@@ -693,6 +693,32 @@ public extension ResultsController
             return IndexPath(item: 0, section: 0)
         }
         return IndexPath(item: 0, section: section)
+    }
+
+    /**
+      Bind the ResultsController changes to a tableView
+
+      - parameters:
+        - tableView you want to be driven by this controller
+    */
+    func bind(to tableView: UITableView) {
+        self.setChangeCallback { [unowned tableView] change in
+            switch change {
+            case .reload(_):
+                tableView.reloadData()
+            case .sectionUpdate(_, let insertedSections, let deletedSections):
+                tableView.beginUpdates()
+                insertedSections.forEach { tableView.insertSections($0, with: .automatic) }
+                deletedSections.forEach { tableView.deleteSections($0, with: .automatic) }
+                tableView.endUpdates()
+            case .rowUpdate(_, let insertedItems, let deletedItems, let updatedItems):
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertedItems, with: .automatic)
+                tableView.deleteRows(at: deletedItems, with: .automatic)
+                tableView.reloadRows(at: updatedItems, with: .automatic)
+                tableView.endUpdates()
+            }
+        }
     }
 }
 
@@ -857,14 +883,14 @@ fileprivate extension ResultsController
         let modifiedIndexPaths = new.indexPathsOfElements(indices: modifications).filter {
             return new.isEmpty == false && new[$0.section].items.isEmpty == false
         }
-        
+
         mutex.sync {
             DispatchQueue.main.sync { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.elements = new
-                
+
                 guard let callback = strongSelf._changeCallback else { return }
-                
+
                 if sectionInsertions.isEmpty == false ||
                     sectionDeletions.isEmpty == false
                 {
@@ -872,7 +898,7 @@ fileprivate extension ResultsController
                                             insertedSections: sectionInsertions,
                                             deletedSections: sectionDeletions))
                 }
-                
+
                 if insertionIndexPaths.isEmpty == false ||
                     deletedIndexPaths.isEmpty == false ||
                     modifiedIndexPaths.isEmpty == false
