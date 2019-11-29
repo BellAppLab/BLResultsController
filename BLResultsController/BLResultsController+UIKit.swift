@@ -6,6 +6,7 @@
 //  Copyright © 2019 Bell App Lab. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 //MARK: - Table Views
@@ -76,3 +77,4 @@ public extension ResultsController
         }
     }
 }
+#endif
