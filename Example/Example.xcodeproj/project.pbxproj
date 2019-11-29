@@ -126,7 +126,6 @@
 		65F0457923912FC40047CC90 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0455E23912F000047CC90 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F0457B23913CFD0047CC90 /* BLResultsController+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */; };
 		65F0457C23913CFD0047CC90 /* BLResultsController+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */; };
-		65F0457D239161F90047CC90 /* BLResultsController+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -574,14 +573,9 @@
 		6575D15C212D2E87001524A2 /* BLResultsController */ = {
 			isa = PBXGroup;
 			children = (
-				6575D15D212D2E87001524A2 /* BLResultsController.swift */,
-				650FC1D5217DC9BE00479FEE /* BLResultsControllerSection.swift */,
-				65534182227495D6005F4B81 /* BLResultsControllerElement.swift */,
-				6575D167212D39B8001524A2 /* Results+BLResultsController.swift */,
-				6575D171212D4452001524A2 /* Timer+BLResultsController.swift */,
-				658BBA4D217CE44E00963023 /* BLResultsController+Errors.swift */,
-				65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */,
+				65F0457F239173CB0047CC90 /* Core */,
 				652CEFCA22762FAC003696FB /* Differ */,
+				65F0457E2391733A0047CC90 /* UIKit */,
 			);
 			name = BLResultsController;
 			path = ../BLResultsController;
@@ -675,6 +669,27 @@
 				65F0456323912F000047CC90 /* Realm.framework */,
 			);
 			path = "swift-11.2";
+			sourceTree = "<group>";
+		};
+		65F0457E2391733A0047CC90 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		65F0457F239173CB0047CC90 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				6575D15D212D2E87001524A2 /* BLResultsController.swift */,
+				650FC1D5217DC9BE00479FEE /* BLResultsControllerSection.swift */,
+				65534182227495D6005F4B81 /* BLResultsControllerElement.swift */,
+				6575D167212D39B8001524A2 /* Results+BLResultsController.swift */,
+				6575D171212D4452001524A2 /* Timer+BLResultsController.swift */,
+				658BBA4D217CE44E00963023 /* BLResultsController+Errors.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1147,7 +1162,6 @@
 				650409EF2283041E009F0029 /* ExtendedDiff.swift in Sources */,
 				650409EC228303EB009F0029 /* NestedBatchUpdate.swift in Sources */,
 				650409ED228303F1009F0029 /* NestedExtendedDiff.swift in Sources */,
-				65F0457D239161F90047CC90 /* BLResultsController+UIKit.swift in Sources */,
 				6575D16B212D39B8001524A2 /* Results+BLResultsController.swift in Sources */,
 				65534185227495D6005F4B81 /* BLResultsControllerElement.swift in Sources */,
 				650409EE22830407009F0029 /* Diff.swift in Sources */,

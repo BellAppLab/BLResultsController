@@ -46,7 +46,9 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 
   s.source              = { :git => "https://github.com/BellAppLab/BLResultsController.git", :tag => "#{s.version}" }
 
-  s.source_files        = 'BLResultsController/**/*.swift'
+  s.ios.source_files    = 'BLResultsController/Core/*.swift', 'BLResultsController/Differ/*.swift', 'BLResultsController/UIKit/*.swift'
+  s.tvos.source_files   = 'BLResultsController/Core/*.swift', 'BLResultsController/Differ/*.swift', 'BLResultsController/UIKit/*.swift'
+  s.osx.source_files    = 'BLResultsController/Core/*.swift', 'BLResultsController/Differ/*.swift'
 
   s.framework           = "Foundation"
   s.ios.framework       = 'UIKit'
