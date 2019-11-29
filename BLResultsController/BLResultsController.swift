@@ -1,13 +1,13 @@
 //Adapted from: https://github.com/mattgallagher/CwlUtils
 /*
  ISC License
- 
+
  Copyright © 2017 Matt Gallagher ( http://cocoawithlove.com ). All rights reserved.
- 
+
  Permission to use, copy, modify, and/or distribute this software for any
  purpose with or without fee is hereby granted, provided that the above
  copyright notice and this permission notice appear in all copies.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
@@ -28,9 +28,9 @@ private final class PThreadMutex {
         defer { unbalancedUnlock() }
         return try work()
     }
-    
+
     private var unsafeMutex = pthread_mutex_t()
-    
+
     /// Default constructs as ".Normal" or ".Recursive" on request.
     init() {
         var attr = pthread_mutexattr_t()
@@ -43,15 +43,15 @@ private final class PThreadMutex {
         }
         pthread_mutexattr_destroy(&attr)
     }
-    
+
     deinit {
         pthread_mutex_destroy(&unsafeMutex)
     }
-    
+
     private func unbalancedLock() {
         pthread_mutex_lock(&unsafeMutex)
     }
-    
+
     private func unbalancedUnlock() {
         pthread_mutex_unlock(&unsafeMutex)
     }
@@ -535,7 +535,7 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
 
     fileprivate var elements: [InternalElement<Section>] = []
     fileprivate var sectionIndexTitles: [String]?
-    
+
     @nonobjc
     fileprivate let mutex = PThreadMutex()
 
@@ -633,21 +633,25 @@ public extension ResultsController
      - complexity: Whatever the complexity of calling `realm.objects(Element.self).filter(...)[indexPath.item]` is.
      */
     func item(at indexPath: IndexPath) -> Element? {
-        precondition(Thread.current == Thread.main, "Trying to access a \(String(describing: self)) object from outside of the main thread")
-        precondition(indexPath.section > -1, "Index path's (\(indexPath)) section should be greated than zero")
+        precondition(Thread.current == Thread.main, "Trying to access a \(String(describing: self))'s item(at:) method from outside of the main thread")
+        precondition(indexPath.section > -1, "Index path's (\(indexPath)) section should be equal to or greater than zero")
+        precondition(indexPath.item > -1, "Index path's (\(indexPath)) item/row should be equal to or greater than zero")
 
+        assert(indexPath.section < elements.count, "Index path's section is greater than the number of elements")
         guard indexPath.section < elements.count else {
             return nil
         }
 
         let element = elements[indexPath.section]
 
+        assert(indexPath.item < element.items.count, "Index path's item is greater than the number of items in section \(indexPath.section)")
         guard indexPath.item < element.items.count else {
             return nil
         }
 
         let results = objects.filter("%K == %@", sectionNameKeyPath, element.key)
 
+        assert(indexPath.item < results.count, "Index path's item is greater than the number of items in section \(indexPath.section)")
         guard indexPath.item < results.count else {
             return nil
         }
@@ -687,9 +691,9 @@ public extension ResultsController
      - `setChangeCallback(_:)`
      */
     func indexPath(forIndexTitle indexTitle: String) -> IndexPath {
-        precondition(sectionIndexTitles != nil,
-                     "Trying to access a \(String(describing: self)) indexTitle, but no `setFormatSectionIndexTitleCallback` has been set.")
-        guard let section = sectionIndexTitles!.firstIndex(of: indexTitle) else {
+        assert(sectionIndexTitles != nil,
+               "Trying to access a \(String(describing: self)) indexTitle, but no `setFormatSectionIndexTitleCallback` has been set.")
+        guard let section = sectionIndexTitles?.firstIndex(of: indexTitle) else {
             return IndexPath(item: 0, section: 0)
         }
         return IndexPath(item: 0, section: section)
@@ -857,14 +861,14 @@ fileprivate extension ResultsController
         let modifiedIndexPaths = new.indexPathsOfElements(indices: modifications).filter {
             return new.isEmpty == false && new[$0.section].items.isEmpty == false
         }
-        
+
         mutex.sync {
             DispatchQueue.main.sync { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.elements = new
-                
+
                 guard let callback = strongSelf._changeCallback else { return }
-                
+
                 if sectionInsertions.isEmpty == false ||
                     sectionDeletions.isEmpty == false
                 {
@@ -872,7 +876,7 @@ fileprivate extension ResultsController
                                             insertedSections: sectionInsertions,
                                             deletedSections: sectionDeletions))
                 }
-                
+
                 if insertionIndexPaths.isEmpty == false ||
                     deletedIndexPaths.isEmpty == false ||
                     modifiedIndexPaths.isEmpty == false
