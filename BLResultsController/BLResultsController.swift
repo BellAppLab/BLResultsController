@@ -633,21 +633,25 @@ public extension ResultsController
      - complexity: Whatever the complexity of calling `realm.objects(Element.self).filter(...)[indexPath.item]` is.
      */
     func item(at indexPath: IndexPath) -> Element? {
-        precondition(Thread.current == Thread.main, "Trying to access a \(String(describing: self)) object from outside of the main thread")
-        precondition(indexPath.section > -1, "Index path's (\(indexPath)) section should be greated than zero")
+        precondition(Thread.current == Thread.main, "Trying to access a \(String(describing: self))'s item(at:) method from outside of the main thread")
+        precondition(indexPath.section > -1, "Index path's (\(indexPath)) section should be equal to or greater than zero")
+        precondition(indexPath.item > -1, "Index path's (\(indexPath)) item/row should be equal to or greater than zero")
 
+        assert(indexPath.section < elements.count, "Index path's section is greater than the number of elements")
         guard indexPath.section < elements.count else {
             return nil
         }
 
         let element = elements[indexPath.section]
 
+        assert(indexPath.item < element.items.count, "Index path's item is greater than the number of items in section \(indexPath.section)")
         guard indexPath.item < element.items.count else {
             return nil
         }
 
         let results = objects.filter("%K == %@", sectionNameKeyPath, element.key)
 
+        assert(indexPath.item < results.count, "Index path's item is greater than the number of items in section \(indexPath.section)")
         guard indexPath.item < results.count else {
             return nil
         }
@@ -687,38 +691,12 @@ public extension ResultsController
      - `setChangeCallback(_:)`
      */
     func indexPath(forIndexTitle indexTitle: String) -> IndexPath {
-        precondition(sectionIndexTitles != nil,
-                     "Trying to access a \(String(describing: self)) indexTitle, but no `setFormatSectionIndexTitleCallback` has been set.")
-        guard let section = sectionIndexTitles!.firstIndex(of: indexTitle) else {
+        assert(sectionIndexTitles != nil,
+               "Trying to access a \(String(describing: self)) indexTitle, but no `setFormatSectionIndexTitleCallback` has been set.")
+        guard let section = sectionIndexTitles?.firstIndex(of: indexTitle) else {
             return IndexPath(item: 0, section: 0)
         }
         return IndexPath(item: 0, section: section)
-    }
-
-    /**
-      Bind the ResultsController changes to a tableView
-
-      - parameters:
-        - tableView you want to be driven by this controller
-    */
-    func bind(to tableView: UITableView) {
-        self.setChangeCallback { [unowned tableView] change in
-            switch change {
-            case .reload(_):
-                tableView.reloadData()
-            case .sectionUpdate(_, let insertedSections, let deletedSections):
-                tableView.beginUpdates()
-                insertedSections.forEach { tableView.insertSections($0, with: .automatic) }
-                deletedSections.forEach { tableView.deleteSections($0, with: .automatic) }
-                tableView.endUpdates()
-            case .rowUpdate(_, let insertedItems, let deletedItems, let updatedItems):
-                tableView.beginUpdates()
-                tableView.insertRows(at: insertedItems, with: .automatic)
-                tableView.deleteRows(at: deletedItems, with: .automatic)
-                tableView.reloadRows(at: updatedItems, with: .automatic)
-                tableView.endUpdates()
-            }
-        }
     }
 }
 

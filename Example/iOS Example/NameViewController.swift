@@ -84,7 +84,6 @@ class NameViewController: UITableViewController
         }
         segmentedControl.selectedSegmentIndex = Segment.letterDescending.rawValue
 
-
         controller.bind(to: tableView)
 
         controller.setFormatSectionIndexTitleCallback { (section, _) -> String in
