@@ -27,15 +27,6 @@
 		652AC76A212E911F00123850 /* dummy.realm in Resources */ = {isa = PBXBuildFile; fileRef = 652AC763212E911F00123850 /* dummy.realm */; };
 		652AC76F212E911F00123850 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AC764212E911F00123850 /* Dummy.swift */; };
 		652AC776212E920F00123850 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AC771212E920F00123850 /* Todo.swift */; };
-		652CEDD2227619EB003696FB /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */; };
-		652CEDD3227619EB003696FB /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */; };
-		652CEDD4227619EB003696FB /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCE227619C4003696FB /* BackgroundRealm.swift */; };
-		652CEDD5227619EC003696FB /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */; };
-		652CEDD6227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */; };
-		652CEDD7227619EC003696FB /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCE227619C4003696FB /* BackgroundRealm.swift */; };
-		652CEDD8227619EC003696FB /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */; };
-		652CEDD9227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */; };
-		652CEDDA227619EC003696FB /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652CECCE227619C4003696FB /* BackgroundRealm.swift */; };
 		6532140C2181C098006F7A13 /* Aux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6532140B2181C098006F7A13 /* Aux.swift */; };
 		6532140D2181C098006F7A13 /* Aux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6532140B2181C098006F7A13 /* Aux.swift */; };
 		6532140E2181C098006F7A13 /* Aux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6532140B2181C098006F7A13 /* Aux.swift */; };
@@ -51,6 +42,18 @@
 		6553418C2275D817005F4B81 /* BLResultsControllerBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553418B2275D817005F4B81 /* BLResultsControllerBaseTest.swift */; };
 		6553418D2275D817005F4B81 /* BLResultsControllerBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553418B2275D817005F4B81 /* BLResultsControllerBaseTest.swift */; };
 		6553418E2275D817005F4B81 /* BLResultsControllerBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553418B2275D817005F4B81 /* BLResultsControllerBaseTest.swift */; };
+		656694C724DAF3BC00C5784C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656694BA24DAF3AC00C5784C /* Realm.framework */; };
+		656694C824DAF3BC00C5784C /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 656694BA24DAF3AC00C5784C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		656694C924DAF3BE00C5784C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656694B924DAF3AC00C5784C /* RealmSwift.framework */; };
+		656694CA24DAF3BE00C5784C /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 656694B924DAF3AC00C5784C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		656694CD24DAF3C800C5784C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656694BF24DAF3AC00C5784C /* Realm.framework */; };
+		656694CE24DAF3C800C5784C /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 656694BF24DAF3AC00C5784C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		656694CF24DAF3CA00C5784C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656694BE24DAF3AC00C5784C /* RealmSwift.framework */; };
+		656694D024DAF3CA00C5784C /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 656694BE24DAF3AC00C5784C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		656694D324DAF3D300C5784C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656694C324DAF3AC00C5784C /* Realm.framework */; };
+		656694D424DAF3D300C5784C /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 656694C324DAF3AC00C5784C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		656694D524DAF3D400C5784C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656694C224DAF3AC00C5784C /* RealmSwift.framework */; };
+		656694D624DAF3D400C5784C /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 656694C224DAF3AC00C5784C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6567CE17218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6567CE16218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift */; };
 		6567CE18218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6567CE16218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift */; };
 		6567CE19218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6567CE16218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift */; };
@@ -92,15 +95,6 @@
 		6575D168212D39B8001524A2 /* Results+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D167212D39B8001524A2 /* Results+BLResultsController.swift */; };
 		6575D16A212D39B8001524A2 /* Results+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D167212D39B8001524A2 /* Results+BLResultsController.swift */; };
 		6575D16B212D39B8001524A2 /* Results+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D167212D39B8001524A2 /* Results+BLResultsController.swift */; };
-		6575D172212D4452001524A2 /* Timer+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D171212D4452001524A2 /* Timer+BLResultsController.swift */; };
-		6575D174212D4452001524A2 /* Timer+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D171212D4452001524A2 /* Timer+BLResultsController.swift */; };
-		6575D175212D4452001524A2 /* Timer+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D171212D4452001524A2 /* Timer+BLResultsController.swift */; };
-		6575D181212D80E1001524A2 /* Timer_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D180212D80E1001524A2 /* Timer_Tests.swift */; };
-		6575D182212D80E1001524A2 /* Timer_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D180212D80E1001524A2 /* Timer_Tests.swift */; };
-		6575D183212D80E1001524A2 /* Timer_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D180212D80E1001524A2 /* Timer_Tests.swift */; };
-		6575D184212D80FF001524A2 /* Timer+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D171212D4452001524A2 /* Timer+BLResultsController.swift */; };
-		6575D185212D8100001524A2 /* Timer+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D171212D4452001524A2 /* Timer+BLResultsController.swift */; };
-		6575D186212D8101001524A2 /* Timer+BLResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6575D171212D4452001524A2 /* Timer+BLResultsController.swift */; };
 		6581B95B217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B95A217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift */; };
 		6581B95C217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B95A217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift */; };
 		6581B95D217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581B95A217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift */; };
@@ -112,18 +106,15 @@
 		658BBA51217CE44E00963023 /* BLResultsController+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658BBA4D217CE44E00963023 /* BLResultsController+Errors.swift */; };
 		658BBA52217CFE5E00963023 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AC771212E920F00123850 /* Todo.swift */; };
 		658BBA53217CFE5F00963023 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AC771212E920F00123850 /* Todo.swift */; };
-		65F0456E23912FBB0047CC90 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0454023912F000047CC90 /* Realm.framework */; };
-		65F0456F23912FBB0047CC90 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0454023912F000047CC90 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		65F0457023912FBC0047CC90 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0453F23912F000047CC90 /* RealmSwift.framework */; };
-		65F0457123912FBC0047CC90 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0453F23912F000047CC90 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		65F0457223912FBF0047CC90 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0456323912F000047CC90 /* Realm.framework */; };
-		65F0457323912FBF0047CC90 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0456323912F000047CC90 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		65F0457423912FC00047CC90 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0456223912F000047CC90 /* RealmSwift.framework */; };
-		65F0457523912FC00047CC90 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0456223912F000047CC90 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		65F0457623912FC30047CC90 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0455F23912F000047CC90 /* Realm.framework */; };
-		65F0457723912FC30047CC90 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0455F23912F000047CC90 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		65F0457823912FC40047CC90 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0455E23912F000047CC90 /* RealmSwift.framework */; };
-		65F0457923912FC40047CC90 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65F0455E23912F000047CC90 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		65AFFC51241903A50056730E /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFFC4E241903A50056730E /* Realm+BackgroundRealm.swift */; };
+		65AFFC52241903A50056730E /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFFC4E241903A50056730E /* Realm+BackgroundRealm.swift */; };
+		65AFFC53241903A50056730E /* Realm+BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFFC4E241903A50056730E /* Realm+BackgroundRealm.swift */; };
+		65AFFC54241903A50056730E /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFFC4F241903A50056730E /* BackgroundRealm+Errors.swift */; };
+		65AFFC55241903A50056730E /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFFC4F241903A50056730E /* BackgroundRealm+Errors.swift */; };
+		65AFFC56241903A50056730E /* BackgroundRealm+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFFC4F241903A50056730E /* BackgroundRealm+Errors.swift */; };
+		65AFFC57241903A50056730E /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFFC50241903A50056730E /* BackgroundRealm.swift */; };
+		65AFFC58241903A50056730E /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFFC50241903A50056730E /* BackgroundRealm.swift */; };
+		65AFFC59241903A50056730E /* BackgroundRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFFC50241903A50056730E /* BackgroundRealm.swift */; };
 		65F0457B23913CFD0047CC90 /* BLResultsController+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */; };
 		65F0457C23913CFD0047CC90 /* BLResultsController+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */; };
 /* End PBXBuildFile section */
@@ -180,9 +171,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				65F0457723912FC30047CC90 /* Realm.framework in Embed Frameworks */,
+				656694CE24DAF3C800C5784C /* Realm.framework in Embed Frameworks */,
 				6575D0CF212D2AE3001524A2 /* BLResultsController.framework in Embed Frameworks */,
-				65F0457923912FC40047CC90 /* RealmSwift.framework in Embed Frameworks */,
+				656694D024DAF3CA00C5784C /* RealmSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,9 +184,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				65F0457323912FBF0047CC90 /* Realm.framework in Embed Frameworks */,
+				656694D424DAF3D300C5784C /* Realm.framework in Embed Frameworks */,
 				6575D10F212D2B22001524A2 /* BLResultsController.framework in Embed Frameworks */,
-				65F0457523912FC00047CC90 /* RealmSwift.framework in Embed Frameworks */,
+				656694D624DAF3D400C5784C /* RealmSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,9 +197,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				65F0456F23912FBB0047CC90 /* Realm.framework in Embed Frameworks */,
+				656694C824DAF3BC00C5784C /* Realm.framework in Embed Frameworks */,
 				6575D141212D2B47001524A2 /* BLResultsController.framework in Embed Frameworks */,
-				65F0457123912FBC0047CC90 /* RealmSwift.framework in Embed Frameworks */,
+				656694CA24DAF3BE00C5784C /* RealmSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,11 +211,6 @@
 		652AC763212E911F00123850 /* dummy.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = dummy.realm; sourceTree = "<group>"; };
 		652AC764212E911F00123850 /* Dummy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		652AC771212E920F00123850 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
-		652CECCA227619C4003696FB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+BackgroundRealm.swift"; sourceTree = "<group>"; };
-		652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BackgroundRealm+Errors.swift"; sourceTree = "<group>"; };
-		652CECCE227619C4003696FB /* BackgroundRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRealm.swift; sourceTree = "<group>"; };
-		652CED02227619C4003696FB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		652CEFCB22762FAC003696FB /* NestedExtendedDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedExtendedDiff.swift; sourceTree = "<group>"; };
 		652CEFCD22762FAC003696FB /* ExtendedDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedDiff.swift; sourceTree = "<group>"; };
 		652CEFCF22762FAC003696FB /* Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diff.swift; sourceTree = "<group>"; };
@@ -235,6 +221,18 @@
 		653936D121851143004FF652 /* PriorityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
 		65534182227495D6005F4B81 /* BLResultsControllerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLResultsControllerElement.swift; sourceTree = "<group>"; };
 		6553418B2275D817005F4B81 /* BLResultsControllerBaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLResultsControllerBaseTest.swift; sourceTree = "<group>"; };
+		656694B124DAF3AC00C5784C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		656694B224DAF3AC00C5784C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		656694B524DAF3AC00C5784C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		656694B624DAF3AC00C5784C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		656694B924DAF3AC00C5784C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		656694BA24DAF3AC00C5784C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		656694BB24DAF3AC00C5784C /* docs.webloc */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = docs.webloc; sourceTree = "<group>"; };
+		656694BE24DAF3AC00C5784C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		656694BF24DAF3AC00C5784C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		656694C224DAF3AC00C5784C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		656694C324DAF3AC00C5784C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		656694C424DAF3AC00C5784C /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		6567CE16218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLResultsControllerUpdates_Tests.swift; sourceTree = "<group>"; };
 		6567CE1E2180660000148FA4 /* Aux_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aux_Tests.swift; sourceTree = "<group>"; };
 		6567CE282180681600148FA4 /* Aux_Apps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aux_Apps.swift; sourceTree = "<group>"; };
@@ -277,22 +275,13 @@
 		6575D158212D2E54001524A2 /* BLResultsControllerSetup_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLResultsControllerSetup_Tests.swift; sourceTree = "<group>"; };
 		6575D15D212D2E87001524A2 /* BLResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLResultsController.swift; sourceTree = "<group>"; };
 		6575D167212D39B8001524A2 /* Results+BLResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Results+BLResultsController.swift"; sourceTree = "<group>"; };
-		6575D171212D4452001524A2 /* Timer+BLResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Timer+BLResultsController.swift"; sourceTree = "<group>"; };
-		6575D180212D80E1001524A2 /* Timer_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer_Tests.swift; sourceTree = "<group>"; };
 		6581B935217EEA550055F5C4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CONTRIBUTING.md; path = ../CONTRIBUTING.md; sourceTree = "<group>"; };
 		6581B95A217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLResultsControllerSections_Tests.swift; sourceTree = "<group>"; };
 		6581B95E217EFB5A0055F5C4 /* BLResultsControllerItems_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLResultsControllerItems_Tests.swift; sourceTree = "<group>"; };
 		658BBA4D217CE44E00963023 /* BLResultsController+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BLResultsController+Errors.swift"; sourceTree = "<group>"; };
-		65F0453B23912F000047CC90 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
-		65F0453C23912F000047CC90 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		65F0453F23912F000047CC90 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
-		65F0454023912F000047CC90 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		65F0454123912F000047CC90 /* docs.webloc */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = docs.webloc; sourceTree = "<group>"; };
-		65F0455E23912F000047CC90 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
-		65F0455F23912F000047CC90 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		65F0456223912F000047CC90 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
-		65F0456323912F000047CC90 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		65F0456423912F000047CC90 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		65AFFC4E241903A50056730E /* Realm+BackgroundRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Realm+BackgroundRealm.swift"; sourceTree = "<group>"; };
+		65AFFC4F241903A50056730E /* BackgroundRealm+Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BackgroundRealm+Errors.swift"; sourceTree = "<group>"; };
+		65AFFC50241903A50056730E /* BackgroundRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundRealm.swift; sourceTree = "<group>"; };
 		65F0457A23913CFD0047CC90 /* BLResultsController+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BLResultsController+UIKit.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -301,9 +290,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65F0457623912FC30047CC90 /* Realm.framework in Frameworks */,
+				656694CD24DAF3C800C5784C /* Realm.framework in Frameworks */,
 				6575D0CE212D2AE3001524A2 /* BLResultsController.framework in Frameworks */,
-				65F0457823912FC40047CC90 /* RealmSwift.framework in Frameworks */,
+				656694CF24DAF3CA00C5784C /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,9 +314,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65F0457223912FBF0047CC90 /* Realm.framework in Frameworks */,
+				656694D324DAF3D300C5784C /* Realm.framework in Frameworks */,
 				6575D10E212D2B22001524A2 /* BLResultsController.framework in Frameworks */,
-				65F0457423912FC00047CC90 /* RealmSwift.framework in Frameworks */,
+				656694D524DAF3D400C5784C /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,9 +338,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65F0456E23912FBB0047CC90 /* Realm.framework in Frameworks */,
+				656694C724DAF3BC00C5784C /* Realm.framework in Frameworks */,
 				6575D140212D2B47001524A2 /* BLResultsController.framework in Frameworks */,
-				65F0457023912FBC0047CC90 /* RealmSwift.framework in Frameworks */,
+				656694C924DAF3BE00C5784C /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,30 +418,10 @@
 		652CECC8227619C4003696FB /* Aux */ = {
 			isa = PBXGroup;
 			children = (
-				652CECC9227619C4003696FB /* BackgroundRealm */,
+				65AFFC4D241903A50056730E /* BackgroundRealm */,
 			);
 			name = Aux;
 			path = ../Aux;
-			sourceTree = "<group>";
-		};
-		652CECC9227619C4003696FB /* BackgroundRealm */ = {
-			isa = PBXGroup;
-			children = (
-				652CECCA227619C4003696FB /* LICENSE */,
-				652CECCB227619C4003696FB /* BackgroundRealm */,
-				652CED02227619C4003696FB /* README.md */,
-			);
-			path = BackgroundRealm;
-			sourceTree = "<group>";
-		};
-		652CECCB227619C4003696FB /* BackgroundRealm */ = {
-			isa = PBXGroup;
-			children = (
-				652CECCC227619C4003696FB /* Realm+BackgroundRealm.swift */,
-				652CECCD227619C4003696FB /* BackgroundRealm+Errors.swift */,
-				652CECCE227619C4003696FB /* BackgroundRealm.swift */,
-			);
-			path = BackgroundRealm;
 			sourceTree = "<group>";
 		};
 		652CEFCA22762FAC003696FB /* Differ */ = {
@@ -466,12 +435,112 @@
 			path = Differ;
 			sourceTree = "<group>";
 		};
+		656694AE24DAF3AC00C5784C /* realm-swift-latest */ = {
+			isa = PBXGroup;
+			children = (
+				656694AF24DAF3AC00C5784C /* catalyst */,
+				656694B324DAF3AC00C5784C /* watchos */,
+				656694B724DAF3AC00C5784C /* osx */,
+				656694BB24DAF3AC00C5784C /* docs.webloc */,
+				656694BC24DAF3AC00C5784C /* ios */,
+				656694C024DAF3AC00C5784C /* tvos */,
+				656694C424DAF3AC00C5784C /* LICENSE.txt */,
+			);
+			name = "realm-swift-latest";
+			path = "../../../Realm/realm-swift-latest";
+			sourceTree = "<group>";
+		};
+		656694AF24DAF3AC00C5784C /* catalyst */ = {
+			isa = PBXGroup;
+			children = (
+				656694B024DAF3AC00C5784C /* swift-11.6 */,
+			);
+			path = catalyst;
+			sourceTree = "<group>";
+		};
+		656694B024DAF3AC00C5784C /* swift-11.6 */ = {
+			isa = PBXGroup;
+			children = (
+				656694B124DAF3AC00C5784C /* RealmSwift.framework */,
+				656694B224DAF3AC00C5784C /* Realm.framework */,
+			);
+			path = "swift-11.6";
+			sourceTree = "<group>";
+		};
+		656694B324DAF3AC00C5784C /* watchos */ = {
+			isa = PBXGroup;
+			children = (
+				656694B424DAF3AC00C5784C /* swift-11.6 */,
+			);
+			path = watchos;
+			sourceTree = "<group>";
+		};
+		656694B424DAF3AC00C5784C /* swift-11.6 */ = {
+			isa = PBXGroup;
+			children = (
+				656694B524DAF3AC00C5784C /* RealmSwift.framework */,
+				656694B624DAF3AC00C5784C /* Realm.framework */,
+			);
+			path = "swift-11.6";
+			sourceTree = "<group>";
+		};
+		656694B724DAF3AC00C5784C /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				656694B824DAF3AC00C5784C /* swift-11.6 */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		656694B824DAF3AC00C5784C /* swift-11.6 */ = {
+			isa = PBXGroup;
+			children = (
+				656694B924DAF3AC00C5784C /* RealmSwift.framework */,
+				656694BA24DAF3AC00C5784C /* Realm.framework */,
+			);
+			path = "swift-11.6";
+			sourceTree = "<group>";
+		};
+		656694BC24DAF3AC00C5784C /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				656694BD24DAF3AC00C5784C /* swift-11.6 */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		656694BD24DAF3AC00C5784C /* swift-11.6 */ = {
+			isa = PBXGroup;
+			children = (
+				656694BE24DAF3AC00C5784C /* RealmSwift.framework */,
+				656694BF24DAF3AC00C5784C /* Realm.framework */,
+			);
+			path = "swift-11.6";
+			sourceTree = "<group>";
+		};
+		656694C024DAF3AC00C5784C /* tvos */ = {
+			isa = PBXGroup;
+			children = (
+				656694C124DAF3AC00C5784C /* swift-11.6 */,
+			);
+			path = tvos;
+			sourceTree = "<group>";
+		};
+		656694C124DAF3AC00C5784C /* swift-11.6 */ = {
+			isa = PBXGroup;
+			children = (
+				656694C224DAF3AC00C5784C /* RealmSwift.framework */,
+				656694C324DAF3AC00C5784C /* Realm.framework */,
+			);
+			path = "swift-11.6";
+			sourceTree = "<group>";
+		};
 		6575D0B1212D2AC6001524A2 /* iOS Example */ = {
 			isa = PBXGroup;
 			children = (
 				6575D0B2212D2AC6001524A2 /* AppDelegate.swift */,
-				653936CF21851143004FF652 /* NameViewController.swift */,
 				653936D121851143004FF652 /* PriorityViewController.swift */,
+				653936CF21851143004FF652 /* NameViewController.swift */,
 				653936D021851143004FF652 /* SearchViewController.swift */,
 				6575D0B6212D2AC6001524A2 /* Main.storyboard */,
 				6575D0B9212D2AC7001524A2 /* Assets.xcassets */,
@@ -563,7 +632,6 @@
 				6581B95A217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift */,
 				6581B95E217EFB5A0055F5C4 /* BLResultsControllerItems_Tests.swift */,
 				6567CE16218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift */,
-				6575D180212D80E1001524A2 /* Timer_Tests.swift */,
 				6553418B2275D817005F4B81 /* BLResultsControllerBaseTest.swift */,
 			);
 			name = Tests;
@@ -581,94 +649,24 @@
 			path = ../BLResultsController;
 			sourceTree = "<group>";
 		};
+		65AFFC4D241903A50056730E /* BackgroundRealm */ = {
+			isa = PBXGroup;
+			children = (
+				65AFFC50241903A50056730E /* BackgroundRealm.swift */,
+				65AFFC4E241903A50056730E /* Realm+BackgroundRealm.swift */,
+				65AFFC4F241903A50056730E /* BackgroundRealm+Errors.swift */,
+			);
+			name = BackgroundRealm;
+			path = ../../BackgroundRealm/Sources/BackgroundRealm;
+			sourceTree = "<group>";
+		};
 		65F0453623912F000047CC90 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				65F0453823912F000047CC90 /* realm-swift-4.1.1 */,
+				656694AE24DAF3AC00C5784C /* realm-swift-latest */,
 			);
 			name = Realm;
 			path = ../Realm;
-			sourceTree = "<group>";
-		};
-		65F0453823912F000047CC90 /* realm-swift-4.1.1 */ = {
-			isa = PBXGroup;
-			children = (
-				65F0453923912F000047CC90 /* watchos */,
-				65F0453D23912F000047CC90 /* osx */,
-				65F0454123912F000047CC90 /* docs.webloc */,
-				65F0455C23912F000047CC90 /* ios */,
-				65F0456023912F000047CC90 /* tvos */,
-				65F0456423912F000047CC90 /* LICENSE.txt */,
-			);
-			path = "realm-swift-4.1.1";
-			sourceTree = "<group>";
-		};
-		65F0453923912F000047CC90 /* watchos */ = {
-			isa = PBXGroup;
-			children = (
-				65F0453A23912F000047CC90 /* swift-11.2 */,
-			);
-			path = watchos;
-			sourceTree = "<group>";
-		};
-		65F0453A23912F000047CC90 /* swift-11.2 */ = {
-			isa = PBXGroup;
-			children = (
-				65F0453B23912F000047CC90 /* RealmSwift.framework */,
-				65F0453C23912F000047CC90 /* Realm.framework */,
-			);
-			path = "swift-11.2";
-			sourceTree = "<group>";
-		};
-		65F0453D23912F000047CC90 /* osx */ = {
-			isa = PBXGroup;
-			children = (
-				65F0453E23912F000047CC90 /* swift-11.2 */,
-			);
-			path = osx;
-			sourceTree = "<group>";
-		};
-		65F0453E23912F000047CC90 /* swift-11.2 */ = {
-			isa = PBXGroup;
-			children = (
-				65F0453F23912F000047CC90 /* RealmSwift.framework */,
-				65F0454023912F000047CC90 /* Realm.framework */,
-			);
-			path = "swift-11.2";
-			sourceTree = "<group>";
-		};
-		65F0455C23912F000047CC90 /* ios */ = {
-			isa = PBXGroup;
-			children = (
-				65F0455D23912F000047CC90 /* swift-11.2 */,
-			);
-			path = ios;
-			sourceTree = "<group>";
-		};
-		65F0455D23912F000047CC90 /* swift-11.2 */ = {
-			isa = PBXGroup;
-			children = (
-				65F0455E23912F000047CC90 /* RealmSwift.framework */,
-				65F0455F23912F000047CC90 /* Realm.framework */,
-			);
-			path = "swift-11.2";
-			sourceTree = "<group>";
-		};
-		65F0456023912F000047CC90 /* tvos */ = {
-			isa = PBXGroup;
-			children = (
-				65F0456123912F000047CC90 /* swift-11.2 */,
-			);
-			path = tvos;
-			sourceTree = "<group>";
-		};
-		65F0456123912F000047CC90 /* swift-11.2 */ = {
-			isa = PBXGroup;
-			children = (
-				65F0456223912F000047CC90 /* RealmSwift.framework */,
-				65F0456323912F000047CC90 /* Realm.framework */,
-			);
-			path = "swift-11.2";
 			sourceTree = "<group>";
 		};
 		65F0457E2391733A0047CC90 /* UIKit */ = {
@@ -686,7 +684,6 @@
 				650FC1D5217DC9BE00479FEE /* BLResultsControllerSection.swift */,
 				65534182227495D6005F4B81 /* BLResultsControllerElement.swift */,
 				6575D167212D39B8001524A2 /* Results+BLResultsController.swift */,
-				6575D171212D4452001524A2 /* Timer+BLResultsController.swift */,
 				658BBA4D217CE44E00963023 /* BLResultsController+Errors.swift */,
 			);
 			path = Core;
@@ -1061,18 +1058,17 @@
 			files = (
 				650409F122830445009F0029 /* NestedExtendedDiff.swift in Sources */,
 				650409F722830456009F0029 /* NestedBatchUpdate.swift in Sources */,
-				652CEDD4227619EB003696FB /* BackgroundRealm.swift in Sources */,
-				652CEDD3227619EB003696FB /* BackgroundRealm+Errors.swift in Sources */,
 				6575D168212D39B8001524A2 /* Results+BLResultsController.swift in Sources */,
+				65AFFC51241903A50056730E /* Realm+BackgroundRealm.swift in Sources */,
 				65F0457B23913CFD0047CC90 /* BLResultsController+UIKit.swift in Sources */,
 				65534183227495D6005F4B81 /* BLResultsControllerElement.swift in Sources */,
-				652CEDD2227619EB003696FB /* Realm+BackgroundRealm.swift in Sources */,
 				650409F52283044F009F0029 /* Diff.swift in Sources */,
 				650FC1D6217DC9BE00479FEE /* BLResultsControllerSection.swift in Sources */,
-				6575D172212D4452001524A2 /* Timer+BLResultsController.swift in Sources */,
 				658BBA4E217CE44E00963023 /* BLResultsController+Errors.swift in Sources */,
 				6575D15E212D2E87001524A2 /* BLResultsController.swift in Sources */,
+				65AFFC54241903A50056730E /* BackgroundRealm+Errors.swift in Sources */,
 				650409F32283044B009F0029 /* ExtendedDiff.swift in Sources */,
+				65AFFC57241903A50056730E /* BackgroundRealm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1085,9 +1081,7 @@
 				6532140D2181C098006F7A13 /* Aux.swift in Sources */,
 				6581B95B217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift in Sources */,
 				6553418C2275D817005F4B81 /* BLResultsControllerBaseTest.swift in Sources */,
-				6575D181212D80E1001524A2 /* Timer_Tests.swift in Sources */,
 				6567CE17218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift in Sources */,
-				6575D184212D80FF001524A2 /* Timer+BLResultsController.swift in Sources */,
 				6581B95F217EFB5A0055F5C4 /* BLResultsControllerItems_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1110,18 +1104,17 @@
 			files = (
 				650409F022830445009F0029 /* NestedExtendedDiff.swift in Sources */,
 				650409F622830455009F0029 /* NestedBatchUpdate.swift in Sources */,
-				652CEDD7227619EC003696FB /* BackgroundRealm.swift in Sources */,
-				652CEDD6227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */,
 				6575D16A212D39B8001524A2 /* Results+BLResultsController.swift in Sources */,
+				65AFFC52241903A50056730E /* Realm+BackgroundRealm.swift in Sources */,
 				65F0457C23913CFD0047CC90 /* BLResultsController+UIKit.swift in Sources */,
 				65534184227495D6005F4B81 /* BLResultsControllerElement.swift in Sources */,
-				652CEDD5227619EC003696FB /* Realm+BackgroundRealm.swift in Sources */,
 				650409F42283044E009F0029 /* Diff.swift in Sources */,
 				650FC1D7217DC9BE00479FEE /* BLResultsControllerSection.swift in Sources */,
-				6575D174212D4452001524A2 /* Timer+BLResultsController.swift in Sources */,
 				658BBA50217CE44E00963023 /* BLResultsController+Errors.swift in Sources */,
 				6575D160212D2E87001524A2 /* BLResultsController.swift in Sources */,
+				65AFFC55241903A50056730E /* BackgroundRealm+Errors.swift in Sources */,
 				650409F22283044A009F0029 /* ExtendedDiff.swift in Sources */,
+				65AFFC58241903A50056730E /* BackgroundRealm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1134,9 +1127,7 @@
 				6532140F2181C098006F7A13 /* Aux.swift in Sources */,
 				6581B95C217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift in Sources */,
 				6553418D2275D817005F4B81 /* BLResultsControllerBaseTest.swift in Sources */,
-				6575D182212D80E1001524A2 /* Timer_Tests.swift in Sources */,
 				6567CE18218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift in Sources */,
-				6575D185212D8100001524A2 /* Timer+BLResultsController.swift in Sources */,
 				6581B960217EFB5A0055F5C4 /* BLResultsControllerItems_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1157,17 +1148,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				652CEDDA227619EC003696FB /* BackgroundRealm.swift in Sources */,
-				652CEDD9227619EC003696FB /* BackgroundRealm+Errors.swift in Sources */,
+				65AFFC56241903A50056730E /* BackgroundRealm+Errors.swift in Sources */,
 				650409EF2283041E009F0029 /* ExtendedDiff.swift in Sources */,
 				650409EC228303EB009F0029 /* NestedBatchUpdate.swift in Sources */,
 				650409ED228303F1009F0029 /* NestedExtendedDiff.swift in Sources */,
+				65AFFC53241903A50056730E /* Realm+BackgroundRealm.swift in Sources */,
 				6575D16B212D39B8001524A2 /* Results+BLResultsController.swift in Sources */,
 				65534185227495D6005F4B81 /* BLResultsControllerElement.swift in Sources */,
+				65AFFC59241903A50056730E /* BackgroundRealm.swift in Sources */,
 				650409EE22830407009F0029 /* Diff.swift in Sources */,
-				652CEDD8227619EC003696FB /* Realm+BackgroundRealm.swift in Sources */,
 				650FC1D8217DC9BE00479FEE /* BLResultsControllerSection.swift in Sources */,
-				6575D175212D4452001524A2 /* Timer+BLResultsController.swift in Sources */,
 				658BBA51217CE44E00963023 /* BLResultsController+Errors.swift in Sources */,
 				6575D161212D2E87001524A2 /* BLResultsController.swift in Sources */,
 			);
@@ -1182,9 +1172,7 @@
 				653214112181C098006F7A13 /* Aux.swift in Sources */,
 				6581B95D217EF3B40055F5C4 /* BLResultsControllerSections_Tests.swift in Sources */,
 				6553418E2275D817005F4B81 /* BLResultsControllerBaseTest.swift in Sources */,
-				6575D183212D80E1001524A2 /* Timer_Tests.swift in Sources */,
 				6567CE19218049F000148FA4 /* BLResultsControllerUpdates_Tests.swift in Sources */,
-				6575D186212D8101001524A2 /* Timer+BLResultsController.swift in Sources */,
 				6581B961217EFB5A0055F5C4 /* BLResultsControllerItems_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1296,7 +1284,10 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(REALM_PATH)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(REALM_PATH)",
+					"$(SRCROOT)/../Carthage/build/$(PLATFORM)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1311,21 +1302,22 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = "$(VERSION)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PLATFORM = "";
 				PRODUCT_NAME = BLResultsController;
-				REALM_PATH = "$(SRCROOT)/../Realm/realm-swift-$(REALM_VERSION)/$(PLATFORM)/swift-11.2";
-				REALM_VERSION = 4.1.1;
+				REALM_PATH = "$(SRCROOT)/../Realm/realm-swift-latest/$(PLATFORM)/swift-$(XCODE_VERSION)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.1;
+				SWIFT_VERSION = 5.3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
-				VERSION = 2.0.0;
+				VERSION = 3.0.0;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				XCODE_VERSION = 11.6;
 			};
 			name = Debug;
 		};
@@ -1365,7 +1357,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(REALM_PATH)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(REALM_PATH)",
+					"$(SRCROOT)/../Carthage/build/$(PLATFORM)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1374,21 +1369,22 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = "$(VERSION)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PLATFORM = "";
 				PRODUCT_NAME = BLResultsController;
-				REALM_PATH = "$(SRCROOT)/../Realm/realm-swift-$(REALM_VERSION)/$(PLATFORM)/swift-11.2";
-				REALM_VERSION = 4.1.1;
+				REALM_PATH = "$(SRCROOT)/../Realm/realm-swift-latest/$(PLATFORM)/swift-$(XCODE_VERSION)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.1;
+				SWIFT_VERSION = 5.3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VALIDATE_PRODUCT = YES;
-				VERSION = 2.0.0;
+				VERSION = 3.0.0;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				XCODE_VERSION = 11.6;
 			};
 			name = Release;
 		};
@@ -1396,6 +1392,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1412,6 +1409,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1427,8 +1425,10 @@
 		6575D0D1212D2AE3001524A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1445,6 +1445,8 @@
 				);
 				PLATFORM = ios;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bellapplab.BLResultsController-iOS";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1455,8 +1457,10 @@
 		6575D0D2212D2AE3001524A2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1473,6 +1477,8 @@
 				);
 				PLATFORM = ios;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bellapplab.BLResultsController-iOS";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1484,6 +1490,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "iOS Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1502,6 +1509,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "iOS Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1521,8 +1529,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "tvOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1542,8 +1551,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "tvOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1628,8 +1638,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "tvOS Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1650,8 +1661,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "tvOS Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1672,10 +1684,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "macOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1693,10 +1705,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "macOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1722,10 +1734,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(REALM_PATH)",
-					"$(SRCROOT)/../Carthage/build/macOS",
-				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = BLResultsController_macOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1756,10 +1764,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(REALM_PATH)",
-					"$(SRCROOT)/../Carthage/build/macOS",
-				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = BLResultsController_macOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1782,10 +1786,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "macOS Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1805,10 +1809,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XY7HUX42SH;
 				INFOPLIST_FILE = "macOS Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

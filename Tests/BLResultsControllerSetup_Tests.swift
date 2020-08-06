@@ -94,8 +94,8 @@ class BLResultsControllerSetup_Tests: BLResultsControllerBaseTest
 
         let expectEverythingToBeAlright = makeExpectation("Everything should be alright")
 
-        BLTimer.scheduleTimer(withTimeInterval: 2,
-                              repeats: false)
+        Timer.scheduledTimer(withTimeInterval: 2,
+                             repeats: false)
         { [weak self] (timer) in
             timer.invalidate()
             self?.tempController = nil

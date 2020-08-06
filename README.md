@@ -1,9 +1,10 @@
-# BLResultsController [![Version](https://img.shields.io/badge/Version-2.0.0-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
+# BLResultsController [![Version](https://img.shields.io/badge/Version-3.0.0-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
 
 [![Platforms](https://img.shields.io/badge/Platforms-iOS|tvOS|macOS-brightgreen.svg?style=flat)](#installation)
-[![Swift support](https://img.shields.io/badge/Swift-4.2%20%7C%205.1-red.svg?style=flat)](#swift-versions-support)
+[![Swift support](https://img.shields.io/badge/Swift-5.0%20%7C%205.3-red.svg?style=flat)](#swift-versions-support)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/BLResultsController.svg?style=flat&label=CocoaPods)](https://cocoapods.org/pods/BLResultsController)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-red.svg?style=flat)](https://github.com/apple/swift-package-manager)
 [![Twitter](https://img.shields.io/badge/Twitter-@BellAppLab-blue.svg?style=flat)](http://twitter.com/BellAppLab)
 
 ![BLResultsController](./Images/BLResultsController.png)
@@ -33,10 +34,10 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 ## Specs
 
 * RealmSwift 4.0.0+
-* iOS 9+
+* iOS 10+
 * tvOS 10+
-* macOS 10.11+
-* Swift 4.2+
+* macOS 10.12+
+* Swift 5.0+
 
 `BLResultsController` also uses the amazing [BackgroundRealm](https://github.com/BellAppLab/BackgroundRealm). Have a look!
 
@@ -162,7 +163,7 @@ Boom 💥
 ### Cocoapods
 
 ```ruby
-pod 'BLResultsController', '~> 2.0'
+pod 'BLResultsController', '~> 3.0'
 ```
 
 Then `import BLResultsController` where needed.
@@ -170,10 +171,16 @@ Then `import BLResultsController` where needed.
 ### Carthage
 
 ```swift
-github "BellAppLab/BLResultsController" ~> 2.0
+github "BellAppLab/BLResultsController" ~> 3.0
 ```
 
 Then `import BLResultsController` where needed.
+
+### Swift Package Manager
+
+```swift
+.package(url: "https://github.com/BellAppLab/BLResultsController.git", from: "3.0.0")
+```
 
 ### Git Submodules
 

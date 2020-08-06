@@ -57,7 +57,7 @@ class BLResultsControllerUpdates_Tests: BLResultsControllerBaseTest
 
         controller?.start()
 
-        BLTimer.scheduleTimer(
+        Timer.scheduledTimer(
             withTimeInterval: 2,
             repeats: false
         ) { (timer) in
@@ -150,7 +150,7 @@ class BLResultsControllerUpdates_Tests: BLResultsControllerBaseTest
 
         controller?.start()
 
-        BLTimer.scheduleTimer(
+        Timer.scheduledTimer(
             withTimeInterval: 2,
             repeats: false
         ) { (timer) in
@@ -277,7 +277,7 @@ class BLResultsControllerUpdates_Tests: BLResultsControllerBaseTest
 
         controller?.start()
 
-        BLTimer.scheduleTimer(
+        Timer.scheduledTimer(
             withTimeInterval: 2,
             repeats: false
         ) { (timer) in
@@ -420,7 +420,7 @@ class BLResultsControllerUpdates_Tests: BLResultsControllerBaseTest
 
         controller?.start()
 
-        BLTimer.scheduleTimer(
+        Timer.scheduledTimer(
             withTimeInterval: 2,
             repeats: false
         ) { (timer) in

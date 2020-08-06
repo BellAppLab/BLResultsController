@@ -507,8 +507,8 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
             precondition(Thread.current == Thread.main, "\(String(describing: self))'s searchPredicate must only be changed from the main thread.")
             guard searchPredicate != oldValue else { return }
 
-            searchTimer = BLTimer.scheduleTimer(withTimeInterval: searchDelay,
-                                                repeats: false)
+            searchTimer = Timer.scheduledTimer(withTimeInterval: searchDelay,
+                                               repeats: false)
             { [weak self] (timer) in
                 guard timer.isValid else { return }
                 self?.searchTimer = nil
@@ -540,7 +540,7 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
     fileprivate let mutex = PThreadMutex()
 
     //MARK: Search
-    private var searchTimer: BLTimer? {
+    private var searchTimer: Timer? {
         didSet {
             oldValue?.invalidate()
         }
@@ -642,14 +642,14 @@ public extension ResultsController
             return nil
         }
 
-        let element = elements[indexPath.section]
+        let section = elements[indexPath.section]
 
-        assert(indexPath.item < element.items.count, "Index path's item is greater than the number of items in section \(indexPath.section)")
-        guard indexPath.item < element.items.count else {
+        assert(indexPath.item < section.items.count, "Index path's item is greater than the number of items in section \(indexPath.section)")
+        guard indexPath.item < section.items.count else {
             return nil
         }
 
-        let results = objects.filter("%K == %@", sectionNameKeyPath, element.key)
+        let results = objects.filter("%K == %@", sectionNameKeyPath, section.key)
 
         assert(indexPath.item < results.count, "Index path's item is greater than the number of items in section \(indexPath.section)")
         guard indexPath.item < results.count else {
