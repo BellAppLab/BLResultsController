@@ -1,4 +1,4 @@
-# BLResultsController [![Version](https://img.shields.io/badge/Version-3.0.0-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
+# BLResultsController [![Version](https://img.shields.io/badge/Version-2.1.0-black.svg?style=flat)](#installation) [![License](https://img.shields.io/cocoapods/l/BLResultsController.svg?style=flat)](#license)
 
 [![Platforms](https://img.shields.io/badge/Platforms-iOS|tvOS|macOS-brightgreen.svg?style=flat)](#installation)
 [![Swift support](https://img.shields.io/badge/Swift-5.0%20%7C%205.3-red.svg?style=flat)](#swift-versions-support)
@@ -33,9 +33,9 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 
 ## Specs
 
-* RealmSwift 4.0.0+
-* iOS 10+
-* tvOS 10+
+* RealmSwift 10.0.0+
+* iOS 12+
+* tvOS 12+
 * macOS 10.12+
 * Swift 5.0+
 
@@ -163,7 +163,7 @@ Boom 💥
 ### Cocoapods
 
 ```ruby
-pod 'BLResultsController', '~> 3.0'
+pod 'BLResultsController', '~> 2.1.0'
 ```
 
 Then `import BLResultsController` where needed.
@@ -171,7 +171,7 @@ Then `import BLResultsController` where needed.
 ### Carthage
 
 ```swift
-github "BellAppLab/BLResultsController" ~> 3.0
+github "BellAppLab/BLResultsController" ~> 2.1.0
 ```
 
 Then `import BLResultsController` where needed.
@@ -179,7 +179,7 @@ Then `import BLResultsController` where needed.
 ### Swift Package Manager
 
 ```swift
-.package(url: "https://github.com/BellAppLab/BLResultsController.git", from: "3.0.0")
+.package(url: "https://github.com/BellAppLab/BLResultsController.git", from: "2.1.0")
 ```
 
 ### Git Submodules

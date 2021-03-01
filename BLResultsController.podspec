@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
 
   s.name                = "BLResultsController"
-  s.version             = "3.0.0"
+  s.version             = "2.1.0"
   s.summary             = "BLResultsController is not a drop-in replacement for the `NSFetchedResultsController` to be used with Realm."
-  s.screenshot          = "https://github.com/BellAppLab/BLResultsController/raw/master/Images/BLResultsController.png"
+  s.screenshot          = "https://github.com/BellAppLab/BLResultsController/raw/main/Images/BLResultsController.png"
 
   s.description         = <<-DESC
 Contrary to popular belief, BLResultsController is **not** a drop-in replacement for the `NSFetchedResultsController` to be used with Realm. Oh no. It's _better_.
@@ -38,9 +38,9 @@ Changes to the underlying dataset are calculated on a background queue, therefor
 
   s.swift_version       = '5.0', '5.1', '5.2', '5.3'
 
-  s.ios.deployment_target = "10.0"
+  s.ios.deployment_target = "12.0"
   s.osx.deployment_target = "10.12"
-  s.tvos.deployment_target = "11.0"
+  s.tvos.deployment_target = "12.0"
 
   s.module_name         = 'BLResultsController'
 
@@ -55,7 +55,7 @@ Changes to the underlying dataset are calculated on a background queue, therefor
   s.osx.framework       = 'AppKit'
   s.tvos.framework      = 'UIKit'
 
-  s.dependency          'RealmSwift', '~> 4.0'
-  s.dependency          'BackgroundRealm', '~> 2.0'
+  s.dependency          'RealmSwift', '~> 10.0'
+  s.dependency          'BackgroundRealm', '~> 3.0'
 
 end
