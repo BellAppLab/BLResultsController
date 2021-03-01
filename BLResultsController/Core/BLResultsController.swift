@@ -713,9 +713,15 @@ fileprivate extension ResultsController
         realmChangeNotificationToken = nil
         reset()
 
-        backgroundRealm = BackgroundRealm(configuration: realm.configuration) { [weak self] (realm, error) in
-            assert(error == nil, "\(className) error: \(error!)")
-            guard let realm = realm else { return }
+        backgroundRealm = BackgroundRealm(configuration: realm.configuration) { [weak self] (result) in
+            guard case let .success(realm) = result else {
+                if case let .failure(error) = result {
+                    assertionFailure("\(className) error: \(error)")
+                } else {
+                    assertionFailure("\(className) error. Could not be loaded.")
+                }
+                return
+            }
 
             let results = realm
                 .objects(Element.self)
