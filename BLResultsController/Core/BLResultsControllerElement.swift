@@ -42,7 +42,6 @@ import class RealmSwift.Object
  ```
  */
 public protocol ResultsControllerElement: Object {
-    /// The unique identifier for this Object.
     var resultsControllerId: String { get }
 }
 
@@ -84,15 +83,9 @@ struct InternalElement<Key: ResultsControllerSection>: Hashable, Equatable, Coll
                   key: key)
     }
 
-    #if swift(<5.0)
-    var hashValue: Int {
-        return key.hashValue
-    }
-    #else
     func hash(into hasher: inout Hasher) {
         hasher.combine(key.hashValue)
     }
-    #endif
 
     static func ==(lhs: InternalElement<Key>,
                    rhs: InternalElement<Key>) -> Bool
