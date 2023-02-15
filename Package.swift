@@ -5,10 +5,10 @@ import PackageDescription
 let package = Package(
     name: "BLResultsController",
     platforms: [
-        .iOS(.v12),
+        .iOS(.v13),
         .macOS(.v10_13),
-        .tvOS(.v12),
-        .watchOS(.v4)
+        .tvOS(.v13),
+        .watchOS(.v5)
     ],
     products: [
         .library(
