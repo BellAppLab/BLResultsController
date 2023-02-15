@@ -21,6 +21,7 @@
  */
 
 import Foundation
+import RealmSwift
 
 
 /**
@@ -28,11 +29,8 @@ import Foundation
 
  Currently, the `ResultsController` only supports the following types as `Section`s:
     - `Bool`
-    - `Int`
-    - `Int8`
-    - `Int16`
-    - `Int32`
-    - `Int64`
+    - `Int` (`Int8`, `Int16`, `Int32`, `Int64`)
+    - `UInt` (`UInt8`, `UInt16`, `UInt32`, `UInt64`)
     - `Double`
     - `Float`
     - `String`
@@ -50,6 +48,11 @@ extension Int8: ResultsControllerSection {}
 extension Int16: ResultsControllerSection {}
 extension Int32: ResultsControllerSection {}
 extension Int64: ResultsControllerSection {}
+extension UInt: ResultsControllerSection {}
+extension UInt8: ResultsControllerSection {}
+extension UInt16: ResultsControllerSection {}
+extension UInt32: ResultsControllerSection {}
+extension UInt64: ResultsControllerSection {}
 extension Double: ResultsControllerSection {}
 extension Float: ResultsControllerSection {}
 extension String: ResultsControllerSection {}
