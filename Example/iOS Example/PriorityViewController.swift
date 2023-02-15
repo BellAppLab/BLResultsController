@@ -45,7 +45,7 @@ class PriorityViewController: UITableViewController
         set {
             segmentedControl.selectedSegmentIndex = newValue.rawValue
 
-            let sortDescriptors: [SortDescriptor]
+            let sortDescriptors: [RealmSwift.SortDescriptor]
             switch currentSegment {
             case .priorityDescending:
                 sortDescriptors = [

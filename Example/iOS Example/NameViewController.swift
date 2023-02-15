@@ -45,7 +45,7 @@ class NameViewController: UITableViewController
         set {
             segmentedControl.selectedSegmentIndex = newValue.rawValue
 
-            let sortDescriptors: [SortDescriptor]
+            let sortDescriptors: [RealmSwift.SortDescriptor]
             switch currentSegment {
             case .letterDescending:
                 sortDescriptors = [

@@ -22,38 +22,39 @@ import Glibc
 import Darwin
 #endif
 
-private final class PThreadMutex {
+private final class UnfairLock {
+    // MARK: Raw Lock
+    typealias Primitive = os_unfair_lock
+
+    var primitive = os_unfair_lock()
+
+    @inlinable
+    func lock() {
+        os_unfair_lock_lock(&primitive)
+    }
+
+    @inlinable
+    func tryLock() -> Bool {
+        os_unfair_lock_trylock(&primitive)
+    }
+
+    @inlinable
+    func unlock() {
+        os_unfair_lock_unlock(&primitive)
+    }
+
+    @inlinable
     func sync<R>(execute work: () throws -> R) rethrows -> R {
-        unbalancedLock()
-        defer { unbalancedUnlock() }
+        lock()
+        defer { unlock() }
         return try work()
     }
 
-    private var unsafeMutex = pthread_mutex_t()
-
-    /// Default constructs as ".Normal" or ".Recursive" on request.
-    init() {
-        var attr = pthread_mutexattr_t()
-        guard pthread_mutexattr_init(&attr) == 0 else {
-            preconditionFailure()
-        }
-        pthread_mutexattr_settype(&attr, Int32(PTHREAD_MUTEX_NORMAL))
-        guard pthread_mutex_init(&unsafeMutex, &attr) == 0 else {
-            preconditionFailure()
-        }
-        pthread_mutexattr_destroy(&attr)
-    }
-
-    deinit {
-        pthread_mutex_destroy(&unsafeMutex)
-    }
-
-    private func unbalancedLock() {
-        pthread_mutex_lock(&unsafeMutex)
-    }
-
-    private func unbalancedUnlock() {
-        pthread_mutex_unlock(&unsafeMutex)
+    @inlinable
+    func trySync<R>(execute work: () throws -> R) rethrows -> R? {
+        guard tryLock() else { return nil }
+        defer { unlock() }
+        return try work()
     }
 }
 
@@ -172,7 +173,7 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
     /// The `NSPredicate`s currently in use by this `ResultsController`.
     public private(set) var predicates: [NSPredicate]
     /// The `SortDescriptor`s currently in use by this `ResultsController`.
-    public private(set) var sortDescriptors: [SortDescriptor]
+    public private(set) var sortDescriptors: [RealmSwift.SortDescriptor]
     /// The path to the property used to calculate sections in this `ResultsController`.
     public private(set) var sectionNameKeyPath: String
 
@@ -200,7 +201,7 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
      - `reload()`
      */
     public func change(predicates: [NSPredicate]? = nil,
-                       sortDescriptors: [SortDescriptor]? = nil,
+                       sortDescriptors: [RealmSwift.SortDescriptor]? = nil,
                        sectionNameKeyPath: String? = nil) throws
     {
         precondition(Thread.current == Thread.main, "\(String(describing: self)) must only have its settings changed from the main thread.")
@@ -394,7 +395,7 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
     public init(realm: Realm,
                 predicates: [NSPredicate] = [],
                 sectionNameKeyPath: String,
-                sortDescriptors: [SortDescriptor]) throws
+                sortDescriptors: [RealmSwift.SortDescriptor]) throws
     {
         self.realm = realm
         self.predicates = predicates
@@ -433,6 +434,12 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
              .int where Section.self is Int16.Type,
              .int where Section.self is Int32.Type,
              .int where Section.self is Int64.Type:
+            break
+        case .int where Section.self is UInt.Type,
+             .int where Section.self is UInt8.Type,
+             .int where Section.self is UInt16.Type,
+             .int where Section.self is UInt32.Type,
+             .int where Section.self is UInt64.Type:
             break
         case .float where Section.self is Float.Type:
             break
@@ -533,11 +540,11 @@ public final class ResultsController<Section: ResultsControllerSection, Element:
     fileprivate var backgroundRealm: BackgroundRealm!
     fileprivate var realmChangeNotificationToken: NotificationToken!
 
-    fileprivate var elements: [InternalElement<Section>] = []
+    fileprivate var elements: [InternalElement<Section, Element>] = []
     fileprivate var sectionIndexTitles: [String]?
 
     @nonobjc
-    fileprivate let mutex = PThreadMutex()
+    fileprivate let lock = UnfairLock()
 
     //MARK: Search
     private var searchTimer: Timer? {
@@ -746,7 +753,7 @@ fileprivate extension ResultsController
     
     func setup() {
         DispatchQueue.global().async { [weak self] in
-            self?.mutex.sync { self?._setup() }
+            self?.lock.sync { self?._setup() }
         }
     }
 
@@ -784,20 +791,19 @@ fileprivate extension ResultsController
 
     func processInitialLoad(_ results: [Element]) {
         let new = generateElements(results: results)
-        mutex.sync {
+        lock.sync {
             DispatchQueue.main.sync { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.elements = new
-                guard let callback = strongSelf._changeCallback else { return }
-                callback(.reload(controller: strongSelf))
+                guard let self = self else { return }
+                self.elements = new
+                self._changeCallback?(.reload(controller: self))
             }
         }
     }
 
-    private func generateElements(results: [Element]) -> [InternalElement<Section>]
+    private func generateElements(results: [Element]) -> [InternalElement<Section, Element>]
     {
-        var newElements = [InternalElement<Section>]()
-        var currentElement: InternalElement<Section>?
+        var newElements = [InternalElement<Section, Element>]()
+        var currentElement: InternalElement<Section, Element>?
         results.enumerated().forEach { (offset, result) in
             guard let section = result.value(forKeyPath: sectionNameKeyPath) as? Section else { return }
             if let element = currentElement {
@@ -868,17 +874,17 @@ fileprivate extension ResultsController
             return new.isEmpty == false && new[$0.section].items.isEmpty == false
         }
 
-        mutex.sync {
+        lock.sync {
             DispatchQueue.main.sync { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.elements = new
+                guard let self = self else { return }
+                self.elements = new
 
-                guard let callback = strongSelf._changeCallback else { return }
+                guard let callback = self._changeCallback else { return }
 
                 if sectionInsertions.isEmpty == false ||
                     sectionDeletions.isEmpty == false
                 {
-                    callback(.sectionUpdate(controller: strongSelf,
+                    callback(.sectionUpdate(controller: self,
                                             insertedSections: sectionInsertions,
                                             deletedSections: sectionDeletions))
                 }
@@ -887,7 +893,7 @@ fileprivate extension ResultsController
                     deletedIndexPaths.isEmpty == false ||
                     modifiedIndexPaths.isEmpty == false
                 {
-                    callback(.rowUpdate(controller: strongSelf,
+                    callback(.rowUpdate(controller: self,
                                         insertedItems: insertionIndexPaths,
                                         deletedItems: deletedIndexPaths,
                                         updatedItems: modifiedIndexPaths))
