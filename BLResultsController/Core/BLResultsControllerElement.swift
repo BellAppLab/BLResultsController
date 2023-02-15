@@ -42,13 +42,18 @@ import class RealmSwift.Object
  ```
  */
 public protocol ResultsControllerElement: Object {
-    var resultsControllerId: String { get }
+    associatedtype ResultsControllerID: Hashable
+    var resultsControllerId: ResultsControllerID { get }
+}
+
+public extension ResultsControllerElement where Self: Identifiable {
+    var resultsControllerId: ID { id }
 }
 
 
-struct InternalElement<Key: ResultsControllerSection>: Hashable, Equatable, Collection
+struct InternalElement<Key: ResultsControllerSection, Element: ResultsControllerElement>: Hashable, Equatable, Collection
 {
-    let items: [String]
+    let items: [Element.ResultsControllerID]
     let key: Key
 
     typealias Index = Int
@@ -61,7 +66,7 @@ struct InternalElement<Key: ResultsControllerSection>: Hashable, Equatable, Coll
         return items.endIndex
     }
 
-    subscript(i: Int) -> String {
+    subscript(i: Int) -> Element.ResultsControllerID {
         return items[i]
     }
 
@@ -69,15 +74,15 @@ struct InternalElement<Key: ResultsControllerSection>: Hashable, Equatable, Coll
         return items.index(after: i)
     }
 
-    init(items: [String] = [],
+    init(items: [Element.ResultsControllerID] = [],
          key: Key)
     {
         self.items = items
         self.key = key
     }
 
-    init<E: ResultsControllerElement>(element: E,
-                                      key: Key)
+    init(element: Element,
+         key: Key)
     {
         self.init(items: [element.resultsControllerId],
                   key: key)
@@ -87,8 +92,8 @@ struct InternalElement<Key: ResultsControllerSection>: Hashable, Equatable, Coll
         hasher.combine(key.hashValue)
     }
 
-    static func ==(lhs: InternalElement<Key>,
-                   rhs: InternalElement<Key>) -> Bool
+    static func ==(lhs: InternalElement<Key, Element>,
+                   rhs: InternalElement<Key, Element>) -> Bool
     {
         return lhs.key == rhs.key
     }
@@ -97,7 +102,7 @@ struct InternalElement<Key: ResultsControllerSection>: Hashable, Equatable, Coll
 
 extension InternalElement
 {
-    mutating func insertElement<E: ResultsControllerElement>(_ element: E) {
+    mutating func insertElement(_ element: Element) {
         var items = self.items
         items.append(element.resultsControllerId)
         self = InternalElement(items: items,
@@ -108,7 +113,7 @@ extension InternalElement
 
 extension Array
 {
-    func indexPathsOfElements<E: ResultsControllerSection>(indices: [Int]) -> [IndexPath] where Element == InternalElement<E>
+    func indexPathsOfElements<S: ResultsControllerSection, E: ResultsControllerElement>(indices: [Int]) -> [IndexPath] where Element == InternalElement<S, E>
     {
         guard indices.isEmpty == false else { return [] }
         let enumerated = self.enumerated()
